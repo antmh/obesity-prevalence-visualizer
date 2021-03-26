@@ -22,9 +22,20 @@ class Database
                                      year          INTEGER,
                                      sex           TEXT,
                                      age_group     TEXT,
-                                     value         TEXT
+                                     value         REAL
                                  );');
             $this->getWHOData();
+        }
+        if (!$this->tableExists('eurostat')) {
+            ini_set('memory_limit', '512M');
+            set_time_limit(0);
+            $this->sqlite->exec('CREATE TABLE eurostat (
+                                     location TEXT,
+                                     year     INTEGER,
+                                     category TEXT,
+                                     value    REAL
+                                 );');
+            $this->getEurostatData();
         }
     }
 
@@ -71,7 +82,60 @@ class Database
         }
     }
 
-    private function tableExists(string $name) : bool {
+    private function getEurostatData()
+    {
+        $handle = curl_init('https://ec.europa.eu/eurostat/wdds/rest/data/v2.1/json/en/sdg_02_10');
+        curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
+        $json = json_decode(curl_exec($handle), associative: true);
+        $categories = [];
+        $locations = [];
+        $years = [];
+        foreach ($json['dimension'] as $dimension) {
+            if ($dimension['label'] === 'bmi') {
+                foreach ($json['dimension']['bmi']['category']['label'] as $category) {
+                    array_push($categories, $category);
+                }
+            } elseif ($dimension['label'] === 'geo') {
+                foreach ($json['dimension']['geo']['category']['label'] as $location) {
+                    array_push($locations, $location);
+                }
+            } elseif ($dimension['label'] === 'time') {
+                foreach ($json['dimension']['time']['category']['label'] as $year) {
+                    array_push($years, $year);
+                }
+            }
+        }
+        $i = 0;
+        foreach ($categories as $category) {
+            foreach ($locations as $location) {
+                foreach ($years as $year) {
+                    if (key_exists($i, $json['value'])) {
+                        $str = 'INSERT INTO eurostat (
+                                    location,
+                                    year,
+                                    category,
+                                    value
+                                ) VALUES (
+                                    :location,
+                                    :year,
+                                    :category,
+                                    :value
+                                );';
+                        $stmt = $this->sqlite->prepare($str);
+                        $stmt->bindValue(':location', $location, SQLITE3_TEXT);
+                        $stmt->bindValue(':year', $year, SQLITE3_INTEGER);
+                        $stmt->bindValue(':category', $category, SQLITE3_TEXT);
+                        $stmt->bindValue(':value', $json['value'][$i], SQLITE3_FLOAT);
+                        $stmt->execute();
+                    }
+                    $i++;
+                }
+            }
+        }
+    }
+
+    private function tableExists(string $name): bool
+    {
         $stmt = $this->sqlite->prepare('SELECT COUNT(*)
                                         FROM sqlite_master
                                         WHERE type=\'table\'

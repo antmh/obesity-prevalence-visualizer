@@ -5,7 +5,9 @@ declare(strict_types=1);
 include 'controllers/home.php';
 include 'views/render.php';
 include 'models/database/database.php';
-include 'models/database/insert-multiple-values-statement.php';
+include 'models/database/repository.php';
+include 'models/database/who-repository.php';
+include 'models/database/eurostat-repository.php';
 
 $db = new models\database\Database();
 

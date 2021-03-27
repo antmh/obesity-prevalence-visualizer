@@ -5,6 +5,7 @@ declare(strict_types=1);
 include 'controllers/home.php';
 include 'views/render.php';
 include 'models/database.php';
+include 'models/insert-multiple-values-statement.php';
 
 $db = new models\Database();
 

@@ -24,7 +24,7 @@ class Database
                                      age_group     TEXT,
                                      value         REAL
                                  );');
-            $this->getWHOData();
+            $this->saveWHOData();
         }
         if (!$this->tableExists('eurostat')) {
             ini_set('memory_limit', '512M');
@@ -35,58 +35,60 @@ class Database
                                      category TEXT,
                                      value    REAL
                                  );');
-            $this->getEurostatData();
+            $this->saveEurostatData();
         }
     }
 
-    private function getWHOData()
+    private function getWHOData(): array
     {
         $handle = curl_init('https://ghoapi.azureedge.net/api/NCD_BMI_MEANC');
         curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
-        $json = json_decode(curl_exec($handle), associative: true)['value'];
-        $count = count($json);
-        for ($chunk = 0; $chunk * self::CHUNK_SIZE < $count; $chunk++) {
-            $str = 'INSERT INTO who (
-                        location_type,
-                        location,
-                        year,
-                        sex,
-                        age_group,
-                        value
-                    ) VALUES';
-            for ($group = 0; $group < self::CHUNK_SIZE && $chunk * self::CHUNK_SIZE + $group < $count; $group++) {
-                if ($group !== 0) {
-                    $str .= ',';
-                }
-                $str .= "(";
-                $str .= ':location_type' . $group . ',';
-                $str .= ':location'      . $group . ',';
-                $str .= ':year'          . $group . ',';
-                $str .= ':sex'           . $group . ',';
-                $str .= ':age_group'     . $group . ',';
-                $str .= ':value'         . $group;
-                $str .= ')';
+        return json_decode(curl_exec($handle), associative: true)['value'];
+    }
+
+    private function saveWHOData()
+    {
+        $json = $this->getWHOData();
+        $totalRows = count($json);
+        $stmt = null;
+        for ($row = 0; $row < $totalRows; $row++) {
+            if ($stmt === null || $stmt->done()) {
+                $stmt = new InsertMultipleValuesStatement(
+                    db: $this->sqlite,
+                    table: 'who',
+                    rowsToAdd: min(
+                        self::CHUNK_SIZE,
+                        $totalRows - $row
+                    ),
+                    columns: [
+                        'location_type',
+                        'location',
+                        'year',
+                        'sex',
+                        'age_group',
+                        'value'
+                    ]
+                );
             }
-            $str .= ';';
-            $stmt = $this->sqlite->prepare($str);
-            for ($group = 0; $group < self::CHUNK_SIZE && $chunk * self::CHUNK_SIZE + $group < $count; $group++) {
-                $val_index = $chunk * self::CHUNK_SIZE + $group;
-                $stmt->bindValue(':location_type' . $group, $json[$val_index]['SpatialDimType'], SQLITE3_TEXT);
-                $stmt->bindValue(':location'      . $group, $json[$val_index]['SpatialDim'], SQLITE3_TEXT);
-                $stmt->bindValue(':year'          . $group, $json[$val_index]['TimeDim'], SQLITE3_INTEGER);
-                $stmt->bindValue(':sex'           . $group, $json[$val_index]['Dim1'], SQLITE3_TEXT);
-                $stmt->bindValue(':age_group'     . $group, $json[$val_index]['Dim2'], SQLITE3_TEXT);
-                $stmt->bindValue(':value'         . $group, $json[$val_index]['NumericValue'], SQLITE3_FLOAT);
-            }
-            $stmt->execute();
+            $stmt->addValue($json[$row]['SpatialDimType'], SQLITE3_TEXT);
+            $stmt->addValue($json[$row]['SpatialDim'], SQLITE3_TEXT);
+            $stmt->addValue($json[$row]['TimeDim'], SQLITE3_INTEGER);
+            $stmt->addValue($json[$row]['Dim1'], SQLITE3_TEXT);
+            $stmt->addValue($json[$row]['Dim2'], SQLITE3_TEXT);
+            $stmt->addValue($json[$row]['NumericValue'], SQLITE3_FLOAT);
         }
     }
 
-    private function getEurostatData()
+    private function getEurostatData(): array
     {
         $handle = curl_init('https://ec.europa.eu/eurostat/wdds/rest/data/v2.1/json/en/sdg_02_10');
         curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
         $json = json_decode(curl_exec($handle), associative: true);
+        return $json;
+    }
+
+    private function getEurostatDimensions(array $json): array
+    {
         $categories = [];
         $locations = [];
         $years = [];
@@ -105,28 +107,50 @@ class Database
                 }
             }
         }
+        return [
+            'categories' => $categories,
+            'locations'  => $locations,
+            'years'      => $years
+        ];
+    }
+
+    private function saveEurostatData()
+    {
+        $json = $this->getEurostatData();
+        [
+            'categories' => $categories,
+            'locations'  => $locations,
+            'years'      => $years
+        ] = $this->getEurostatDimensions($json);
         $i = 0;
+        $stmt = null;
+        $rowsAdded = 0;
+        $totalRows = count($json['value']);
         foreach ($categories as $category) {
             foreach ($locations as $location) {
                 foreach ($years as $year) {
                     if (key_exists($i, $json['value'])) {
-                        $str = 'INSERT INTO eurostat (
-                                    location,
-                                    year,
-                                    category,
-                                    value
-                                ) VALUES (
-                                    :location,
-                                    :year,
-                                    :category,
-                                    :value
-                                );';
-                        $stmt = $this->sqlite->prepare($str);
-                        $stmt->bindValue(':location', $location, SQLITE3_TEXT);
-                        $stmt->bindValue(':year', $year, SQLITE3_INTEGER);
-                        $stmt->bindValue(':category', $category, SQLITE3_TEXT);
-                        $stmt->bindValue(':value', $json['value'][$i], SQLITE3_FLOAT);
-                        $stmt->execute();
+                        if ($stmt === null || $stmt->done()) {
+                            $stmt = new InsertMultipleValuesStatement(
+                                db: $this->sqlite,
+                                table: 'eurostat',
+                                rowsToAdd: min(
+                                    self::CHUNK_SIZE,
+                                    $totalRows - $rowsAdded
+                                ),
+                                columns: [
+                                    'location',
+                                    'year',
+                                    'category',
+                                    'value'
+                                ]
+                            );
+                        }
+                        $stmt->addValue($location, SQLITE3_TEXT);
+                        $stmt->addValue($year, SQLITE3_INTEGER);
+                        $stmt->addValue($category, SQLITE3_TEXT);
+                        $stmt->addValue($json['value'][$i], SQLITE3_FLOAT);
+                        $rowsAdded++;
                     }
                     $i++;
                 }

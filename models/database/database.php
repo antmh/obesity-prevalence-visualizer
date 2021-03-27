@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace models;
+namespace models\database;
 
 class Database
 {

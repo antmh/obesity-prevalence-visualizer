@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 include 'controllers/home.php';
 include 'views/render.php';
-include 'models/database.php';
-include 'models/insert-multiple-values-statement.php';
+include 'models/database/database.php';
+include 'models/database/insert-multiple-values-statement.php';
 
-$db = new models\Database();
+$db = new models\database\Database();
 
 $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 

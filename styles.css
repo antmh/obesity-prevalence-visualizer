@@ -6,16 +6,27 @@
   --accent: #8f7dae;
 }
 
+html,
+body {
+  height: 100%;
+}
+
 body {
   font-family: sans-serif;
   color: var(--primary-foreground);
   background-color: var(--primary-background);
   margin: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 header {
   display: flex;
   justify-content: space-around;
+}
+
+main {
+  flex-grow: 1;
 }
 
 h1 {

@@ -26,6 +26,30 @@ header {
   justify-content: space-around;
 }
 
+.nav-link {
+  position: relative;
+  padding-bottom: 3px;
+  transition: all 0.5s ease;
+}
+
+.nav-link::after {
+  content: "";
+  background-color: var(--secondary-foreground);
+  height: 0.15rem;
+  width: 0;
+  position: absolute;
+  bottom: 0;
+  opacity: 0;
+  left: 50%;
+  transition: all 0.5s ease;
+}
+
+.nav-link:hover::after {
+  left: 0;
+  width: 100%;
+  opacity: 1;
+}
+
 footer {
   margin-top: 3rem;
 }

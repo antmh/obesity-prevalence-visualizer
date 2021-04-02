@@ -19,4 +19,3 @@
       </nav>
     </header>
     <main>
-      <h1>This is the main.</h1>

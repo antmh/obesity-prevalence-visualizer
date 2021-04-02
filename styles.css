@@ -3,7 +3,7 @@
   --primary-foreground: #16124b;
   --secondary-background: #4b3375;
   --secondary-foreground: #eee;
-  --accent: #8f7dae;
+  --accent: #7d5eb2;
 }
 
 html,
@@ -12,17 +12,22 @@ body {
 }
 
 body {
-  font-family: sans-serif;
-  color: var(--primary-foreground);
-  background-color: var(--primary-background);
   margin: 0;
   display: flex;
   flex-direction: column;
+  background-color: var(--primary-background);
+  color: var(--primary-foreground);
+  font-family: sans-serif;
 }
 
 header {
   display: flex;
+  margin-bottom: 3rem;
   justify-content: space-around;
+}
+
+footer {
+  margin-top: 3rem;
 }
 
 main {
@@ -48,10 +53,10 @@ nav ul li {
 
 header,
 footer {
-  color: var(--secondary-foreground);
-  background-color: var(--secondary-background);
-  border-bottom: var(--accent) 0.5rem solid;
   padding: 1rem;
+  border-bottom: var(--accent) 0.5rem solid;
+  background-color: var(--secondary-background);
+  color: var(--secondary-foreground);
 }
 
 #copyright {
@@ -62,4 +67,45 @@ header a {
   color: var(--secondary-foreground);
   text-decoration: none;
   text-transform: uppercase;
+}
+
+.cards-container {
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+}
+
+.presentation-card {
+  width: 100%;
+  position: relative;
+}
+
+.presentation-card p {
+  margin: 0;
+}
+
+.cards-container > .presentation-card:not(:last-child) {
+  border-right: 2px solid var(--primary-foreground);
+}
+
+.button {
+  display: inline-block;
+  padding: 0.75rem 1.25rem;
+  border-radius: 7px;
+  background-color: var(--secondary-background);
+  color: var(--secondary-foreground);
+  text-decoration: none;
+  transition: all ease 0.5s;
+}
+
+.button:hover {
+  background-color: var(--accent);
+}
+
+.presentation-buttons-container {
+  margin-top: 1rem;
+}
+
+.presentation-buttons-container .button:not(:last-child) {
+  margin-right: 2rem;
 }

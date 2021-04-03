@@ -4,6 +4,7 @@
   --secondary-background: #4b3375;
   --secondary-foreground: #eee;
   --accent: #7d5eb2;
+  --accent-dark: #675585;
 }
 
 html,
@@ -97,18 +98,43 @@ header a {
   display: flex;
   justify-content: space-around;
   text-align: center;
+  height: 10rem;
+}
+
+.presentation-card-wrapper {
+  width: 100%;
+}
+
+.presentation-card .button {
+  opacity: 0;
+  transition: all ease 0.5s;
+}
+
+.presentation-card:hover .button {
+  opacity: 1;
 }
 
 .presentation-card {
   width: 100%;
   position: relative;
+  transition: all ease 0.5s;
+}
+
+.presentation-card:hover {
+  margin-top: -1rem;
+}
+
+.presentation-card h2 {
+  text-transform: uppercase;
+  font-weight: 400;
 }
 
 .presentation-card p {
   margin: 0;
+  color: var(--accent-dark);
 }
 
-.cards-container > .presentation-card:not(:last-child) {
+.cards-container > .presentation-card-wrapper:not(:last-child) {
   border-right: 2px solid var(--primary-foreground);
 }
 
@@ -128,6 +154,11 @@ header a {
 
 .presentation-buttons-container {
   margin-top: 1rem;
+  transition: all ease 0.25s;
+}
+
+.presentation-card:hover .presentation-buttons-container {
+  opacity: 1;
 }
 
 .presentation-buttons-container .button:not(:last-child) {

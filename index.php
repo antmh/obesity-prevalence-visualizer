@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-include 'controllers/home.php';
-include 'views/render.php';
-include 'models/database/database.php';
-include 'models/database/repository.php';
-include 'models/database/who-repository.php';
-include 'models/database/eurostat-repository.php';
+require 'controllers/home.php';
+require 'views/render.php';
+require 'models/database/database.php';
+require 'models/database/repository.php';
+require 'models/database/who-repository.php';
+require 'models/database/eurostat-repository.php';
 
 $db = new models\database\Database();
 

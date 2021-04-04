@@ -6,7 +6,7 @@ namespace views;
 
 function render(string $page)
 {
-    include 'views/components/header.php';
-    include 'views/pages/' . $page . '.php';
-    include 'views/components/footer.php';
+    require 'views/components/header.php';
+    require 'views/pages/' . $page . '.php';
+    require 'views/components/footer.php';
 }

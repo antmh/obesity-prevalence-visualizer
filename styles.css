@@ -4,6 +4,7 @@
   --secondary-background: #4b3375;
   --secondary-foreground: #eee;
   --accent: #7d5eb2;
+  --accent-light: #c8b7e6;
   --accent-dark: #675585;
 }
 
@@ -45,7 +46,8 @@ header {
   transition: all 0.5s ease;
 }
 
-.nav-link:hover::after {
+.nav-link:hover::after,
+.nav-link:focus::after {
   left: 0;
   width: 100%;
   opacity: 1;
@@ -108,12 +110,35 @@ header a {
   padding: 2em;
 }
 
+.button {
+  display: inline-block;
+  padding: 0.75rem 1.25rem;
+  border-radius: 7px;
+  background-color: var(--secondary-background);
+  color: var(--secondary-foreground);
+  border-style: solid;
+  border-width: 5px;
+  border-color: transparent;
+  text-decoration: none;
+  transition: all ease 0.5s;
+  box-sizing: border-box;
+}
+
+.button:hover {
+  background-color: var(--accent);
+}
+
+.button:focus {
+  border-color: var(--accent-light);
+}
+
 .presentation-card .button {
   opacity: 0;
   transition: all ease 0.5s;
 }
 
-.presentation-card:hover .button {
+.presentation-card:hover .button,
+.presentation-card:focus-within .button {
   opacity: 1;
 }
 
@@ -123,7 +148,8 @@ header a {
   transition: all ease 0.5s;
 }
 
-.presentation-card:hover {
+.presentation-card:hover,
+.presentation-card:focus-within {
   margin-top: -1rem;
 }
 
@@ -141,26 +167,13 @@ header a {
   border-right: 2px solid var(--primary-foreground);
 }
 
-.button {
-  display: inline-block;
-  padding: 0.75rem 1.25rem;
-  border-radius: 7px;
-  background-color: var(--secondary-background);
-  color: var(--secondary-foreground);
-  text-decoration: none;
-  transition: all ease 0.5s;
-}
-
-.button:hover {
-  background-color: var(--accent);
-}
-
 .presentation-buttons-container {
   margin-top: 1rem;
   transition: all ease 0.25s;
 }
 
-.presentation-card:hover .presentation-buttons-container {
+.presentation-card:hover .presentation-buttons-container,
+.presentation-card:focus-within .presentation-buttons-container {
   opacity: 1;
 }
 

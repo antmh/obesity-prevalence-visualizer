@@ -2,19 +2,17 @@
 
 declare(strict_types=1);
 
-require 'controllers/home.php';
-require 'views/render.php';
-require 'models/database/database.php';
-require 'models/database/repository.php';
-require 'models/database/who-repository.php';
-require 'models/database/eurostat-repository.php';
+$autoload = function ($class)
+{
+    if (strtoupper(substr(PHP_OS, 0, 3)) != 'WIN')
+        $class = str_replace("\\", "/", $class);
+    if (file_exists($class.'.php'))
+        include($class.'.php');
+    else if (Config::SHOW_ERRORS)
+        die('Couldn\'t load '.$class.'.');
+};
 
-$db = new models\database\Database();
+spl_autoload_register($autoload);
 
-$url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-
-if ($url === '/') {
-    controllers\home\index();
-} else {
-    echo 'page not found';
-}
+$application = new Application();
+$application->run();

@@ -12,7 +12,7 @@
       <h1>Obesity Logo</h1>
       <nav>
         <ul>
-          <li><a class="nav-link" href="/home">Home</a></li>
+          <li><a class="nav-link" href="/">Home</a></li>
           <li><a class="nav-link" href="/services">Services</a></li>
           <li><a class="nav-link" href="/about">About</a></li>
         </ul>

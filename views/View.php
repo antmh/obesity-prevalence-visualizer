@@ -7,7 +7,7 @@ abstract class View
     private const DEFAULT_HEADER = 'header.php';
     private const DEFAULT_FOOTER = 'footer.php';
 
-    public static function render($body, $header = null, $footer = null)
+    public static function render($body, array $args = [], $header = null, $footer = null)
     {
         if ($header === null) {
             include('views/components/' . self::DEFAULT_HEADER);
@@ -15,6 +15,7 @@ abstract class View
             include('views/components/' . $header);
         }
 
+        extract($args, EXTR_SKIP);
         include('views/pages/' . $body);
 
         if ($footer === null) {

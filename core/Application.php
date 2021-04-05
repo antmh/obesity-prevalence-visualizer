@@ -10,6 +10,7 @@ use controllers\ {
     HomeController,
     EurostatController,
     ErrorController,
+    LoginController
 };
 
 class Application
@@ -21,7 +22,8 @@ class Application
         $aboutController = new AboutController();
         $errorController = new ErrorController();
         $eurostatController = new EurostatController();
-
+        $loginController = new LoginController();
+        
         Router::get('/', function () use ($homeController) {
             $homeController->index();
         });
@@ -33,6 +35,9 @@ class Application
         });
         Router::get('/about', function () use ($aboutController) {
             $aboutController->index();
+        });
+        Router::get('/login', function () use ($loginController) {
+            $loginController->index();
         });
         if (!Router::executed()) {
             $errorController->index();

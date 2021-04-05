@@ -9,7 +9,8 @@ use controllers\
     ErrorController
 };
 
-class Application {
+class Application
+{
     public function run()
     {
         $homeController = new HomeController();
@@ -33,6 +34,8 @@ class Application {
         Router::get('/', function () use ($homeController) {
             $homeController->index();
         });
-        if (!Router::executed()) $errorController->index();
+        if (!Router::executed()) {
+            $errorController->index();
+        }
     }
 }

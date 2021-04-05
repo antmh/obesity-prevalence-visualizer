@@ -25,8 +25,8 @@
   Obesity is a medical condition in which excess body fat has accumulated to
   an extent that it may have a negative effect on health. People are generally considered
   obese when their body mass index (BMI), a measurement obtained by dividing a person's weight by the
-  square of the person's height—despite known allometric inaccuracies is over 30 kg/m2;
-  the range 25–30 kg/m2 is defined as overweight.
+  square of the person's height—despite known allometric inaccuracies is over 30 kg/m<sup>2</sup>;
+  the range 25–30 kg/m<sup>2</sup> is defined as overweight.
 </p>
 <dl class="bmi-categories-list">
   <div class="bmi-category">

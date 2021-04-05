@@ -9,7 +9,7 @@ abstract class View
 
     public static function render($body, $header = null, $footer = null)
     {
-        if ($header == null) {
+        if ($header === null) {
             include('views/components/' . self::DEFAULT_HEADER);
         } else {
             include('views/components/' . $header);
@@ -17,7 +17,7 @@ abstract class View
 
         include('views/pages/' . $body);
 
-        if ($footer == null) {
+        if ($footer === null) {
             include('views/components/' . self::DEFAULT_FOOTER);
         } else {
             include('views/components/' . $footer);

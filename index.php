@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 function autoload($class)
 {
-    if (strtoupper(substr(PHP_OS, 0, 3)) != 'WIN') {
+    if (strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN') {
         $class = str_replace("\\", "/", $class);
     }
     if (file_exists($class . '.php')) {

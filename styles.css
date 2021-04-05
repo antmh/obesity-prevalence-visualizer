@@ -24,7 +24,6 @@ body {
 
 header {
   display: flex;
-  margin-bottom: 3rem;
   justify-content: space-around;
 }
 
@@ -53,14 +52,11 @@ header {
   opacity: 1;
 }
 
-footer {
-  margin-top: 3rem;
-}
-
 main {
   max-width: 1000px;
   align-self: center;
   flex-grow: 1;
+  margin: 2rem;
 }
 
 h1 {

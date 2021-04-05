@@ -19,7 +19,7 @@ class Application
         $errorController = new ErrorController();
         $eurostatController = new EurostatController();
 
-        Router::get('/home', function () use ($homeController) {
+        Router::get('/', function () use ($homeController) {
             $homeController->index();
         });
         Router::get('/eurostat', function () use ($eurostatController) {
@@ -30,9 +30,6 @@ class Application
         });
         Router::get('/about', function () use ($aboutController) {
             $aboutController->index();
-        });
-        Router::get('/', function () use ($homeController) {
-            $homeController->index();
         });
         if (!Router::executed()) {
             $errorController->index();

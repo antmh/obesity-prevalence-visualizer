@@ -26,7 +26,7 @@ class WhoRepository extends Repository
     {
         $json = $this->getJsonData();
         $rows = [];
-        for ($row = 0; $row < count($json); $row++) {
+        foreach (range(0, count($json) - 1) as $row) {
             $columns = [
                 $json[$row]['SpatialDimType'],
                 $json[$row]['SpatialDim'],

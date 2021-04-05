@@ -22,12 +22,12 @@ abstract class Repository
     {
         $createStr = "CREATE TABLE $this->table (";
         $columns = array_keys($this->columnTypes);
-        for ($i = 0; $i < count($columns); $i++) {
-            if ($i !== 0) {
+        foreach ($columns as $index => $column) {
+            if ($index !== 0) {
                 $createStr .= ',';
             }
-            $createStr .= "$columns[$i] ";
-            $createStr .= $this->getTypeName($this->columnTypes[$columns[$i]]);
+            $createStr .= $column . ' ';
+            $createStr .= $this->getTypeName($this->columnTypes[$column]);
         }
         $createStr .= ');';
         $this->db->exec($createStr);
@@ -58,13 +58,13 @@ abstract class Repository
             $stmt = $this->db->prepare($insertStr);
             $types = array_values($this->columnTypes);
             $position = 0;
-            for ($row = $chunk * self::INSERT_CHUNK_SIZE; $row < $chunk * self::INSERT_CHUNK_SIZE + $rowsToInsert; $row++) {
-                if (count($rows[$row]) !== count($types)) {
+            foreach (array_slice($rows, $chunk * self::INSERT_CHUNK_SIZE, $rowsToInsert) as $row) {
+                if (count($row) !== count($types)) {
                     throw new DomainException('Invalid columns number');
                 }
-                for ($column = 0; $column < count($rows[$row]); $column++) {
+                foreach ($row as $column => $cell) {
                     $position++;
-                    $stmt->bindValue($position, $rows[$row][$column], $types[$column]);
+                    $stmt->bindValue($position, $cell, $types[$column]);
                 }
             }
             $stmt->execute();
@@ -75,19 +75,19 @@ abstract class Repository
     {
         $insertStr = "INSERT INTO $this->table (";
         $columns = array_keys($this->columnTypes);
-        for ($i = 0; $i < count($columns); $i++) {
-            if ($i !== 0) {
+        foreach ($columns as $index => $column) {
+            if ($index !== 0) {
                 $insertStr .= ',';
             }
-            $insertStr .= $columns[$i];
+            $insertStr .= $column;
         }
         $insertStr .= ') VALUES';
-        for ($row = 0; $row < $rows; $row++) {
+        foreach (range(0, $rows - 1) as $row) {
             if ($row !== 0) {
                 $insertStr .= ',';
             }
             $insertStr .= '(';
-            for ($column = 0; $column < count($columns); $column++) {
+            foreach (range(0, count($columns) - 1) as $column) {
                 if ($column !== 0) {
                     $insertStr .= ',';
                 }

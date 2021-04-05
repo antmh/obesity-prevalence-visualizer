@@ -1,12 +1,15 @@
 <?php
 
-use controllers\
-{
+declare(strict_types=1);
+
+namespace core;
+
+use controllers\ {
     AboutController,
     ServicesController,
     HomeController,
     EurostatController,
-    ErrorController
+    ErrorController,
 };
 
 class Application

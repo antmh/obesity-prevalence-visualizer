@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace core;
+
 class Router
 {
     private static bool $executed;

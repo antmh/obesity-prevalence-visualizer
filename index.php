@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-function autoload($class)
+function autoload($class): void
 {
     if (strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN') {
         $class = str_replace("\\", "/", $class);

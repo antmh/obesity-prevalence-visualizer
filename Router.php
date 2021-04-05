@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 class Router
 {
-    public static $executed;
+    private static bool $executed;
 
-    public static function executed()
+    public static function executed(): bool
     {
         return self::$executed;
     }
 
-    public static function get($path, $arg)
+    public static function get(string $path, callable $arg): void
     {
         $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         if ($path === '') {
@@ -32,7 +32,7 @@ class Router
         if ($url === $path) {
             self::$executed = true;
             $arg();
-            return true;
+            return;
         }
 
         $path = explode('/', $path);
@@ -55,7 +55,6 @@ class Router
             if ($ok) {
                 self::$executed = true;
                 $arg($par);
-                return true;
             }
         }
     }

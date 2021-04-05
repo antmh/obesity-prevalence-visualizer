@@ -6,5 +6,5 @@ namespace controllers;
 
 abstract class Controller
 {
-    abstract public function index();
+    abstract public function index(): void;
 }

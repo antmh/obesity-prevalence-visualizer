@@ -8,7 +8,7 @@ use controllers\Controller;
 
 class ServicesController extends Controller
 {
-    public function index()
+    public function index(): void
     {
         \views\View::render('services.php');
     }

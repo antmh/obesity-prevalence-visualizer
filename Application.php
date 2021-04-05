@@ -11,7 +11,7 @@ use controllers\
 
 class Application
 {
-    public function run()
+    public function run(): void
     {
         $homeController = new HomeController();
         $servicesController = new ServicesController();

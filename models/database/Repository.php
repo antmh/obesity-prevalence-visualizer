@@ -18,7 +18,7 @@ abstract class Repository
         }
     }
 
-    private function create()
+    private function create(): void
     {
         $createStr = "CREATE TABLE $this->table (";
         $columns = array_keys($this->columnTypes);

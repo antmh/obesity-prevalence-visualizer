@@ -29,7 +29,7 @@
         square of the person's height—despite known allometric inaccuracies is over 30 kg/m2;
         the range 25–30 kg/m2 is defined as overweight.
     </p>
-    <img src="/views/Images/BMI_image.jpg" style="width:1000px; height: 600px;">
+    <img src="/views/images/BMI_image.jpg" style="width:1000px; height: 600px;">
     <h1>Facts about overweight and obesity</h1>
     <p>Some recent WHO global estimates follow.</p>
     <ul>

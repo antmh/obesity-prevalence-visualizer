@@ -5,6 +5,7 @@ use controllers\
     AboutController,
     ServicesController,
     HomeController,
+    EurostatController,
     ErrorController
 };
 
@@ -15,9 +16,13 @@ class Application {
         $servicesController = new ServicesController();
         $aboutController = new AboutController();
         $errorController = new ErrorController();
+        $eurostatController = new EurostatController();
 
         Router::get('/home', function () use ($homeController) {
             $homeController->index();
+        });
+        Router::get('/eurostat', function () use ($eurostatController) {
+            $eurostatController->index();
         });
         Router::get('/services', function () use ($servicesController) {
             $servicesController->index();

@@ -180,3 +180,35 @@ header a {
 .presentation-buttons-container .button:not(:last-child) {
   margin-right: 2rem;
 }
+
+.bar-graph {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  height: 20rem;
+}
+
+.bar-graph-column {
+  width: 2rem;
+  align-self: flex-end;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  animation-duration: 0.75s;
+  animation-name: slidein;
+  animation-timing-function: ease;
+  animation-fill-mode: backwards;
+}
+
+@keyframes slidein {
+  from {
+    height: 0;
+  }
+}
+
+.bar-graph-column:nth-child(odd) {
+  background-color: var(--accent-dark);
+}
+
+.bar-graph-column:nth-child(even) {
+  background-color: var(--accent);
+}

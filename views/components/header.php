@@ -15,6 +15,7 @@
           <li><a class="nav-link" href="/">Home</a></li>
           <li><a class="nav-link" href="/services">Services</a></li>
           <li><a class="nav-link" href="/about">About</a></li>
+          <li><a class="nav-link" href="/login">Login</a></li>
         </ul>
       </nav>
     </header>

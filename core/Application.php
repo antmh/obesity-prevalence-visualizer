@@ -4,24 +4,16 @@ declare(strict_types=1);
 
 namespace core;
 
-use controllers\ {
-    AboutController,
-    ServicesController,
-    HomeController,
-    EurostatController,
-    ErrorController,
-    LoginController
-};
+use controllers\{HomeController, EurostatController, ErrorController, WHOController, LoginController};
 
 class Application
 {
     public function run(): void
     {
         $homeController = new HomeController();
-        $servicesController = new ServicesController();
-        $aboutController = new AboutController();
         $errorController = new ErrorController();
         $eurostatController = new EurostatController();
+        $whoController = new WHOController();
         $loginController = new LoginController();
         
         Router::get('/', function () use ($homeController) {
@@ -30,11 +22,8 @@ class Application
         Router::get('/eurostat', function () use ($eurostatController) {
             $eurostatController->index();
         });
-        Router::get('/services', function () use ($servicesController) {
-            $servicesController->index();
-        });
-        Router::get('/about', function () use ($aboutController) {
-            $aboutController->index();
+        Router::get('/who', function () use ($whoController) {
+            $whoController->index();
         });
         Router::get('/login', function () use ($loginController) {
             $loginController->index();

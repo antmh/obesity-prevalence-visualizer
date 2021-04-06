@@ -325,3 +325,29 @@ input:focus {
   outline: none !important;
   box-shadow: 0 0 10px var(--accent);
 }
+
+table {
+  border-spacing: 0;
+  width: 100%;
+}
+
+th,
+td {
+  padding: 0.5rem;
+}
+
+td:not(:last-child) {
+  border-right: 1px solid var(--primary-foreground);
+}
+
+tr:nth-child(even) {
+  background-color: var(--secondary-foreground);
+}
+
+th {
+  position: sticky;
+  top: 0;
+  background-color: var(--secondary-background);
+  color: var(--secondary-foreground);
+  text-align: left;
+}

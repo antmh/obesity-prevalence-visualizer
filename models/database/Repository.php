@@ -18,6 +18,62 @@ abstract class Repository
         }
     }
 
+    public function getAllBy(array $selectedProperties = [], array $filterBy = [], array $orderBy = []): array | false
+    {
+        $selectStr = 'SELECT ';
+        if ($selectedProperties === []) {
+            $selectStr .= '* ';
+        } else {
+            foreach ($selectedProperties as $index => $selectedProperty) {
+                if (!key_exists($selectedProperty, $this->columnTypes)) {
+                    return false;
+                }
+                if ($index !== 0) {
+                    $selectStr .= ', ';
+                }
+                $selectStr .= $selectedProperty;
+            }
+        }
+        $selectStr .= ' FROM ' . $this->table;
+        if ($filterBy !== []) {
+            $selectStr .= ' WHERE ';
+            foreach ($filterBy as $column => $value) {
+                if ($column !== array_key_first($filterBy)) {
+                    $selectStr .= ' AND ';
+                }
+                if (!key_exists($column, $this->columnTypes)) {
+                    return false;
+                }
+                $selectStr .= $column . '=?';
+            }
+        }
+        if ($orderBy !== []) {
+            $selectStr .= ' ORDER BY ';
+            foreach ($orderBy as $column => $order) {
+                if ($column !== array_key_first($orderBy)) {
+                    $selectStr .= ', ';
+                }
+                if (!key_exists($column, $this->columnTypes)) {
+                    return false;
+                }
+                $selectStr .= $column . ' ' . $order;
+            }
+        }
+        $selectStr .= ';';
+        $stmt = $this->db->prepare($selectStr);
+        $index = 1;
+        foreach ($filterBy as $column => $value) {
+            $stmt->bindValue($index, $value, $this->columnTypes[$column]);
+            $index++;
+        }
+        $result = $stmt->execute();
+        $rows = [];
+        while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+            array_push($rows, $row);
+        }
+        return $rows;
+    }
+
     private function create(): void
     {
         $createStr = "CREATE TABLE $this->table (";

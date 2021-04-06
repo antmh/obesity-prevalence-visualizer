@@ -13,8 +13,8 @@
       <nav>
         <ul>
           <li><a class="nav-link" href="/">Home</a></li>
-          <li><a class="nav-link" href="/services">Services</a></li>
-          <li><a class="nav-link" href="/about">About</a></li>
+          <li><a class="nav-link" href="/who">Who</a></li>
+          <li><a class="nav-link" href="/eurostat">Eurostat</a></li>
           <li><a class="nav-link" href="/login">Login</a></li>
         </ul>
       </nav>

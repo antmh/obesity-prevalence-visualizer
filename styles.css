@@ -239,14 +239,15 @@ header a {
   border-bottom-right-radius: 7px;
 }
 
-.bar-graph {
+.bar-chart {
   display: flex;
   justify-content: space-between;
   position: relative;
   height: 20rem;
+  margin: 2rem;
 }
 
-.bar-graph-column {
+.bar-chart-column {
   width: 2rem;
   align-self: flex-end;
   margin-left: 0.5rem;
@@ -263,11 +264,11 @@ header a {
   }
 }
 
-.bar-graph-column:nth-child(odd) {
+.bar-chart-column:nth-child(odd) {
   background-color: var(--accent-dark);
 }
 
-.bar-graph-column:nth-child(even) {
+.bar-chart-column:nth-child(even) {
   background-color: var(--accent);
 }
 

@@ -7,6 +7,7 @@ namespace controllers;
 use models\ {
     database\Database,
     Table,
+    BarChart,
 };
 
 class HomeController extends Controller
@@ -27,6 +28,9 @@ class HomeController extends Controller
                 'location' => 'asc',
             ],
         );
-        \views\View::render('home.php', ['table' => new Table($values)]);
+        \views\View::render('home.php', [
+            'table' => new Table($values),
+            'barChart' => new BarChart($values),
+        ]);
     }
 }

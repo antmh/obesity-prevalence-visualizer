@@ -54,4 +54,7 @@
   <li>Overall, about 13% of the world’s adult population (11% of men and 15% of women) were obese in 2016.</li>
   <li>The worldwide prevalence of obesity nearly tripled between 1975 and 2016.</li>
 </ul>
-<?php include('views/components/table.php'); ?>
+<?php
+  include('views/components/barChart.php');
+  include('views/components/table.php');
+?>

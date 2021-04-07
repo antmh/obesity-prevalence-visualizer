@@ -4,11 +4,16 @@ declare(strict_types=1);
 
 namespace controllers;
 
+use models\ {
+    database\Database,
+    Table,
+};
+
 class HomeController extends Controller
 {
     public function index(): void
     {
-        $eurostatRepository = \models\database\Database::getInstance()->getEurostatRepository();
+        $eurostatRepository = Database::getInstance()->getEurostatRepository();
         $values = $eurostatRepository->getAllBy(
             selectedProperties: [
                 'location',
@@ -22,6 +27,6 @@ class HomeController extends Controller
                 'location' => 'asc',
             ],
         );
-        \views\View::render('home.php', ['values' => $values]);
+        \views\View::render('home.php', ['table' => new Table($values)]);
     }
 }

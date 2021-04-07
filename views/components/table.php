@@ -1,10 +1,10 @@
 <table>
   <tr>
-    <?php foreach (array_keys($values[0]) as $header) : ?>
-      <th><?= ucfirst($header) ?></th>
+    <?php foreach ($table->getHeader() as $headerCell) : ?>
+      <th><?= $headerCell ?></th>
     <?php endforeach; ?>
   </tr>
-  <?php foreach ($values as $row) : ?>
+  <?php foreach ($table->getBody() as $row) : ?>
     <tr>
       <?php foreach (array_values($row) as $cell) : ?>
         <td><?= $cell ?></td>

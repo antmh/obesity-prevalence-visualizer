@@ -23,7 +23,13 @@ class BarChart
             array_push($this->xValues, $row['value'] / $maxY * 100.0);
         }
         foreach ($values as $row) {
-            array_push($this->yValues, $row['location']);
+            $yValue = [];
+            foreach ($row as $name => $cell) {
+                if ($name !== 'value') {
+                    array_push($yValue, $cell);
+                }
+            }
+            array_push($this->yValues, implode(", ", $yValue));
         }
     }
 

@@ -248,7 +248,7 @@ header a {
 
 .bar-chart-column {
   position: relative;
-  width: 2rem;
+  min-width: 2rem;
   margin: 0 0.1rem;
   align-self: flex-end;
   animation-duration: 0.75s;
@@ -281,6 +281,16 @@ header a {
 
 .bar-chart:hover .bar-chart-column:focus:not(:hover)::after {
   opacity: 0;
+}
+
+.bar-chart-column::before {
+  position: absolute;
+  text-align: center;
+  left: 50%;
+  bottom: calc(100% + 0.2rem);
+  transform: translateX(-50%);
+  content: var(--value);
+  color: var(--primary-foreground);
 }
 
 @keyframes raise {

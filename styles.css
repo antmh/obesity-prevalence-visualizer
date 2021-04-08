@@ -244,6 +244,10 @@ header a {
   justify-content: space-between;
   height: 20rem;
   margin: 2rem;
+  padding: 5rem 3rem 0.5rem 3rem;
+  overflow-x: auto;
+  scrollbar-color: var(--accent-dark) var(--accent-light);
+  scrollbar-width: thin;
 }
 
 .bar-chart-column {

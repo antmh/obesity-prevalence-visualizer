@@ -16,6 +16,7 @@
           <li><a class="nav-link" href="/who">Who</a></li>
           <li><a class="nav-link" href="/eurostat">Eurostat</a></li>
           <li><a class="nav-link" href="/login">Login</a></li>
+          <li><a class="nav-link" href="/administration">Administration</a></li>
         </ul>
       </nav>
     </header>

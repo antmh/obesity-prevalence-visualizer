@@ -29,6 +29,11 @@ header {
   justify-content: space-around;
 }
 
+.logo {
+  width: 65px;
+  height: 65px;
+}
+
 .nav-link {
   position: relative;
   padding-bottom: 3px;

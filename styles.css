@@ -137,6 +137,11 @@ header a {
   font-size: 17px;
 }
 
+.change-data-button {
+  margin-top: 15px;
+  font-size: 17px;
+}
+
 .button:hover {
   background-color: var(--accent);
 }
@@ -343,17 +348,23 @@ header a {
   border-radius: 0 0 10px 10px;
 }
 
-.input-group label {
+.input-login {
   display: block;
   text-align: left;
   margin: 0.5rem;
 }
 
-input {
+#login-label {
+  display: block;
+  text-align: left;
+  margin: 0.5rem;
+}
+
+#input-login #input-account {
   transition: ease all 0.5s;
 }
 
-.input-group input {
+.input-login #input-login {
   box-sizing: border-box;
   height: 2.5rem;
   width: 100%;
@@ -363,14 +374,29 @@ input {
   border: 2px solid var(--secondary-background);
 }
 
-input:hover {
+#input-account {
+  box-sizing: border-box;
+  border: 2px solid var(--secondary-background);
+}
+
+#input-login:hover {
   outline: none !important;
   box-shadow: 0 0 5px var(--accent);
 }
 
-input:focus {
+#input-login:focus {
   outline: none !important;
   box-shadow: 0 0 5px var(--accent);
+}
+
+#input-account:hover {
+  outline: none !important;
+  box-shadow: 0 0 2px var(--accent);
+}
+
+#input-account:focus {
+  outline: none !important;
+  box-shadow: 0 0 2px var(--accent);
 }
 
 table {
@@ -397,4 +423,60 @@ th {
   background-color: var(--secondary-background);
   color: var(--secondary-foreground);
   text-align: left;
+}
+
+.administration-cards-container {
+  justify-content: space-around;
+  text-align: center;
+  height: 10rem;
+  margin-top: 2em;
+  margin-bottom: 35em;
+}
+
+.administration-card-wrapper {
+  width: 100%;
+  padding: 2rem;
+}
+
+.administration-card {
+  position: relative;
+}
+
+.administration-cards-container > .administration-card-wrapper:not(:last-child) {
+  border-bottom: 2px solid var(--primary-foreground);
+}
+
+.input-account {
+  display: block;
+  font-size: 1.25rem;
+  margin: 5px;
+}
+
+#account-label {
+  display: inline-block;
+  font-size: 1.25rem;
+  margin: 5px;
+  width: 140px;
+}
+
+.account-cards-container {
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  height: 13rem;
+  margin-bottom: 4rem;
+  padding-top: 17px;
+}
+
+.account-card-wrapper {
+  width: 100%;
+}
+
+.account-card {
+  display: block;
+  margin-bottom: 30px;
+}
+
+.account-cards-container > .account-card-wrapper:not(:last-child) {
+  border-right: 2px solid var(--primary-foreground);
 }

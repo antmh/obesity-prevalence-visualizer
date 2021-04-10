@@ -10,7 +10,7 @@
   </head>
   <body>
     <header>
-      <h1>Obesity Logo</h1>
+      <img src="/Asset_3.svg" class="logo">
       <nav>
         <ul>
           <li><a class="nav-link" href="/">Home</a></li>

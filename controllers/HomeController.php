@@ -8,6 +8,7 @@ use models\ {
     database\Database,
     Table,
     BarChart,
+    LineChart,
 };
 
 class HomeController extends Controller
@@ -19,18 +20,24 @@ class HomeController extends Controller
             selectedProperties: [
                 'location',
                 'value',
+                'year',
             ],
             filterBy: [
                 'category' => 'Obese',
-                'year' => '2017',
             ],
             orderBy: [
                 'location' => 'asc',
             ],
         );
+        $lineChartValues = $eurostatRepository->getAllBy(
+            filterBy: [
+                'location' => 'Austria',
+            ],
+        );
         \views\View::render('home.php', [
             'table' => new Table($values),
             'barChart' => new BarChart($values),
+            'lineChart' => new LineChart($lineChartValues),
         ]);
     }
 }

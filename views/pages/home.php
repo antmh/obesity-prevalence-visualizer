@@ -55,6 +55,7 @@
   <li>The worldwide prevalence of obesity nearly tripled between 1975 and 2016.</li>
 </ul>
 <?php
+  include('views/components/lineChart.php');
   include('views/components/barChart.php');
   include('views/components/table.php');
 ?>

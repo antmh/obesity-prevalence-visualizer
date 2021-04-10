@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace core;
 
-use controllers\{HomeController, EurostatController, ErrorController, WHOController, LoginController};
+use controllers\{HomeController, EurostatController, ErrorController, WHOController, LoginController, AdministrationController};
 
 class Application
 {
@@ -15,6 +15,7 @@ class Application
         $eurostatController = new EurostatController();
         $whoController = new WHOController();
         $loginController = new LoginController();
+        $administrationController = new AdministrationController();
         
         Router::get('/', function () use ($homeController) {
             $homeController->index();
@@ -27,6 +28,9 @@ class Application
         });
         Router::get('/login', function () use ($loginController) {
             $loginController->index();
+        });
+        Router::get('/administration', function () use ($administrationController) {
+            $administrationController->index();
         });
         if (!Router::executed()) {
             $errorController->index();

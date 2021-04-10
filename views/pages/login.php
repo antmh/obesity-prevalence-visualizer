@@ -3,15 +3,15 @@
     <h2>Admin</h2>
   </div>
   <form class="login-form">
-    <div class="input-group">
-      <label for="email">Email</label>
-      <input type="email" name="email" id="email">
+    <div class="input-login">
+      <label id="login-label" for="email">Email</label>
+      <input id="input-login" type="email" name="email" id="email">
     </div>
-    <div class="input-group">
-      <label for="password">Password</label>
-      <input type="password" name="password" id="password">
+    <div class="input-login">
+      <label id="login-label" for="password">Password</label>
+      <input id="input-login" type="password" name="password" id="password">
     </div>
-    <div class="input-group">
+    <div class="input-login">
       <button class="button login-button">Login</button>
     </div>
   </form>

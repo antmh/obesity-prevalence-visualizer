@@ -415,6 +415,21 @@ header a {
   margin: 0.5rem;
 }
 
+#input-account {
+  box-sizing: border-box;
+  border: 2px solid var(--secondary-background);
+}
+
+#input-account:hover {
+  outline: none !important;
+  box-shadow: 0 0 2px var(--accent);
+}
+
+#input-account:focus {
+  outline: none !important;
+  box-shadow: 0 0 2px var(--accent);
+}
+
 #input-login #input-account {
   transition: ease all 0.5s;
 }
@@ -429,11 +444,6 @@ header a {
   border: 2px solid var(--secondary-background);
 }
 
-#input-account {
-  box-sizing: border-box;
-  border: 2px solid var(--secondary-background);
-}
-
 #input-login:hover {
   outline: none !important;
   box-shadow: 0 0 5px var(--accent);
@@ -442,16 +452,6 @@ header a {
 #input-login:focus {
   outline: none !important;
   box-shadow: 0 0 5px var(--accent);
-}
-
-#input-account:hover {
-  outline: none !important;
-  box-shadow: 0 0 2px var(--accent);
-}
-
-#input-account:focus {
-  outline: none !important;
-  box-shadow: 0 0 2px var(--accent);
 }
 
 table {

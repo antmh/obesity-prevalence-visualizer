@@ -458,8 +458,8 @@ header a {
 
 .line-chart {
   height: 20rem;
-  width: 100%;
   position: relative;
+  margin: 6rem;
 }
 
 .line-chart-segment {

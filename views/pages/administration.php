@@ -1,16 +1,23 @@
 <div class="administration-cards-container">
     <div class="administration-card-wrapper">
+        <h1>Data</h1>
         <div class="administration-card">
-            <h1>World Health Organization Data</h1>
-            <button class="button administration-button">Update</button>
-            <button class="button administration-button">Clear</button>
-        </div>
-    </div>
-    <div class="administration-card-wrapper">
-        <div class="administration-card">
-            <h1>Eurostat Data</h1>
-            <button class="button administration-button">Update</button>
-            <button class="button administration-button">Clear</button>
+            <div class="data-cards-container">
+                <div class="data-card-wrapper">
+                    <div class="data-card">
+                        <h3>World Health Organization</h3>
+                        <button class="button administration-button">Update</button>
+                        <button class="button administration-button">Clear</button>
+                    </div>
+                </div>
+                <div class="data-card-wrapper">
+                    <div class="data-card">
+                        <h3>Eurostat</h3>
+                        <button class="button administration-button">Update</button>
+                        <button class="button administration-button">Clear</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="administration-card-wrapper">

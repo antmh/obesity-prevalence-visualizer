@@ -182,7 +182,7 @@ header a {
   border-width: 5px;
   border-color: transparent;
   text-decoration: none;
-  transition: all ease 0.5s;
+  transition: all 0.5s ease;
   box-sizing: border-box;
 }
 
@@ -207,7 +207,7 @@ header a {
 
 .presentation-card .button {
   opacity: 0;
-  transition: all ease 0.5s;
+  transition: all 0.5s ease;
 }
 
 .presentation-card:hover .button,
@@ -218,7 +218,7 @@ header a {
 .presentation-card {
   width: 100%;
   position: relative;
-  transition: all ease 0.5s;
+  transition: all 0.5s ease;
 }
 
 .presentation-card:hover,
@@ -243,7 +243,7 @@ header a {
 
 .presentation-buttons-container {
   margin-top: 1rem;
-  transition: all ease 0.25s;
+  transition: all 0.25s ease;
   display: flex;
   justify-content: space-around;
 }
@@ -432,7 +432,7 @@ header a {
   color: var(--primary-foreground);
   padding: 0.5rem;
   border-radius: 7px;
-  transition: ease all 0.15s;
+  transition: all 0.15s ease;
   z-index: 1;
 }
 
@@ -512,7 +512,7 @@ header a {
   color: var(--primary-foreground);
   padding: 0.5rem;
   border-radius: 7px;
-  transition: ease all 0.15s;
+  transition: all 0.15s ease;
 }
 
 .line-chart-point:hover::after {
@@ -554,7 +554,7 @@ header a {
 
 .login-input,
 .account-input {
-  transition: ease all 0.5s;
+  transition: all 0.5s ease;
   box-sizing: border-box;
   height: 2.5rem;
   width: 100%;
@@ -687,7 +687,7 @@ th {
   border-right: 2px solid var(--primary-foreground);
 }
 
-@media (max-width: 952px){
+@media screen and (max-width: 952px) {
   .data-cards-container {
     display: inline;
     justify-content: space-around;
@@ -696,7 +696,7 @@ th {
     margin-bottom: 4rem;
     padding-top: 17px;
   }
-  
+
   .account-cards-container {
     display: inline;
     justify-content: space-around;
@@ -707,10 +707,58 @@ th {
   }
 
   .data-cards-container > .data-card-wrapper:not(:last-child) {
-    border:none;
+    border: none;
   }
 
   .account-cards-container > .account-card-wrapper:not(:last-child) {
-    border:none;
+    border: none;
   }
+}
+
+.accordion {
+  list-style-type: none;
+  max-width: 40rem;
+  margin: 0 auto;
+}
+
+.accordion-category {
+  background-color: var(--secondary-background);
+  color: var(--secondary-foreground);
+  padding: 0.25rem;
+}
+
+.accordion-category-items {
+  list-style-type: none;
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.5s ease;
+  background-color: var(--primary-background);
+  color: var(--primary-foreground);
+}
+
+.accordion-category:first-child {
+  border-radius: 7px 7px 0 0;
+}
+
+.accordion-category:last-child,
+.accordion-category:last-child .accordion-category-items {
+  border-radius: 0 0 7px 7px;
+}
+
+.accordion-category-items li {
+  padding: 0.5rem;
+}
+
+.accordion-category-title {
+  padding: 0.5rem;
+  display: block;
+  border-bottom: var(--accent) 0.25rem solid;
+}
+
+.accordion-category input {
+  display: none;
+}
+
+.accordion-category input:checked ~ .accordion-category-items {
+  max-height: 50rem;
 }

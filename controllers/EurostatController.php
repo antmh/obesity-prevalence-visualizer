@@ -4,11 +4,62 @@ declare(strict_types=1);
 
 namespace controllers;
 
+use models\ {
+    database\Database,
+    BarChart,
+};
+
 class EurostatController extends Controller
 {
     public function index(): void
     {
-        $values = [43, 23, 12, 65, 89, 65, 23, 67, 23, 46, 54, 23];
-        \views\View::render('eurostat.php', ['values' => $values]);
+        $accordion = [
+            [
+                'name' => 'Year',
+                'items' => [
+                    2016,
+                    2017,
+                    2018,
+                    2019,
+                ],
+            ],
+            [
+                'name' => 'Location',
+                'items' => [
+                    'Germany',
+                    'Austria',
+                    'Hungary',
+                    'France',
+                    'Spain',
+                ],
+            ],
+            [
+                'name' => 'Category',
+                'items' => [
+                    'Underweight',
+                    'Normal weight',
+                    'Overweight',
+                    'Obese',
+                ],
+            ],
+        ];
+        $eurostatRepository = Database::getInstance()->getEurostatRepository();
+        $values = $eurostatRepository->getAllBy(
+            selectedProperties: [
+                'location',
+                'value',
+                'year',
+            ],
+            filterBy: [
+                'category' => 'Obese',
+            ],
+            orderBy: [
+                'location' => 'asc',
+            ],
+        );
+        \views\View::render('eurostat.php', [
+            'accordion' => $accordion,
+            'barChart' => new BarChart($values),
+        ]);
     }
 }

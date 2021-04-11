@@ -227,11 +227,12 @@ header a {
 
 .presentation-card h2 {
   text-transform: uppercase;
+  margin: 0 2rem;
   font-weight: 400;
 }
 
 .presentation-card p {
-  margin: 0;
+  margin: 0 2rem;
   color: var(--accent-dark);
 }
 
@@ -288,6 +289,17 @@ header a {
   .presentation-buttons-container {
     flex-direction: column;
     height: 10rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .cards-container {
+    flex-direction: column;
+  }
+
+  .cards-container > .presentation-card-wrapper:not(:last-child) {
+    border-right: none;
+    margin: 2rem 0;
   }
 }
 

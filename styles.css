@@ -521,7 +521,7 @@ header a {
 
 .login-container {
   margin: auto;
-  width: 25rem;
+  max-width: 25rem;
 }
 
 .login-header {

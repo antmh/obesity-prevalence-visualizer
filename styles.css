@@ -163,8 +163,7 @@ header a {
   display: flex;
   justify-content: space-around;
   text-align: center;
-  height: 10rem;
-  margin-bottom: 5rem;
+  height: 14rem;
 }
 
 .presentation-card-wrapper {
@@ -243,6 +242,8 @@ header a {
 .presentation-buttons-container {
   margin-top: 1rem;
   transition: all ease 0.25s;
+  display: flex;
+  justify-content: space-around;
 }
 
 .presentation-card:hover .presentation-buttons-container,
@@ -252,6 +253,42 @@ header a {
 
 .presentation-buttons-container .button:not(:last-child) {
   margin-right: 2rem;
+}
+
+@media (hover: none) or (max-width: 950px) {
+  .cards-container {
+    height: auto;
+  }
+
+  .presentation-card-wrapper {
+    padding: 0;
+  }
+
+  .presentation-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    align-items: center;
+  }
+
+  .presentation-buttons-container .button {
+    opacity: 1;
+  }
+
+  .presentation-buttons-container .button:not(:last-child) {
+    margin-right: 0;
+  }
+
+  .presentation-card:hover,
+  .presentation-card:focus-within {
+    margin-top: 0;
+  }
+
+  .presentation-buttons-container {
+    flex-direction: column;
+    height: 10rem;
+  }
 }
 
 .bmi-categories-list {

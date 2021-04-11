@@ -30,7 +30,7 @@
 </p>
 <dl class="bmi-categories-list">
   <div class="bmi-category">
-    <dt>BMI <18.5</dt>
+    <dt>BMI &lt;18.5</dt>
     <dd>Underweight</dd>
   </div>
   <div class="bmi-category">

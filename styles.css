@@ -30,8 +30,8 @@ header {
 }
 
 .logo {
-  width: 65px;
-  height: 65px;
+  width: 4rem;
+  height: 4rem;
 }
 
 .nav-link {
@@ -83,6 +83,56 @@ nav ul {
 nav ul li {
   display: inline;
   margin-left: 2rem;
+}
+
+#nav-menu-toggle,
+#nav-menu-thumb {
+  display: none;
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  width: 2rem;
+  height: 2rem;
+}
+
+#nav-menu-toggle {
+  margin: 0;
+  opacity: 0;
+}
+
+#nav-menu-thumb {
+  background: url("assets/menu.svg");
+}
+
+@media screen and (max-width: 775px) {
+  header {
+    flex-direction: column;
+  }
+
+  #nav-menu-toggle {
+    display: inline-block;
+  }
+
+  #nav-menu-thumb {
+    display: inline-block;
+  }
+
+  nav ul {
+    overflow: hidden;
+    max-height: 0;
+    transition: all 0.5s ease;
+    margin: 0;
+  }
+
+  nav ul li {
+    display: block;
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+
+  #nav-menu-toggle:checked + ul {
+    max-height: 50rem;
+  }
 }
 
 header,
@@ -207,15 +257,19 @@ header a {
 
 .bmi-categories-list {
   display: flex;
-  height: 5rem;
 }
 
 .bmi-category {
+  --padding: 0.5rem;
+  --border-radius: 7px;
+
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   text-align: center;
+  height: 5rem;
+  padding: var(--padding);
 }
 
 .bmi-category dt {
@@ -232,7 +286,6 @@ header a {
 .bmi-category:nth-child(1) {
   z-index: 4;
   background-color: #f7d9d9;
-  border-radius: 7px 0 0 7px;
 }
 
 .bmi-category:nth-child(2) {
@@ -248,16 +301,51 @@ header a {
 .bmi-category:nth-child(4) {
   z-index: 1;
   background-color: #ffa4a4;
-  border-radius: 0 7px 7px 0;
+}
+
+.bmi-category:first-child {
+  border-radius: var(--border-radius) 0 0 var(--border-radius);
+}
+
+.bmi-category:last-child {
+  border-radius: 0 var(--border-radius) var(--border-radius) 0;
 }
 
 .bmi-category:not(:first-child) {
-  margin-left: -7px;
+  padding-left: calc(var(--padding) + var(--border-radius));
+  margin-left: calc(var(--border-radius) * -1);
 }
 
 .bmi-category:not(:last-child) {
-  border-top-right-radius: 7px;
-  border-bottom-right-radius: 7px;
+  border-top-right-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
+}
+
+@media screen and (max-width: 700px) {
+  .bmi-categories-list {
+    flex-direction: column;
+  }
+
+  .bmi-category:last-child {
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
+  }
+
+  .bmi-category:not(:first-child) {
+    margin-left: 0;
+    padding-left: 0;
+    margin-top: calc(var(--border-radius) * -1);
+    padding-top: calc(var(--padding) + var(--border-radius));
+  }
+
+  .bmi-category:not(:last-child) {
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
+  }
+
+  .bmi-category:first-child {
+    border-radius:
+      var(--border-radius) var(--border-radius)
+      var(--border-radius) var(--border-radius);
+  }
 }
 
 .bar-chart {
@@ -345,12 +433,12 @@ header a {
   width: 100%;
   height: 100%;
   clip-path:
-          polygon(
-                  var(--x1) calc(100% - var(--y1)),
-                  var(--x2) calc(100% - var(--y2)),
-                  calc(var(--x2) + 2px) calc(100% - calc(var(--y2) + 2px)),
-                  calc(var(--x1) + 2px) calc(100% - calc(var(--y1) + 2px))
-          );
+    polygon(
+      var(--x1) calc(100% - var(--y1)),
+      var(--x2) calc(100% - var(--y2)),
+      calc(var(--x2) + 2px) calc(100% - calc(var(--y2) + 2px)),
+      calc(var(--x1) + 2px) calc(100% - calc(var(--y1) + 2px))
+    );
 }
 
 .line-chart-point {
@@ -415,11 +503,9 @@ header a {
   margin: 0.5rem;
 }
 
-input {
+.login-input,
+.account-input {
   transition: ease all 0.5s;
-}
-
-input {
   box-sizing: border-box;
   height: 2.5rem;
   width: 100%;
@@ -430,11 +516,11 @@ input {
 }
 
 .account-input {
-  width:50%;
+  width: 50%;
 }
 
 .login-input {
-  width:100%;
+  width: 100%;
 }
 
 input:hover {

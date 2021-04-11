@@ -12,6 +12,8 @@
     <header>
       <img src="/Asset_3.svg" class="logo">
       <nav>
+        <div id="nav-menu-thumb"></div>
+        <input id="nav-menu-toggle" type="checkbox">
         <ul>
           <li><a class="nav-link" href="/">Home</a></li>
           <li><a class="nav-link" href="/who">Who</a></li>

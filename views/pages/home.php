@@ -54,8 +54,10 @@
   <li>Overall, about 13% of the world’s adult population (11% of men and 15% of women) were obese in 2016.</li>
   <li>The worldwide prevalence of obesity nearly tripled between 1975 and 2016.</li>
 </ul>
-<?php
-  include('views/components/lineChart.php');
-  include('views/components/barChart.php');
-  include('views/components/table.php');
-?>
+<h1>Examples</h1>
+<p>Below is a line chart showing data from Eurostat from Austria.</p>
+<?php include('views/components/lineChart.php'); ?>
+<p>This is a bar char showing data from Eurostat with the obesity category selected, ordered by location.</p>
+<?php include('views/components/barChart.php'); ?>
+<p>This shows the same data as the previous chart, but as a table.</p>
+<?php include('views/components/table.php'); ?>

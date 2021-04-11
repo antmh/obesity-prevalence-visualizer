@@ -1,0 +1,21 @@
+html,
+body {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #f1f1f1;
+  color: #474747;
+  font-family: sans-serif;
+}
+
+body {
+  padding: 2rem;
+}
+
+a:link,
+a:visited {
+  color: #00458b;
+}
+
+img {
+  width: 100%;
+}

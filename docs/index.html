@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="styles.css">
+    <title>
+      Obesity Prevalence Visualizer IEEE Requirements Specification Template
+    </title>
+  </head>
+  <body prefix="schema: http://schema.org/ xdd: http://www.w3.org/2001/XMLSchema# sa: https://ns.science.ai/">
+    <article typeof="schema:ScholarlyArticle" resource="#">
+      <header>
+        <h1 property="schema:name">Obesity Prevalence Visualizer</h1>
+        <p role="doc-subtitle" property="schema:alterateName">
+          IEEE Requirements Specification
+        </p>
+      </header>
+      <div role="contentinfo">
+        <section typeof="schema:sa:AuthorsList">
+          <h2>Authors</h2>
+          <ul>
+            <li typeof="sa:ContributorRole" property="schema:author">
+              <span typeof="schema:Person">
+                <span property="schema:name">Mihăeș Antonio</span>
+              </span>
+            </li>
+            <li typeof="sa:ContributorRole" property="schema:author">
+              <span typeof="schema:Person">
+                <span property="schema:name">Stoleriu Daniel</span>
+              </span>
+            </li>
+          </ul>
+        </section>
+      </div>
+      <section>
+        <h2>Introduction</h2>
+        <section>
+          <h3>Purpose</h3>
+          <p>
+            The aim of this system requirements specification document is to
+            provide an in-depth description of the tool Obesity Prevalence
+            Visualizer. This document will explain the features and the purpose
+            of this software.
+          </p>
+        </section>
+        <section>
+          <h3>Intended Audience and Reading Suggestions</h3>
+          <p>
+            The audience of this document are other developers who may be
+            interested in contributing to this tool or basing their work on
+            it. This document may also be of use to users of this software.
+          </p>
+        </section>
+        <section>
+          <h3>Product Scope</h3>
+          <p>
+            Obesity Prevalence Visualizer is a website that allows users to view statistics
+            related to the body mass index. These statistics are gathered from external
+            sources. This tool allows users to visualize this data in various different
+            forms and to export them in different file formats. Users may also make use of a
+            REST API.
+          </p>
+        </section>
+        <section>
+          <h3>References</h3>
+          <ol>
+            <li>
+              <a href="https://github.com/antmh/obesity-prevalence-visualizer">
+                GitHub page
+              </a>
+            </li>
+            <li>
+              <a href="https://w3c.github.io/scholarly-html/">
+                Scholarly HTML
+              </a>
+            </li>
+            <li>
+              <a href="https://github.com/rick4470/IEEE-SRS-Tempate">
+                IEEE System Requirements Specification Template
+              </a>
+            </li>
+            <li>
+              <a href="https://www.gnu.org/licenses/agpl-3.0.html">
+                GNU Affero General Public License, Version 3
+              </a>
+            </li>
+          </ol>
+        </section>
+      </section>
+      <section>
+        <h2>Overall Description</h2>
+        <section>
+          <h3>Product Perspective</h3>
+          <p>
+            Obesity Prevalence Visualizer is a website that offers statistics
+            about the body mass index in various countries and regions around
+            the world. These statistics can be visualized as tables, line charts
+            and bar charts. The two sources of the data are Eurostat and the
+            World Health Organization.
+          </p>
+        </section>
+        <section>
+          <h3>Product Functions</h3>
+          <ul>
+            <li>
+              <p>Home page</p>
+              <ul>
+                <li>Provides a short description of the website.</li>
+                <li>
+                  Presents the various formats in which statistics can be
+                  visualized.
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>Administration</p>
+              <ul>
+                <li>
+                  An administrator can authenticate in order to gain access to
+                  the administration panel.
+                </li>
+                <li>
+                  Update and delete the stored data from Eurostat and the World
+                  Health Organization.
+                </li>
+                <li>Change their account information.</li>
+              </ul>
+            </li>
+            <li>
+              <p>Table visualizer</p>
+              <ul>
+                <li>Select which columns are shown.</li>
+                <li>Select the ordering of the rows.</li>
+                <li>
+                  Select only the rows which have one particular value on a
+                  certain column.
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>Bar chart visualizer</p>
+              <ul>
+                <li>Select which attributes are shown for each bar.</li>
+                <li>Select the ordering of the bars.</li>
+                <li>Select data which has one particular attribute.</li>
+              </ul>
+            </li>
+            <li>
+              <p>Line chart</p>
+              <ul>
+                <li>
+                  The x axis represents the years, and the y axis the body mass
+                  index.
+                </li>
+                <li>Select data which has one particular attribute.</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h3>User Classes and Characteristics</h3>
+          <ul>
+            <li>
+              Regular users who do not need any kind of authentication and want
+              to view the statistics offered on the site.
+            </li>
+            <li>
+              The administrator who need authentication and want to update or
+              remove the data stored.
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h3>Operating Environment</h3>
+          <p>
+            This website can be hosted on any kind of operating system that can
+            run PHP: Unix-like operating systems, Windows and macOS. The website
+            can be accessed from any device, including mobile ones, that has a
+            modern web browser.
+          </p>
+        </section>
+        <section>
+          <h3>Design and Implementation Constraints</h3>
+          <p>
+            This software is developed using PHP, HTML and CSS. The data is
+            stored in a SQLite database. The project is structured using the
+            model-view-controller design pattern.
+          </p>
+        </section>
+        <section>
+          <h3>Assumptions and Dependencies</h3>
+          <p>
+            The site depends on PHP 8 and a web server such as Apache or nginx.
+          </p>
+        </section>
+      </section>
+      <section>
+        <h2>External Interface Requirements</h2>
+        <section>
+          <h3>User Interfaces</h3>
+          <ul>
+            <li>
+              <p>Home page<p>
+              <img src="home.png" alt="Home screenshot">
+            </li>
+            <li>
+              <p>Login page</p>
+              <img src="login.png" alt="Login screenshot">
+            </li>
+            <li>
+              <p>Administration panel</p>
+              <img src="admin.png" alt="Administration panel screenshot">
+            </li>
+            <li>
+              <p>Table visualizer</p>
+              <img src="table.png" alt="Table screenshot">
+            </li>
+            <li>
+              <p>Bar chart visualizer</p>
+              <img src="bar.png" alt="Bar chart visualizer screenshot">
+            </li>
+            <li>
+              <p>Line chart visualizer</p>
+              <img src="line.png" alt="Line chart visualizer screenshot">
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h3>Software Interfaces</h3>
+          <p>
+            This tool requires on the server side PHP 8 with the Curl and
+            multi-byte string extensions enables. SQLite version 3 is also
+            required to store the data.
+          </p>
+        </section>
+        <section>
+          <h3>Communication Interfaces</h3>
+          <p>
+            The web pages are transferred over HTTP/HTTPS. For authentication
+            HTTPS is preferred in order prevent attacks. The data gathered from
+            Eurostat and the World Health Organization is gathered through their
+            respective REST API which server JSON documents. This site's REST
+            API functions the same way.
+          </p>
+        </section>
+      </section>
+      <section>
+        <h2>System Features</h2>
+        <section>
+          <h3>Authentication</h3>
+          <p>
+            The user can enter their username and password. After pressing the
+            login button the server will validate their request and if
+            successful they can access the administration panel.
+          </p>
+        </section>
+        <section>
+          <h3>Administration</h3>
+          <p>
+            Two buttons used for clearing and updating data are provided for
+            both sources, Eurostat and the World Health Organization.
+          </p>
+        </section>
+        <section>
+          <h3>Bar Chart Visualization</h3>
+          <p>
+            The statistics that are shown can be configured by selecting the
+            attributes, the order and data that has an attribute of a certain
+            value. The user can select a certain bar to show a popup showing
+            more information.
+        </section>
+        <section>
+          <h3>Table Visualization</h3>
+          <p>
+            The configuration acts the same way as in the previous section, but
+            it is shown as a table.
+          </p>
+        </section>
+        <section>
+          <h3>Line Chart Visualization</h3>
+          <p>
+            The only configuration that can be done is selecting which
+            attributes are shown and selecting data with an attribute of a
+            certain value. The points are ordered chronologically.
+          </p>
+        </section>
+      </section>
+      <section>
+        <h2>Other Nonfunctional Requirements</h2>
+        <section>
+          <h3>Performance Requirements</h3>
+          <p>
+            In terms of memory this tool requires at least 512M of RAM to be
+            able to parse and insert the JSON file provided by the World Health
+            Organization which has a size of a few tens of megabytes.
+          </p>
+        </section>
+        <section>
+          <h3>Safety Requirements</h3>
+          <p>
+            The data can be safely redownloaded from the the sources in case of
+            a system failure.
+          </p>
+        </section>
+        <section>
+          <h3>Security Requirements</h3>
+          <p>
+            No data is stored or gathered from ordinary users, so there are no
+            system requirements for them. The administrator needs to insert
+            their authentication information so HTTPS would be a requirement in
+            case the administration panel is used.
+          </p>
+        </section>
+        <section>
+          <h3>Software Quality Attributes</h3>
+          <p>
+            Besides the various way to visualize the data, the site is
+            responsive and can be used on devices with small screens such as
+            tablets or smartphones. The home page is useful for showing the
+            users the features of the tool.
+          </p>
+        </section>
+      </section>
+      <section>
+        <h2>Responsibilities</h2>
+        <section>
+          <h3>Mihăeș Antonio</h3>
+          <ul>
+            <li>
+              <p>Done</p>
+              <ul>
+                <li>Bar chart</li>
+                <li>Line chart</li>
+                <li>Table</li>
+                <li>Home page, charts and navigation bar responsiveness</li>
+                <li>Database gathering from Eurostat and WHO</li>
+                <li>Accordion</li>
+              </ul>
+            </li>
+            <li>
+              <p>To do</p>
+              <ul>
+                <li>Provide functionality to select shown data</li>
+                <li>
+                  Provide functionality to select which kind of data
+                  visualization to use
+                </li>
+                <li>Error pages</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h3>Stoleriu Daniel</h3>
+          <ul>
+            <li>
+              <p>Done</p>
+              <ul>
+                <li>Home page</li>
+                <li>Administration page</li>
+                <li>Login page</li>
+                <li>Design</li>
+                <li>Administration page and notification page responsiveness</li>
+                <li>Project structure refactoring in line with MVC pattern</li>
+              </ul>
+            </li>
+            <li>
+              <p>To do</p>
+              <ul>
+                <li>Administrator authentication</li>
+                <li>Session storage</li>
+                <li>
+                  Statistics storage functionality provided to administrator
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+      </section>
+    </article>
+  </body>
+</html>

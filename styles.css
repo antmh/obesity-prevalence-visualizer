@@ -142,7 +142,7 @@ header a {
   font-size: 17px;
 }
 
-.change-data-button {
+.administration-button {
   margin-top: 15px;
   font-size: 17px;
 }
@@ -207,19 +207,15 @@ header a {
 
 .bmi-categories-list {
   display: flex;
+  height: 5rem;
 }
 
 .bmi-category {
-  --padding: 0.5rem;
-  --border-radius: 7px;
-
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   text-align: center;
-  height: 5rem;
-  padding: var(--padding);
 }
 
 .bmi-category dt {
@@ -236,6 +232,7 @@ header a {
 .bmi-category:nth-child(1) {
   z-index: 4;
   background-color: #f7d9d9;
+  border-radius: 7px 0 0 7px;
 }
 
 .bmi-category:nth-child(2) {
@@ -251,51 +248,16 @@ header a {
 .bmi-category:nth-child(4) {
   z-index: 1;
   background-color: #ffa4a4;
-}
-
-.bmi-category:first-child {
-  border-radius: var(--border-radius) 0 0 var(--border-radius);
-}
-
-.bmi-category:last-child {
-  border-radius: 0 var(--border-radius) var(--border-radius) 0;
+  border-radius: 0 7px 7px 0;
 }
 
 .bmi-category:not(:first-child) {
-  padding-left: calc(var(--padding) + var(--border-radius));
-  margin-left: calc(var(--border-radius) * -1);
+  margin-left: -7px;
 }
 
 .bmi-category:not(:last-child) {
-  border-top-right-radius: var(--border-radius);
-  border-bottom-right-radius: var(--border-radius);
-}
-
-@media screen and (max-width: 700px) {
-  .bmi-categories-list {
-    flex-direction: column;
-  }
-
-  .bmi-category:last-child {
-    border-radius: 0 0 var(--border-radius) var(--border-radius);
-  }
-
-  .bmi-category:not(:first-child) {
-    margin-left: 0;
-    padding-left: 0;
-    margin-top: calc(var(--border-radius) * -1);
-    padding-top: calc(var(--padding) + var(--border-radius));
-  }
-
-  .bmi-category:not(:last-child) {
-    border-radius: 0 0 var(--border-radius) var(--border-radius);
-  }
-
-  .bmi-category:first-child {
-    border-radius:
-      var(--border-radius) var(--border-radius)
-      var(--border-radius) var(--border-radius);
-  }
+  border-top-right-radius: 7px;
+  border-bottom-right-radius: 7px;
 }
 
 .bar-chart {
@@ -383,12 +345,12 @@ header a {
   width: 100%;
   height: 100%;
   clip-path:
-    polygon(
-      var(--x1) calc(100% - var(--y1)),
-      var(--x2) calc(100% - var(--y2)),
-      calc(var(--x2) + 2px) calc(100% - calc(var(--y2) + 2px)),
-      calc(var(--x1) + 2px) calc(100% - calc(var(--y1) + 2px))
-    );
+          polygon(
+                  var(--x1) calc(100% - var(--y1)),
+                  var(--x2) calc(100% - var(--y2)),
+                  calc(var(--x2) + 2px) calc(100% - calc(var(--y2) + 2px)),
+                  calc(var(--x1) + 2px) calc(100% - calc(var(--y1) + 2px))
+          );
 }
 
 .line-chart-point {
@@ -441,38 +403,23 @@ header a {
   border-radius: 0 0 10px 10px;
 }
 
-.input-login {
+.input-login-group {
   display: block;
   text-align: left;
   margin: 0.5rem;
 }
 
-#login-label {
+.login-label {
   display: block;
   text-align: left;
   margin: 0.5rem;
 }
 
-#input-account {
-  box-sizing: border-box;
-  border: 2px solid var(--secondary-background);
-}
-
-#input-account:hover {
-  outline: none !important;
-  box-shadow: 0 0 2px var(--accent);
-}
-
-#input-account:focus {
-  outline: none !important;
-  box-shadow: 0 0 2px var(--accent);
-}
-
-#input-login #input-account {
+input {
   transition: ease all 0.5s;
 }
 
-.input-login #input-login {
+input {
   box-sizing: border-box;
   height: 2.5rem;
   width: 100%;
@@ -482,12 +429,20 @@ header a {
   border: 2px solid var(--secondary-background);
 }
 
-#input-login:hover {
+.account-input {
+  width:50%;
+}
+
+.login-input {
+  width:100%;
+}
+
+input:hover {
   outline: none !important;
   box-shadow: 0 0 5px var(--accent);
 }
 
-#input-login:focus {
+input:focus {
   outline: none !important;
   box-shadow: 0 0 5px var(--accent);
 }
@@ -539,24 +494,25 @@ th {
   border-bottom: 2px solid var(--primary-foreground);
 }
 
-.input-account {
+.input-admin-group {
   display: block;
-  font-size: 1.25rem;
-  margin: 5px;
+  text-align: center;
+  margin: 0.5rem;
 }
 
-#account-label {
+.account-label {
   display: inline-block;
   font-size: 1.25rem;
   margin: 5px;
-  width: 140px;
+  width: 137px;
+  text-align: left;
 }
 
 .account-cards-container {
   display: flex;
   justify-content: space-around;
   text-align: center;
-  height: 13rem;
+  height: 18rem;
   margin-bottom: 4rem;
   padding-top: 17px;
 }
@@ -568,6 +524,7 @@ th {
 .account-card {
   display: block;
   margin-bottom: 30px;
+  text-align: center;
 }
 
 .account-cards-container > .account-card-wrapper:not(:last-child) {

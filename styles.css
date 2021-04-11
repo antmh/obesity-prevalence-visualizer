@@ -147,7 +147,7 @@ footer {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 3rem;
+  height: 5rem;
 }
 
 #copyright {
@@ -611,9 +611,7 @@ th {
 .administration-cards-container {
   justify-content: space-around;
   text-align: center;
-  height: 10rem;
   margin-top: 2em;
-  margin-bottom: 35em;
 }
 
 .administration-card-wrapper {
@@ -643,17 +641,36 @@ th {
   text-align: left;
 }
 
-.account-cards-container {
+.data-cards-container {
   display: flex;
   justify-content: space-around;
   text-align: center;
-  height: 18rem;
+  height: 9rem;
   margin-bottom: 4rem;
   padding-top: 17px;
 }
 
+.account-cards-container {
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  height: 15rem;
+  margin-bottom: 4rem;
+  padding-top: 17px;
+}
+
+.data-card-wrapper {
+  width: 100%;
+}
+
 .account-card-wrapper {
   width: 100%;
+}
+
+.data-card {
+  display: block;
+  margin-bottom: 30px;
+  text-align: center;
 }
 
 .account-card {
@@ -662,6 +679,38 @@ th {
   text-align: center;
 }
 
+.data-cards-container > .data-card-wrapper:not(:last-child) {
+  border-right: 2px solid var(--primary-foreground);
+}
+
 .account-cards-container > .account-card-wrapper:not(:last-child) {
   border-right: 2px solid var(--primary-foreground);
+}
+
+@media (max-width: 952px){
+  .data-cards-container {
+    display: inline;
+    justify-content: space-around;
+    text-align: center;
+    height: 9rem;
+    margin-bottom: 4rem;
+    padding-top: 17px;
+  }
+  
+  .account-cards-container {
+    display: inline;
+    justify-content: space-around;
+    text-align: center;
+    height: 15rem;
+    margin-bottom: 4rem;
+    padding-top: 17px;
+  }
+
+  .data-cards-container > .data-card-wrapper:not(:last-child) {
+    border:none;
+  }
+
+  .account-cards-container > .account-card-wrapper:not(:last-child) {
+    border:none;
+  }
 }

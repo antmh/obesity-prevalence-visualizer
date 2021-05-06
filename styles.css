@@ -731,6 +731,7 @@ th {
   list-style-type: none;
   max-height: 0;
   overflow: hidden;
+  visibility: hidden;
   transition: all 0.5s ease;
   background-color: var(--primary-background);
   color: var(--primary-foreground);
@@ -753,12 +754,69 @@ th {
   padding: 0.5rem;
   display: block;
   border-bottom: var(--accent) 0.25rem solid;
+  transition: all 0.5s ease;
+  cursor: pointer;
+}
+
+.accordion-category:focus-within .accordion-category-title,
+.accordion-category:hover .accordion-category-title {
+  border-color: var(--accent-light);
 }
 
 .accordion-category input {
-  display: none;
+  opacity: 0;
+  position: absolute;
+  width: 0;
+  height: 0;
 }
 
-.accordion-category input:checked ~ .accordion-category-items {
+.accordion-category > input:checked ~ .accordion-category-items {
+  visibility: visible;
   max-height: 50rem;
+}
+
+.accordion-category-items input {
+  background-color: black;
+}
+
+.accordion-item {
+  cursor: pointer;
+  position: relative;
+  padding-left: 20px;
+}
+
+.accordion-item-mark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: var(--accent-light);
+}
+
+.accordion-item-mark::after {
+  content: "";
+  position: absolute;
+  display: none;
+  background-color: var(--secondary-foreground);
+  top: 4px;
+  left: 4px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.accordion-item:hover .accordion-item-mark,
+.accordion-item:focus-within .accordion-item-mark {
+  background-color: var(--accent);
+}
+
+.accordion-item-radio:checked + .accordion-item-mark {
+  background-color: var(--accent-dark);
+}
+
+.accordion-item-radio:checked + .accordion-item-mark::after {
+  display: block;
 }

@@ -20,18 +20,6 @@ class EurostatRepository extends Repository
         );
     }
 
-    public function getHomePageExample(): array
-    {
-        $result = [];
-        $query = $this->db->query('SELECT * FROM eurostat
-                                   WHERE year=2017 and CATEGORY=\'Obese\'
-                                   ORDER BY value');
-        while ($row = $query->fetchArray(SQLITE3_ASSOC)) {
-            array_push($result, $row);
-        }
-        return $result;
-    }
-
     protected function getRows(): array
     {
         $json = $this->getJsonData();

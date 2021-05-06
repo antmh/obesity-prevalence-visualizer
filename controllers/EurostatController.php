@@ -57,9 +57,27 @@ class EurostatController extends Controller
                 'location' => 'asc',
             ],
         );
+        $radioGroup = [
+            'name' => 'Type',
+            'items' => [
+                'Bar chart',
+                'Line chart',
+                'Table',
+            ]
+        ];
+        $checkboxGroup = [
+            'name' => 'Selected properties',
+            'items' => [
+                'Location',
+                'Value',
+                'Year',
+            ]
+        ];
         \views\View::render('eurostat.php', [
             'accordion' => $accordion,
             'barChart' => new BarChart($values),
+            'radioGroup' => $radioGroup,
+            'checkboxGroup' => $checkboxGroup,
         ]);
     }
 }

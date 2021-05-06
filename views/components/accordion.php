@@ -1,20 +1,11 @@
 <ul class="accordion">
-  <?php foreach ($accordion as $category) : ?>
+  <?php foreach ($accordion as $radioGroup) : ?>
     <li class="accordion-category">
-      <input id="<?= $category['name'] ?>" type="checkbox">
-      <label class="accordion-category-title" for="<?= $category['name'] ?>">
-        <?= $category['name'] ?>
+      <input id="<?= $radioGroup['name'] ?>" type="checkbox">
+      <label class="accordion-category-title" for="<?= $radioGroup['name'] ?>">
+        <?= $radioGroup['name'] ?>
       </label>
-      <ul class="accordion-category-items">
-        <?php foreach ($category['items'] as $item) : ?>
-          <li>
-            <label class="accordion-item"><?= $item ?>
-              <input class="accordion-item-radio" type="radio" value="<?= $item ?>" name="<?= $category['name'] ?>">
-              <span class="accordion-item-mark"></span>
-            <label/>
-          </li>
-        <?php endforeach; ?>
-      </ul>
+      <?php include('views/components/radioGroup.php'); ?>
     </li>
   <?php endforeach; ?>
 </ul>

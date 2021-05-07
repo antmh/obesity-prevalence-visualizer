@@ -73,11 +73,20 @@ class EurostatController extends Controller
                 'Year',
             ]
         ];
+        $orderGroup = [
+            'name' => 'Order',
+            'items' => [
+                'Location',
+                'Value',
+                'Year',
+            ]
+        ];
         \views\View::render('eurostat.php', [
             'accordion' => $accordion,
             'barChart' => new BarChart($values),
             'radioGroup' => $radioGroup,
             'checkboxGroup' => $checkboxGroup,
+            'orderGroup' => $orderGroup,
         ]);
     }
 }

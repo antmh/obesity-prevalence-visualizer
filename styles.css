@@ -715,9 +715,13 @@ th {
   }
 }
 
+.select-form {
+  width: min-content;
+}
+
 .accordion {
   list-style-type: none;
-  max-width: 40rem;
+  width: min-content;
   padding-left: 0;
 }
 
@@ -798,6 +802,7 @@ th {
   display: inline-block;
   line-height: 2rem;
   width: 100%;
+  white-space: nowrap;
 }
 
 .order-item {
@@ -924,4 +929,9 @@ select {
   background-color: var(--secondary-background);
   appearance: none;
   border: none;
+}
+
+fieldset {
+  border-radius: 15px;
+  margin: 1rem 0;
 }

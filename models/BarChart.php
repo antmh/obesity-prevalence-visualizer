@@ -10,7 +10,7 @@ class BarChart
     private array $xValues;
     private array $xPercentages;
 
-    public function __construct(array $values)
+    public function __construct(array $values, bool $showValues)
     {
         $this->xValues = [];
         $this->xPercentages = [];
@@ -28,7 +28,7 @@ class BarChart
         foreach ($values as $row) {
             $yValue = [];
             foreach ($row as $name => $cell) {
-                if ($name !== 'value') {
+                if ($name === 'value' && $showValues || $name !== 'value') {
                     array_push($yValue, $cell);
                 }
             }

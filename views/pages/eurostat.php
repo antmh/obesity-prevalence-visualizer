@@ -17,4 +17,12 @@
   </fieldset>
   <input class="button" type="submit" value="Submit">
 </form>
-<?php include('views/components/barChart.php'); ?>
+<?php
+if (isset($table)) {
+    include('views/components/table.php');
+} elseif (isset($barChart)) {
+    include('views/components/barChart.php');
+} elseif (isset($lineChart)) {
+    include('views/components/lineChart.php');
+}
+?>

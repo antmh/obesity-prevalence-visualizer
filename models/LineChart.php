@@ -9,7 +9,7 @@ class LineChart
     private array $years;
     private array $dataSets;
 
-    public function __construct(array $values)
+    public function __construct(array $values, bool $showValues, bool $showYears)
     {
         $maxY = 0;
         $minX = $values[0]['year'];

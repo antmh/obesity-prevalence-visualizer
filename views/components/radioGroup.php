@@ -1,8 +1,8 @@
 <ul class="radio-group">
-  <?php foreach ($radioGroup['items'] as $item) : ?>
+  <?php foreach (range(0, count($radioGroup['items']) - 1) as $index) : ?>
     <li>
-      <label class="radio-item"><?= $item ?>
-        <input class="radio-item-input" type="radio" value="<?= $item ?>" name="<?= $radioGroup['name'] ?>">
+      <label class="radio-item"><?= $radioGroup['items'][$index] ?>
+        <input class="radio-item-input" type="radio" value="<?= $radioGroup['items'][$index] ?>" name="<?= $radioGroup['name'] ?>" <?= key_exists('default', $radioGroup) && $index === 0 ? "checked" : "" ?>>
         <span class="radio-item-mark"></span>
       </label>
     </li>

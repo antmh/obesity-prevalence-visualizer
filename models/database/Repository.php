@@ -25,7 +25,7 @@ abstract class Repository
             $selectStr .= '* ';
         } else {
             foreach ($selectedProperties as $index => $selectedProperty) {
-                if (!key_exists($selectedProperty, $this->columnTypes)) {
+                if (!key_exists(lcfirst($selectedProperty), $this->columnTypes)) {
                     return false;
                 }
                 if ($index !== 0) {
@@ -41,7 +41,7 @@ abstract class Repository
                 if ($column !== array_key_first($filterBy)) {
                     $selectStr .= ' AND ';
                 }
-                if (!key_exists($column, $this->columnTypes)) {
+                if (!key_exists(lcfirst($column), $this->columnTypes)) {
                     return false;
                 }
                 $selectStr .= $column . '=?';
@@ -53,7 +53,7 @@ abstract class Repository
                 if ($column !== array_key_first($orderBy)) {
                     $selectStr .= ', ';
                 }
-                if (!key_exists($column, $this->columnTypes)) {
+                if (!key_exists(lcfirst($column), $this->columnTypes)) {
                     return false;
                 }
                 $selectStr .= $column . ' ' . $order;
@@ -63,7 +63,7 @@ abstract class Repository
         $stmt = $this->db->prepare($selectStr);
         $index = 1;
         foreach ($filterBy as $column => $value) {
-            $stmt->bindValue($index, $value, $this->columnTypes[$column]);
+            $stmt->bindValue($index, $value, $this->columnTypes[lcfirst($column)]);
             $index++;
         }
         $result = $stmt->execute();
@@ -182,7 +182,7 @@ abstract class Repository
             while ($item = $result->fetchArray(SQLITE3_NUM)) {
                 array_push($items, $item[0]);
             }
-            array_push($columnValues, ['name' => ucfirst($column), 'items' => $items]);
+            $columnValues[ucfirst($column)] = $items;
         }
         return $columnValues;
     }

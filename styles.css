@@ -774,7 +774,10 @@ th {
 
 .accordion-category > input:checked ~ .radio-group {
   visibility: visible;
-  max-height: 50rem;
+  max-height: 25rem;
+  overflow-y: auto;
+  scrollbar-color: var(--accent-dark) var(--accent-light);
+  scrollbar-width: thin;
 }
 
 .radio-group li,

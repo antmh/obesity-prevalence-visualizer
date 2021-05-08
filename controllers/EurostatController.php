@@ -13,37 +13,28 @@ class EurostatController extends Controller
 {
     public function index(): void
     {
-        $accordion = [
-            [
-                'name' => 'Year',
-                'items' => [
-                    2016,
-                    2017,
-                    2018,
-                    2019,
-                ],
-            ],
-            [
-                'name' => 'Location',
-                'items' => [
-                    'Germany',
-                    'Austria',
-                    'Hungary',
-                    'France',
-                    'Spain',
-                ],
-            ],
-            [
-                'name' => 'Category',
-                'items' => [
-                    'Underweight',
-                    'Normal weight',
-                    'Overweight',
-                    'Obese',
-                ],
-            ],
-        ];
         $eurostatRepository = Database::getInstance()->getEurostatRepository();
+        $columnValues = $eurostatRepository->getColumnValues();
+        $columns = array_map(function ($elem) {
+            return $elem['name'];
+        }, $columnValues);
+        $accordion = $columnValues;
+        $radioGroup = [
+            'name' => 'Type',
+            'items' => [
+                'Bar chart',
+                'Line chart',
+                'Table',
+            ]
+        ];
+        $checkboxGroup = [
+            'name' => 'Selected properties',
+            'items' => $columns
+        ];
+        $orderGroup = [
+            'name' => 'Order',
+            'items' => $columns
+        ];
         $values = $eurostatRepository->getAllBy(
             selectedProperties: [
                 'location',
@@ -57,30 +48,6 @@ class EurostatController extends Controller
                 'location' => 'asc',
             ],
         );
-        $radioGroup = [
-            'name' => 'Type',
-            'items' => [
-                'Bar chart',
-                'Line chart',
-                'Table',
-            ]
-        ];
-        $checkboxGroup = [
-            'name' => 'Selected properties',
-            'items' => [
-                'Location',
-                'Value',
-                'Year',
-            ]
-        ];
-        $orderGroup = [
-            'name' => 'Order',
-            'items' => [
-                'Location',
-                'Value',
-                'Year',
-            ]
-        ];
         \views\View::render('eurostat.php', [
             'accordion' => $accordion,
             'barChart' => new BarChart($values),

@@ -165,4 +165,25 @@ abstract class Repository
             default         => throw new DomainException('Invalid column type')
         };
     }
+
+    public function getColumns(): array
+    {
+        return array_keys($this->columnTypes);
+    }
+
+    public function getColumnValues(): array
+    {
+        $columns = array_keys($this->columnTypes);
+        $columnValues = [];
+        foreach ($columns as $column) {
+            $stmt = $this->db->prepare('SELECT DISTINCT ' . $column . ' FROM ' . $this->table);
+            $result = $stmt->execute();
+            $items = [];
+            while ($item = $result->fetchArray(SQLITE3_NUM)) {
+                array_push($items, $item[0]);
+            }
+            array_push($columnValues, ['name' => ucfirst($column), 'items' => $items]);
+        }
+        return $columnValues;
+    }
 }

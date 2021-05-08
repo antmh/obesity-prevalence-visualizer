@@ -902,3 +902,26 @@ th {
 .checkbox-item-input:checked + .checkbox-item-mark::after {
   display: block;
 }
+
+.select-wrapper {
+  width: min-content;
+  position: relative;
+}
+
+.select-wrapper::after {
+  position: absolute;
+  content: "▼";
+  color: var(--secondary-foreground);
+  right: 0;
+  padding-right: 0.25rem;
+}
+
+select {
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 0.25rem 2.25rem 0.25rem 0.25rem;
+  color: var(--secondary-foreground);
+  background-color: var(--secondary-background);
+  appearance: none;
+  border: none;
+}

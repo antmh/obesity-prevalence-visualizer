@@ -30,7 +30,7 @@ class LineChart
         foreach ($values as $row) {
             $key = implode(", ", array_diff_key($row, ['value' => null, 'year' => null]));
             $value = [
-                'x' => round(($row['year'] - $minX) / $maxX * 100.0, 2),
+                'x' => $maxX === 0 ? 0 : round(($row['year'] - $minX) / $maxX * 100.0, 2),
                 'y' => round($row['value'] / $maxY * 100.0, 2),
                 'info' => implode(", ", $row),
             ];

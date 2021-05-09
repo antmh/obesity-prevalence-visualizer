@@ -8,7 +8,7 @@ use controllers\{HomeController,
     EurostatController,
     ErrorController,
     LogoutController,
-    WHOController,
+    WhoController,
     LoginController,
     AdministrationController,
     AdminController};
@@ -20,7 +20,7 @@ class Application
         $homeController = new HomeController();
         $errorController = new ErrorController();
         $eurostatController = new EurostatController();
-        $whoController = new WHOController();
+        $whoController = new WhoController();
         $loginController = new LoginController();
         $logoutController = new LogoutController();
         $administrationController = new AdministrationController();

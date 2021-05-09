@@ -12,11 +12,11 @@ class WhoRepository extends Repository
             db: $db,
             table: 'who',
             columnTypes: [
-                'location_type' => SQLITE3_TEXT,
+                'location type' => SQLITE3_TEXT,
                 'location'      => SQLITE3_TEXT,
                 'year'          => SQLITE3_INTEGER,
                 'sex'           => SQLITE3_TEXT,
-                'age_group'     => SQLITE3_TEXT,
+                'age group'     => SQLITE3_TEXT,
                 'value'         => SQLITE3_FLOAT
             ]
         );
@@ -27,15 +27,17 @@ class WhoRepository extends Repository
         $json = $this->getJsonData();
         $rows = [];
         foreach (range(0, count($json) - 1) as $row) {
-            $columns = [
-                $json[$row]['SpatialDimType'],
-                $json[$row]['SpatialDim'],
-                $json[$row]['TimeDim'],
-                $json[$row]['Dim1'],
-                $json[$row]['Dim2'],
-                $json[$row]['NumericValue']
-            ];
-            array_push($rows, $columns);
+            if ($json[$row]['NumericValue'] !== null) {
+                $columns = [
+                    $json[$row]['SpatialDimType'],
+                    $json[$row]['SpatialDim'],
+                    $json[$row]['TimeDim'],
+                    $json[$row]['Dim1'],
+                    $json[$row]['Dim2'],
+                    $json[$row]['NumericValue'],
+                ];
+                array_push($rows, $columns);
+            }
         }
         return $rows;
     }

@@ -36,8 +36,8 @@ class HomeController extends Controller
         );
         \views\View::render('home.php', [
             'table' => new Table($values),
-            'barChart' => new BarChart($values),
-            'lineChart' => new LineChart($lineChartValues),
+            'barChart' => new BarChart($values, true, true),
+            'lineChart' => new LineChart($lineChartValues, true, true),
         ]);
     }
 }

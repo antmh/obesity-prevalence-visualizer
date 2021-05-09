@@ -31,7 +31,7 @@ abstract class Repository
                 if ($index !== 0) {
                     $selectStr .= ', ';
                 }
-                $selectStr .= $selectedProperty;
+                $selectStr .= '"' . $selectedProperty . '"';
             }
         }
         $selectStr .= ' FROM ' . $this->table;
@@ -44,7 +44,7 @@ abstract class Repository
                 if (!key_exists(lcfirst($column), $this->columnTypes)) {
                     return false;
                 }
-                $selectStr .= $column . '=?';
+                $selectStr .= '"' . $column . '"=?';
             }
         }
         if ($orderBy !== []) {
@@ -56,10 +56,10 @@ abstract class Repository
                 if (!key_exists(lcfirst($column), $this->columnTypes)) {
                     return false;
                 }
-                $selectStr .= $column . ' ' . $order;
+                $selectStr .= '"' . $column . '" ' . $order;
             }
         }
-        $selectStr .= ';';
+        $selectStr .= ' LIMIT 100;';
         $stmt = $this->db->prepare($selectStr);
         $index = 1;
         foreach ($filterBy as $column => $value) {
@@ -82,7 +82,7 @@ abstract class Repository
             if ($index !== 0) {
                 $createStr .= ',';
             }
-            $createStr .= $column . ' ';
+            $createStr .= '"' . $column . '" ';
             $createStr .= $this->getTypeName($this->columnTypes[$column]);
         }
         $createStr .= ');';
@@ -135,7 +135,7 @@ abstract class Repository
             if ($index !== 0) {
                 $insertStr .= ',';
             }
-            $insertStr .= $column;
+            $insertStr .= '"' . $column . '"';
         }
         $insertStr .= ') VALUES';
         foreach (range(0, $rows - 1) as $row) {
@@ -168,7 +168,9 @@ abstract class Repository
 
     public function getColumns(): array
     {
-        return array_keys($this->columnTypes);
+        return array_map(function ($column) {
+            return ucfirst($column);
+        }, array_keys($this->columnTypes));
     }
 
     public function getColumnValues(): array
@@ -176,13 +178,15 @@ abstract class Repository
         $columns = array_keys($this->columnTypes);
         $columnValues = [];
         foreach ($columns as $column) {
-            $stmt = $this->db->prepare('SELECT DISTINCT ' . $column . ' FROM ' . $this->table);
-            $result = $stmt->execute();
-            $items = [];
-            while ($item = $result->fetchArray(SQLITE3_NUM)) {
-                array_push($items, $item[0]);
+            if ($column !== 'value') {
+                $stmt = $this->db->prepare('SELECT DISTINCT "' . $column . '" FROM ' . $this->table);
+                $result = $stmt->execute();
+                $items = [];
+                while ($item = $result->fetchArray(SQLITE3_NUM)) {
+                    array_push($items, $item[0]);
+                }
+                $columnValues[ucfirst($column)] = $items;
             }
-            $columnValues[ucfirst($column)] = $items;
         }
         return $columnValues;
     }

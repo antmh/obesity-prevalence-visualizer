@@ -107,9 +107,10 @@
               <p>Home page</p>
               <ul>
                 <li>Provides a short description of the website.</li>
+                <li>Describes obesity and what the body mass index is</li>
                 <li>
                   Presents the various formats in which statistics can be
-                  visualized.
+                  visualized showing line charts, bar charts and tables.
                 </li>
               </ul>
             </li>
@@ -118,13 +119,23 @@
               <ul>
                 <li>
                   An administrator can authenticate in order to gain access to
-                  the administration panel.
+                  the administration panel. The user is logged in for the
+                  duration of the session.
                 </li>
                 <li>
-                  Update and delete the stored data from Eurostat and the World
-                  Health Organization.
+                  Visualize the raw data from the database in the form of
+                  separate table for data from Eurostat and from WHO.
                 </li>
-                <li>Change their account information.</li>
+                <li>
+                  Insert a new row by having a text field for each column in
+                  the table.
+                </li>
+                <li>Clear all data from a table.</li>
+                <li>Remove a single row from a table.</li>
+                <li>Download and insert data from Eurostat and WHO.</li>
+                <li>
+                  Change their account information (e-mail and password).
+                </li>
               </ul>
             </li>
             <li>
@@ -154,6 +165,10 @@
                   index.
                 </li>
                 <li>Select data which has one particular attribute.</li>
+                <li>
+                  Select which columns are shown when a user hovers or clicks
+                  on a point.
+                </li>
               </ul>
             </li>
           </ul>
@@ -248,41 +263,73 @@
       <section>
         <h2>System Features</h2>
         <section>
+          <h3>Product presentation</h3>
+          <p>
+            On the home page the scope of this product is presented explaining
+            the features. There is also an explanation of the body mass index is
+            and its categories. To showcase the features there are example line
+            charts, bar charts and tables with data gathered from the database to
+            illustrate the ways in which data can be visualized. These charts
+            and tables cannot be configured.
+          </p>
+        </section>
+        <section>
+          <h3>Statistics visualization</h3>
+          <p>
+            Two separate pages can be accessed to visualize data from Eurostat
+            and WHO.
+          </p>
+          <p>
+            On each of these pages the user has the option to select from a bar
+            chart, line chart or table as a type of representation.
+          </p>
+          <p>
+            The user can also select which properties are shown (year, value,
+            location, etc.). This data will be shown in a bar chart when a user
+            hovers or clicks a bar. In the case of a line chart, the data will
+            be shown when the user hovers or clicks a point. For a table these
+            properties represent the columns which are shown.
+          </p>
+          <p>
+            The user can select for each column in what order the values are
+            shown, either ascending or descending. They can also specify how
+            this ordering is done (e.g. order after location, then year if the
+            location is the same). These options only affect bar charts and
+            tables.
+          </p>
+          <p>
+            The user can also filter the data so only statistics with a certain
+            value are shown (e.g. to show only data from 2014). This filtering
+            applies for all three types of visualizations.
+          </p>
+        </section>
+        <section>
           <h3>Authentication</h3>
           <p>
-            The user can enter their username and password. After pressing the
+            The user can enter their e-mail and password. After pressing the
             login button the server will validate their request and if
-            successful they can access the administration panel.
+            successful they can access the administration panel and they are
+            logged in for the duration of the session.
           </p>
         </section>
         <section>
           <h3>Administration</h3>
           <p>
-            Two buttons used for clearing and updating data are provided for
-            both sources, Eurostat and the World Health Organization.
+            The user has the ability to change their e-mail and password (there
+            are two fields for the password, because the user has to confirm
+            it). Before changing this information the user has to insert their
+            (old) password.
           </p>
-        </section>
-        <section>
-          <h3>Bar Chart Visualization</h3>
           <p>
-            The statistics that are shown can be configured by selecting the
-            attributes, the order and data that has an attribute of a certain
-            value. The user can select a certain bar to show a popup showing
-            more information.
-        </section>
-        <section>
-          <h3>Table Visualization</h3>
-          <p>
-            The configuration acts the same way as in the previous section, but
-            it is shown as a table.
-          </p>
-        </section>
-        <section>
-          <h3>Line Chart Visualization</h3>
-          <p>
-            The only configuration that can be done is selecting which
-            attributes are shown and selecting data with an attribute of a
-            certain value. The points are ordered chronologically.
+            The user has two links which can take him to two different pages to
+            change the data from Eurostat and WHO. Each of these pages will
+            have a paginated table showing all the rows from the table in the
+            database. Each of these rows has a button that allows the user to
+            remove that particular row. Above the table there are text fields
+            corresponding to each column in the table that allow the user to
+            insert a new row. There are also buttons for clearing all the data
+            from the table and for downloading and inserting the data from
+            Eurostat and WHO.
           </p>
         </section>
       </section>
@@ -336,16 +383,16 @@
                 <li>Home page, charts and navigation bar responsiveness</li>
                 <li>Database gathering from Eurostat and WHO</li>
                 <li>Accordion</li>
-              </ul>
-            </li>
-            <li>
-              <p>To do</p>
-              <ul>
                 <li>Provide functionality to select shown data</li>
                 <li>
                   Provide functionality to select which kind of data
                   visualization to use
                 </li>
+              </ul>
+            </li>
+            <li>
+              <p>To do</p>
+              <ul>
                 <li>Error pages</li>
               </ul>
             </li>
@@ -362,7 +409,9 @@
                 <li>Login page</li>
                 <li>Design</li>
                 <li>Administration page and notification page responsiveness</li>
-                <li>Project structure refactoring in line with MVC pattern</li>
+                <li>
+                  Project structure refactoring in line with MVC pattern
+                </li>
               </ul>
             </li>
             <li>
@@ -371,7 +420,7 @@
                 <li>Administrator authentication</li>
                 <li>Session storage</li>
                 <li>
-                  Statistics storage functionality provided to administrator
+                  Data manipulation functionality for the administrator
                 </li>
               </ul>
             </li>

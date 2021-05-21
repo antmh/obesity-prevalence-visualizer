@@ -36,6 +36,29 @@ class BarChart
         }
     }
 
+    public function export(string $type): void
+    {
+        header('Content-Type: image/' . (match ($type) {
+            'SVG' => 'svg+xml',
+            'PNG' => 'png',
+        }));
+        header('Content-Disposition: attachment; filename=barchart');
+        $temp = tmpfile();
+        $tempName = stream_get_meta_data($temp)['uri'];
+        foreach ($this->xValues as $index => $x) {
+            fwrite($temp, '"' . $this->yValues[$index] . '" ' . $x . "\n");
+        }
+        $proc = proc_open([
+          'gnuplot', '-e',
+          'set terminal ' . strtolower($type) . ' size 2500, 1000;
+           set xtics rotate out;
+           set style data histogram;
+           plot "' . $tempName . '" using 2:xtic(1) notitle'
+        ], [['pipe', 'r'], ['pipe', 'w'], ['pipe', 'w']], $pipes);
+        echo stream_get_contents($pipes[1]);
+        fclose($temp);
+    }
+
     public function getXValues(): array
     {
         return $this->xValues;

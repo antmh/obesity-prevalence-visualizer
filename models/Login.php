@@ -6,7 +6,7 @@ namespace models;
 
 use controllers;
 
-class Login extends Model
+class Login
 {
     public static function verifyLogin($email, $password)
     {

@@ -21,6 +21,17 @@ class Table
         }
     }
 
+    public function export(): void
+    {
+        header('Content-Description: File Transfer');
+        header('Content-Type: text/csv');
+        $file = fopen('php://output', 'w');
+        foreach ($this->body as $row) {
+            fputcsv($file, $row);
+        }
+        fclose($file);
+    }
+
     public function getHeader(): array
     {
         return $this->header;

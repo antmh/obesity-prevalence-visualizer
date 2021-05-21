@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace core;
 
-use controllers\{
+use controllers\presentation\ {
     HomeController,
     EurostatController,
     ErrorController,
@@ -13,7 +13,6 @@ use controllers\{
     LoginController,
     AdministrationController,
     AdminController,
-    CsvController,
 };
 
 class Application

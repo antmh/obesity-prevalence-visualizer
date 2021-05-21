@@ -18,7 +18,7 @@ class Autoload
         }
         if (file_exists($class . '.php')) {
             include($class . '.php');
-        } elseif (Config::SHOW_ERRORS) {
+        } else {
             die('Couldn\'t load ' . $class . '.');
         }
     }

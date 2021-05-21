@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace controllers;
+namespace controllers\presentation;
 
+use controllers\Controller;
 use models\ {
     database\Database,
     Table,

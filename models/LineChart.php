@@ -48,6 +48,33 @@ class LineChart
         asort($this->years);
     }
 
+    public function export(): void
+    {
+        header('Content-Type: image/' . (match ($type) {
+            'SVG' => 'svg+xml',
+            'PNG' => 'png',
+        }));
+        header('Content-Disposition: attachment; filename=barchart');
+        $temp = tmpfile();
+        $tempName = stream_get_meta_data($temp)['uri'];
+        foreach ($this->dataSets as $dataSet) {
+            foreach ($dataSet as $index => $point) {
+                fwrite($temp, '"' . $point['info'] . '" ' . $point['x'] . ' ' . $point['y'] . "\n");
+            }
+            fwrite($temp, "\n");
+        }
+        $proc = proc_open([
+          'gnuplot', '-e',
+          'set terminal ' . strtolower($type) . ' size 1000, 1000;
+           set lmargin 20; set rmargin 20;
+           plot "' . $tempName . '"
+           using 2:($3 + 2):1 with labels notitle,
+           "" using 2:3 with linespoint notitle'
+        ], [['pipe', 'r'], ['pipe', 'w'], ['pipe', 'w']], $pipes);
+        echo stream_get_contents($pipes[1]);
+        fclose($temp);
+    }
+
     public function getYears(): array
     {
         return $this->years;

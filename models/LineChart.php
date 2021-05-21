@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace models;
 
-class LineChart
+class LineChart implements \JsonSerializable
 {
     private array $years;
     private array $dataSets;
@@ -73,6 +73,14 @@ class LineChart
         ], [['pipe', 'r'], ['pipe', 'w'], ['pipe', 'w']], $pipes);
         echo stream_get_contents($pipes[1]);
         fclose($temp);
+    }
+
+    public function jsonSerialize(): mixed
+    {
+        return [
+            'years' => $this->years,
+            'dataSets' => $this->dataSets,
+        ];
     }
 
     public function getYears(): array

@@ -14,38 +14,41 @@ use controllers\presentation\ {
     AdministrationController,
     AdminController,
 };
+use controllers\ajax\ {
+    EurostatDataController,
+    WhoDataController,
+};
 
 class Application
 {
     public function run(): void
     {
-        $homeController = new HomeController();
-        $errorController = new ErrorController();
-        $eurostatController = new EurostatController();
-        $whoController = new WhoController();
-        $loginController = new LoginController();
-        $logoutController = new LogoutController();
-        $administrationController = new AdministrationController();
-        Router::get('/', function () use ($homeController) {
-            $homeController->index();
+        Router::get('/', function () {
+            (new HomeController())->index();
         });
-        Router::get('/eurostat', function () use ($eurostatController) {
-            $eurostatController->index();
+        Router::get('/eurostat', function () {
+            (new EurostatController())->index();
         });
-        Router::get('/who', function () use ($whoController) {
-            $whoController->index();
+        Router::get('/who', function () {
+            (new WhoController())->index();
         });
-        Router::get('/login', function () use ($loginController) {
-            $loginController->index();
+        Router::get('/login', function () {
+            (new LoginController())->index();
         });
-        Router::get('/administration', function () use ($administrationController) {
-            $administrationController->index();
+        Router::get('/administration', function () {
+            (new AdministrationController())->index();
         });
-        Router::get('/logout', function () use ($logoutController) {
-            $logoutController->index();
+        Router::get('/logout', function () {
+            (new LogoutController())->index();
+        });
+        Router::get('/api/eurostat', function () {
+            (new EurostatDataController())->get();
+        });
+        Router::get('/api/who', function () {
+            (new WhoDataController())->get();
         });
         if (!Router::executed()) {
-            $errorController->index();
+            (new ErrorController())->index();
         }
     }
 }

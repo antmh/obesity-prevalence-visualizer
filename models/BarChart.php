@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace models;
 
-class BarChart
+class BarChart implements \JsonSerializable
 {
     private array $yValues;
     private array $xValues;
@@ -57,6 +57,15 @@ class BarChart
         ], [['pipe', 'r'], ['pipe', 'w'], ['pipe', 'w']], $pipes);
         echo stream_get_contents($pipes[1]);
         fclose($temp);
+    }
+
+    public function jsonSerialize(): mixed
+    {
+        return [
+            'xValues' => $this->xValues,
+            'yValues' => $this->yValues,
+            'xPercentages' => $this->xPercentages,
+        ];
     }
 
     public function getXValues(): array

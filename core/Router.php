@@ -15,6 +15,34 @@ class Router
 
     public static function get(string $path, callable $arg): void
     {
+        self::executeIfMatches('GET', $path, $arg);
+    }
+
+    public static function post(string $path, callable $arg): void
+    {
+        self::executeIfMatches('POST', $path, $arg);
+    }
+
+    public static function put(string $path, callable $arg): void
+    {
+        self::executeIfMatches('PUT', $path, $arg);
+    }
+
+    public static function delete(string $path, callable $arg): void
+    {
+        self::executeIfMatches('DELETE', $path, $arg);
+    }
+
+    private static function executeIfMatches(string $method, string $path, $arg): void
+    {
+        if ($_SERVER['REQUEST_METHOD'] === $method && self::pathMatches($path)) {
+            self::$executed = true;
+            $arg();
+        }
+    }
+
+    private static function pathMatches(string $path): bool
+    {
         $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         if ($path === '') {
             $path = '/';
@@ -31,33 +59,6 @@ class Router
         if ($path[strlen($path) - 1] !== '/') {
             $path .= '/';
         }
-        if ($url === $path) {
-            self::$executed = true;
-            $arg();
-            return;
-        }
-
-        $path = explode('/', $path);
-        $url = explode('/', $url);
-        $ok = true;
-        $par = [];
-
-        if (count($path) === count($url)) {
-            foreach ($path as $key => $value) {
-                if ($value === '?') {
-                    if ($url[$key] === '') {
-                        return;
-                    }
-                    $par[$key] = $url[$key];
-                } elseif ($url[$key] !== $value) {
-                    $ok = false;
-                    break;
-                }
-            }
-            if ($ok) {
-                self::$executed = true;
-                $arg($par);
-            }
-        }
+        return $url === $path;
     }
 }

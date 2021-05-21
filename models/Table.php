@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace models;
 
-class Table
+class Table implements \JsonSerializable
 {
     private array $header;
     private array $body;
@@ -30,6 +30,14 @@ class Table
             fputcsv($file, $row);
         }
         fclose($file);
+    }
+
+    public function jsonSerialize(): mixed
+    {
+        return [
+            'header' => $this->header,
+            'body' => $this->body,
+        ];
     }
 
     public function getHeader(): array

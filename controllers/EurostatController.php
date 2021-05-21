@@ -15,9 +15,4 @@ class EurostatController extends StatisticsController
     {
         return Database::getInstance()->getEurostatRepository();
     }
-
-    protected function getView(): string
-    {
-        return 'eurostat.php';
-    }
 }

@@ -15,8 +15,6 @@ abstract class StatisticsController extends Controller
 {
     abstract protected function getRepository(): Repository;
 
-    abstract protected function getView(): string;
-
     public function index(): void
     {
         $repository = $this->getRepository();
@@ -155,7 +153,7 @@ abstract class StatisticsController extends Controller
             }
             $visualization = new Table($values);
         }
-        \views\View::render('eurostat.php', [
+        \views\View::render('statistics.php', [
             'accordion' => $accordion,
             'radioGroup' => $radioGroup,
             'checkboxGroup' => $checkboxGroup,

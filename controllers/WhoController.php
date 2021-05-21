@@ -15,9 +15,4 @@ class WhoController extends StatisticsController
     {
         return Database::getInstance()->getWhoRepository();
     }
-
-    protected function getView(): string
-    {
-        return 'eurostat.php';
-    }
 }

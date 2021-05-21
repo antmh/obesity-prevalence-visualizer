@@ -15,6 +15,11 @@
     <legend>Filter</legend>
     <?php include('views/components/accordion.php'); ?>
   </fieldset>
+  <fieldset>
+    <legend>Export</legend>
+    <?php $radioGroup = ['name' => 'export', 'items' => ['CSV', 'SVG', 'PNG']] ?>
+    <?php include('views/components/radioGroup.php'); ?>
+  </fieldset>
   <input class="button" type="submit" value="Submit">
 </form>
 <?php

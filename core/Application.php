@@ -4,14 +4,17 @@ declare(strict_types=1);
 
 namespace core;
 
-use controllers\{HomeController,
+use controllers\{
+    HomeController,
     EurostatController,
     ErrorController,
     LogoutController,
     WhoController,
     LoginController,
     AdministrationController,
-    AdminController};
+    AdminController,
+    CsvController,
+};
 
 class Application
 {

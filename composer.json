@@ -1,0 +1,7 @@
+{
+    "name": "antmh/obesity-obesity-visualizer",
+    "type": "project",
+    "require": {
+        "firebase/php-jwt": "^5.2"
+    }
+}

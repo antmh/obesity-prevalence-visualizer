@@ -16,6 +16,7 @@ abstract class DataController
 
     public function get(): void
     {
+        header('Content-Type: application/json');
         $repository = $this->getRepository();
         $columnValues = $repository->getColumnValues();
         $columns = $repository->getColumns();
@@ -26,7 +27,6 @@ abstract class DataController
         }
         $visualization = Visualization::get($parameters, $this->getRepository());
         if ($parameters->getExport() === null) {
-            header('Content-Type: application/json');
             echo json_encode($visualization);
         }
     }

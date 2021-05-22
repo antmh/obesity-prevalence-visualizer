@@ -14,35 +14,55 @@ class Authentication
         if (!Database::getInstance()->adminCredentialsValid($username, $password)) {
             return null;
         }
-        $secretKey = $_ENV['SECRET_KEY'];
         $issuedAt = new \DateTimeImmutable();
         $expire = $issuedAt->modify('+10 minutes');
-        $issuer = $_SERVER['SERVER_NAME'];
         return JWT::encode(
             [
                 'iat' => $issuedAt->getTimestamp(),
-                'iss' => $issuer,
+                'iss' => self::getServerName(),
                 'nbf' => $issuedAt->getTimestamp(),
                 'exp' => $expire->getTimestamp(),
             ],
-            $secretKey,
+            self::getSecretKey(),
             'HS512',
         );
     }
 
-    public static function verifyLogout()
+    public static function validate(): bool
     {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
+        if (!isset($_SERVER['HTTP_AUTHORIZATION'])) {
+            return false;
         }
+        if (!preg_match('/Bearer\s(\S+)/', $_SERVER['HTTP_AUTHORIZATION'], $matches)) {
+            return false;
+        }
+        $token = $matches[1];
+        if ($token === null) {
+            return false;
+        }
+        try {
+            $token = JWT::decode($token, self::getSecretKey(), ['HS512']);
+        } catch (\Exception $e) {
+            return false;
+        }
+        $now = new \DateTimeImmutable();
+        if (
+            $token->iss !== self::getServerName()
+            || $token->nbf > $now->getTimestamp()
+            || $token->exp < $now->getTimestamp()
+        ) {
+            return false;
+        }
+        return true;
+    }
 
-        if (isset($_SESSION['LOGGED'])) {
-            unset($_SESSION['LOGGED']);
-        }
+    private static function getSecretKey(): string
+    {
+        return $_ENV['SECRET_KEY'];
+    }
 
-        if (!isset($_SESSION['LOGGED'])) {
-            header('Location: /');
-            die();
-        }
+    private static function getServerName(): string
+    {
+        return $_SERVER['SERVER_NAME'];
     }
 }

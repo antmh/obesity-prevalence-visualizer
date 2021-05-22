@@ -6,7 +6,7 @@ namespace core;
 
 class Router
 {
-    private static bool $executed;
+    private static bool $executed = false;
 
     public static function executed(): bool
     {

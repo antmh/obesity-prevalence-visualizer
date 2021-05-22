@@ -8,8 +8,10 @@ require_once 'core/Autoload.php';
 use core\ {
     Autoload,
     Application,
+    Environment,
 };
 
 Autoload::register();
+Environment::load();
 
 (new Application())->run();

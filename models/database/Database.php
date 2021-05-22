@@ -18,6 +18,9 @@ class Database
         $this->sqlite = new \Sqlite3('database.sqlite', SQLITE3_OPEN_CREATE | SQLITE3_OPEN_READWRITE);
         $this->whoRepository = new WhoRepository($this->sqlite);
         $this->eurostatRepository = new EurostatRepository($this->sqlite);
+        if (!$this->adminTableExists()) {
+            $this->createAdminTable();
+        }
     }
 
     public static function getInstance(): Database
@@ -36,5 +39,28 @@ class Database
     public function getWhoRepository(): WhoRepository
     {
         return $this->whoRepository;
+    }
+
+    public function adminCredentialsValid(string $username, string $password): bool
+    {
+        $result = $this->sqlite->query('SELECT username, password
+                                        FROM admin')->fetchArray(SQLITE3_ASSOC);
+        return $result['username'] === $username && $result['password'] === $password;
+    }
+
+    private function adminTableExists(): bool
+    {
+        $result = $this->sqlite->query('SELECT COUNT(*)
+                                        FROM sqlite_master
+                                        WHERE type=\'table\'
+                                        AND name=\'admin\'');
+        return $result->fetchArray(SQLITE3_NUM)[0] === 1;
+    }
+
+    private function createAdminTable(): void
+    {
+        $this->sqlite->exec('CREATE TABLE admin (username TEXT, password TEXT);');
+        $this->sqlite->exec('INSERT INTO admin (username, password)
+                             VALUES (\'admin\', \'admin\')');
     }
 }

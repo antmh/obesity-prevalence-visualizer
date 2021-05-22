@@ -14,10 +14,7 @@ use controllers\presentation\ {
     AdministrationController,
     AdminController,
 };
-use controllers\ajax\ {
-    EurostatDataController,
-    WhoDataController,
-};
+use controllers\api;
 
 class Application
 {
@@ -42,10 +39,13 @@ class Application
             (new LogoutController())->index();
         });
         Router::get('/api/eurostat', function () {
-            (new EurostatDataController())->get();
+            (new api\EurostatController())->get();
         });
         Router::get('/api/who', function () {
-            (new WhoDataController())->get();
+            (new api\WhoController())->get();
+        });
+        Router::post('/api/login', function () {
+            (new api\LoginController())->post();
         });
         if (!Router::executed()) {
             (new ErrorController())->index();

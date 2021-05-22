@@ -4,14 +4,17 @@ declare(strict_types=1);
 
 namespace core;
 
+use controllers\ClearPresentationController;
 use controllers\presentation\ {
-    HomeController,
+    HomePresentationController,
     EurostatController,
-    ErrorController,
-    LogoutController,
+    ErrorPresentationController,
+    LogoutPresentationController,
     WhoController,
-    LoginController,
-    AdministrationController,
+    LoginPresentationController,
+    AdministrationPresentationController,
+    AdministrationWhoController,
+    AdministrationEurostatController,
     AdminController,
 };
 use controllers\api;
@@ -21,7 +24,7 @@ class Application
     public function run(): void
     {
         Router::get('/', function () {
-            (new HomeController())->index();
+            (new HomePresentationController())->index();
         });
         Router::get('/eurostat', function () {
             (new EurostatController())->index();
@@ -30,13 +33,28 @@ class Application
             (new WhoController())->index();
         });
         Router::get('/login', function () {
-            (new LoginController())->index();
+            (new LoginPresentationController())->index();
         });
         Router::get('/administration', function () {
-            (new AdministrationController())->index();
+            (new AdministrationPresentationController())->index();
+        });
+        Router::get('/administrationWho', function () {
+            (new AdministrationWhoController())->index();
+        });
+        Router::get('/administrationEurostat', function () {
+            (new AdministrationEurostatController())->index();
+        });
+        Router::get('/clear', function () {
+            (new api\ClearPresentationController())->index();
+        });
+        Router::get('/delete', function () {
+            (new api\DeletePresentationController())->index();
+        });
+        Router::get('/insert', function () {
+            (new api\InsertPresentationController())->index();
         });
         Router::get('/logout', function () {
-            (new LogoutController())->index();
+            (new LogoutPresentationController())->index();
         });
         Router::get('/api/eurostat', function () {
             (new api\EurostatController())->get();
@@ -48,7 +66,7 @@ class Application
             (new api\LoginController())->post();
         });
         if (!Router::executed()) {
-            (new ErrorController())->index();
+            (new ErrorPresentationController())->index();
         }
     }
 }

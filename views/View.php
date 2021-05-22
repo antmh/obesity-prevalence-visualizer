@@ -9,6 +9,7 @@ abstract class View
 
     public static function render(string $body, array $args = [], string $header = null, string $footer = null): void
     {
+        if($body !== 'delete.php' && $body !== 'clear.php'  && $body !== 'insert.php')
         if ($header === null) {
             include('views/components/' . self::DEFAULT_HEADER);
         } else {
@@ -18,6 +19,7 @@ abstract class View
         extract($args, EXTR_SKIP);
         include('views/pages/' . $body);
 
+        if($body !== 'delete.php' && $body !== 'clear.php'  && $body !== 'insert.php')
         if ($footer === null) {
             include('views/components/' . self::DEFAULT_FOOTER);
         } else {

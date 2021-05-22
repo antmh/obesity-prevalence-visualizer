@@ -11,21 +11,118 @@ abstract class Repository
     public function __construct(protected \Sqlite3 $db, protected string $table, protected array $columnTypes)
     {
         if (!$this->tableExists()) {
-            ini_set('memory_limit', '512M');
-            set_time_limit(0);
             $this->create();
-            $this->insertRows();
         }
     }
 
-    public function getAllBy(array $selectedProperties = [], array $filterBy = [], array $orderBy = []): array | false
+    public function dropTable(): void
+    {
+        if($this->tableExists()) {
+            $dropStr = 'DROP TABLE ' . $this->table . ';';
+            $stmt = $this->db->prepare($dropStr);
+            $stmt->execute();
+        }
+    }
+
+    public function isClear(): bool
+    {
+        return $this->getRowsCount() == 0;
+    }
+
+    public function insertDataRows(): void
+    {
+        $this->insertRows();
+    }
+
+    public function getRowsCount(): int
+    {
+        $selectStr = 'SELECT COUNT(*) AS NumberOfRows FROM ' . $this->table . ';';
+        $stmt = $this->db->prepare($selectStr);
+        $result = $stmt->execute();
+        return $result->fetchArray(SQLITE3_NUM)[0];
+    }
+
+    public function getAll(): array | false
+    {
+        $count = $this->getRowsCount();
+        $this->getRowsCount();
+        $selectStr = 'SELECT * FROM ' . $this->table . ' LIMIT ' . $count . ';';
+        $result = $this->db->query($selectStr);
+        $rows = [];
+        while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+            array_push($rows, $row);
+        }
+        return $rows;
+    }
+
+    public function getDataPage(int $index): array | false
+    {
+        $count = $this->getRowsCount();
+        $orderBy = [];
+        foreach($this->getColumns() as $column)
+        {
+            $orderBy[$column] = 'asc';
+        }
+        $selectedProperties=$this->getColumns();
+        array_push($selectedProperties,'rowid');
+        $values = $this->getAllBy(
+            selectedProperties: $selectedProperties,
+            orderBy: $orderBy,
+            limit: 100,
+            offset: 100*($index-1),
+        );
+        return $values;
+    }
+
+    public function clearData(): void
+    {
+        $deleteStr = 'DELETE FROM ' . $this->table . ';';
+        $stmt = $this->db->prepare($deleteStr);
+        $stmt->execute();
+    }
+
+    public function deleteRow(int $rowid): void
+    {
+        $deleteStr = "DELETE FROM " . $this->table . " WHERE rowid=" . $rowid . ';';
+        $stmt = $this->db->prepare($deleteStr);
+        $stmt->execute();
+    }
+    /*
+        public function getRowId(array $values): int
+        {
+            $selectStr = "SELECT rowid FROM " . $this->table . " WHERE ";
+            $indexStr=0;
+            foreach($this->columnTypes as $columnType => $type) {
+                if($indexStr !==0 ) {
+                    $selectStr .= " AND ";
+                }
+                $selectStr .= '"'.$columnType.'"';
+                $selectStr .= '=';
+                if($type===3) {
+                    $selectStr .= '\'';
+                    $selectStr .= $values[$indexStr];
+                    $selectStr .= '\'';
+                }
+                else {
+                    $selectStr .= $values[$indexStr];
+                }
+                $indexStr++;
+            }
+            $selectStr .= ';';
+            $stmt = $this->db->prepare($selectStr);
+            $result = $stmt->execute();
+            $row = $result->fetchArray(SQLITE3_NUM);
+            return $row[0];
+        }
+    */
+    public function getAllBy(array $selectedProperties = [], array $filterBy = [], array $orderBy = [], int $limit = 50, int $offset=0): array | false
     {
         $selectStr = 'SELECT ';
         if ($selectedProperties === []) {
             $selectStr .= '* ';
         } else {
             foreach ($selectedProperties as $index => $selectedProperty) {
-                if (!key_exists(lcfirst($selectedProperty), $this->columnTypes)) {
+                if (!key_exists(lcfirst($selectedProperty), $this->columnTypes) && $selectedProperty !== 'rowid') {
                     return false;
                 }
                 if ($index !== 0) {
@@ -59,7 +156,8 @@ abstract class Repository
                 $selectStr .= '"' . $column . '" ' . $order;
             }
         }
-        $selectStr .= ' LIMIT 100;';
+        $selectStr .= ' LIMIT ' . $limit;
+        $selectStr .= ' OFFSET ' . $offset . ';';
         $stmt = $this->db->prepare($selectStr);
         $index = 1;
         foreach ($filterBy as $column => $value) {
@@ -73,6 +171,8 @@ abstract class Repository
         }
         return $rows;
     }
+
+
 
     private function create(): void
     {
@@ -89,7 +189,7 @@ abstract class Repository
         $this->db->exec($createStr);
     }
 
-    private function tableExists(): bool
+    public function tableExists(): bool
     {
         $stmt = $this->db->prepare('SELECT COUNT(*)
                                     FROM sqlite_master
@@ -102,8 +202,24 @@ abstract class Repository
 
     abstract protected function getRows(): array;
 
+    public function insertDataRow(array $strValues): void
+    {
+        $insertStr = $this->constructInsertStr(1);
+        $stmt = $this->db->prepare($insertStr);
+        $types = array_values($this->columnTypes);
+        $position = 0;
+        foreach($strValues as $value) {
+            $position++;
+            $stmt->bindValue($position, $value, $types[$position-1]);
+        }
+        $stmt->execute();
+    }
+
     private function insertRows()
     {
+        ini_set('memory_limit', '512M');
+        set_time_limit(0);
+
         $rows = $this->getRows();
         for ($chunk = 0; $chunk * self::INSERT_CHUNK_SIZE < count($rows); $chunk++) {
             $rowsToInsert = min(

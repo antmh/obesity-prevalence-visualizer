@@ -16,19 +16,35 @@ class Authentication
         }
         $issuedAt = new \DateTimeImmutable();
         $expire = $issuedAt->modify('+10 minutes');
-        return JWT::encode(
-            [
-                'iat' => $issuedAt->getTimestamp(),
-                'iss' => self::getServerName(),
-                'nbf' => $issuedAt->getTimestamp(),
-                'exp' => $expire->getTimestamp(),
-            ],
-            self::getSecretKey(),
-            'HS512',
-        );
+        return json_encode([
+            'token' => JWT::encode(
+                [
+                    'iat' => $issuedAt->getTimestamp(),
+                    'iss' => self::getServerName(),
+                    'nbf' => $issuedAt->getTimestamp(),
+                    'exp' => $expire->getTimestamp(),
+                ],
+                self::getSecretKey(),
+                'HS512',
+            ),
+            'expires' => $expire->format(\DateTime::RFC7231),
+        ]);
     }
 
     public static function validate(): bool
+    {
+        return self::validateCookie() || self::validateHeader();
+    }
+
+    private static function validateCookie(): bool
+    {
+        if (!isset($_COOKIE['token'])) {
+            return false;
+        }
+        return self::tokenMatches($_COOKIE['token']);
+    }
+
+    private static function validateHeader(): bool
     {
         if (!isset($_SERVER['HTTP_AUTHORIZATION'])) {
             return false;
@@ -40,6 +56,11 @@ class Authentication
         if ($token === null) {
             return false;
         }
+        return self::tokenMatches($token);
+    }
+
+    private static function tokenMatches(string $token): bool
+    {
         try {
             $token = JWT::decode($token, self::getSecretKey(), ['HS512']);
         } catch (\Exception $e) {

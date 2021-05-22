@@ -21,7 +21,7 @@ class LoginController
             $this->invalidCredentials();
             return;
         }
-        echo json_encode(['token' => $token]);
+        echo $token;
     }
 
     private function invalidCredentials(): void

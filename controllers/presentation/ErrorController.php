@@ -6,10 +6,10 @@ namespace controllers\presentation;
 
 use controllers\Controller;
 
-class ErrorController extends Controller
+class ErrorController
 {
-    public function index(): void
+    public function index(string $message): void
     {
-        \views\View::render('error.php');
+        \views\View::render('error.php',['message' => $message]);
     }
 }

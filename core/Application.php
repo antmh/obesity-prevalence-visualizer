@@ -4,18 +4,16 @@ declare(strict_types=1);
 
 namespace core;
 
-use controllers\ClearPresentationController;
 use controllers\presentation\ {
-    HomePresentationController,
+    HomeController,
     EurostatController,
-    ErrorPresentationController,
-    LogoutPresentationController,
+    ErrorController,
+    LogoutController,
     WhoController,
-    LoginPresentationController,
-    AdministrationPresentationController,
+    LoginController,
+    AdministrationController,
     AdministrationWhoController,
     AdministrationEurostatController,
-    AdminController,
 };
 use controllers\api;
 
@@ -23,50 +21,55 @@ class Application
 {
     public function run(): void
     {
-        Router::get('/', function () {
-            (new HomePresentationController())->index();
-        });
-        Router::get('/eurostat', function () {
-            (new EurostatController())->index();
-        });
-        Router::get('/who', function () {
-            (new WhoController())->index();
-        });
-        Router::get('/login', function () {
-            (new LoginPresentationController())->index();
-        });
-        Router::get('/administration', function () {
-            (new AdministrationPresentationController())->index();
-        });
-        Router::get('/administrationWho', function () {
-            (new AdministrationWhoController())->index();
-        });
-        Router::get('/administrationEurostat', function () {
-            (new AdministrationEurostatController())->index();
-        });
-        Router::get('/clear', function () {
-            (new api\ClearPresentationController())->index();
-        });
-        Router::get('/delete', function () {
-            (new api\DeletePresentationController())->index();
-        });
-        Router::get('/insert', function () {
-            (new api\InsertPresentationController())->index();
-        });
-        Router::get('/logout', function () {
-            (new LogoutPresentationController())->index();
-        });
-        Router::get('/api/eurostat', function () {
-            (new api\EurostatController())->get();
-        });
-        Router::get('/api/who', function () {
-            (new api\WhoController())->get();
-        });
-        Router::post('/api/login', function () {
-            (new api\LoginController())->post();
-        });
-        if (!Router::executed()) {
-            (new ErrorPresentationController())->index();
+        try {
+            Router::get('/', function () {
+                (new HomeController())->index();
+            });
+            Router::get('/eurostat', function () {
+                (new EurostatController())->index();
+            });
+            Router::get('/who', function () {
+                (new WhoController())->index();
+            });
+            Router::get('/login', function () {
+                (new LoginController())->index();
+            });
+            Router::get('/administration', function () {
+                (new AdministrationController())->index();
+            });
+            Router::get('/administrationWho', function () {
+                (new AdministrationWhoController())->index();
+            });
+            Router::get('/administrationEurostat', function () {
+                (new AdministrationEurostatController())->index();
+            });
+            Router::get('/clear', function () {
+                (new api\ClearPresentationController())->index();
+            });
+            Router::get('/delete', function () {
+                (new api\DeletePresentationController())->index();
+            });
+            Router::get('/insert', function () {
+                (new api\InsertPresentationController())->index();
+            });
+            Router::get('/logout', function () {
+                (new LogoutController())->index();
+            });
+            Router::get('/api/eurostat', function () {
+                (new api\EurostatController())->get();
+            });
+            Router::get('/api/who', function () {
+                (new api\WhoController())->get();
+            });
+            Router::post('/api/login', function () {
+                (new api\LoginController())->post();
+            });
+        } catch (ApiException $e) {
+            http_response_code($e->getStatusCode());
+            echo json_encode(['message' => $e->getMessage()]);
+        } catch (PresentationException $e) {
+            http_response_code($e->getStatusCode());
+            (new ErrorController())->index($e->getMessage());
         }
     }
 }

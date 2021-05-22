@@ -1,16 +1,3 @@
-<?php
-
-$logged = false;
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
-if (isset($_SESSION['LOGGED'])) {
-    $logged = true;
-} else {
-    $logged = false;
-}
-?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -27,24 +14,17 @@ if (isset($_SESSION['LOGGED'])) {
       <nav>
         <div id="nav-menu-thumb"></div>
         <input id="nav-menu-toggle" type="checkbox">
-          <?php
-            if ($logged == true) {
-                echo '<ul>';
-                  echo '<li><a class="nav-link" href="/">Home</a></li>';
-                  echo '<li><a class="nav-link" href="/who">Who</a></li>';
-                  echo '<li><a class="nav-link" href="/eurostat">Eurostat</a></li>';
-                  echo '<li><a class="nav-link" href="/administration">Administration</a></li>';
-                  echo '<li><a class="nav-link" href="/logout">Logout</a></li>';
-                echo '</ul>';
-            } else {
-                echo '<ul>';
-                  echo '<li><a class="nav-link" href="/">Home</a></li>';
-                  echo '<li><a class="nav-link" href="/who">Who</a></li>';
-                  echo '<li><a class="nav-link" href="/eurostat">Eurostat</a></li>';
-                  echo '<li><a class="nav-link" href="/login">Login</a></li>';
-                echo '</ul>';
-            }
-            ?>
+          <ul>
+            <li><a class="nav-link" href="/">Home</a></li>
+            <li><a class="nav-link" href="/who">Who</a></li>
+            <li><a class="nav-link" href="/eurostat">Eurostat</a></li>
+            <?php if ($loggedIn): ?>
+              <li><a class="nav-link" href="/administration">Administration</a></li>
+              <li><a class="nav-link" href="/logout">Logout</a></li>
+            <?php else: ?>
+              <li><a class="nav-link" href="/login">Login</a></li>
+            <?php endif; ?>
+          </ul>
       </nav>
     </header>
     <main>

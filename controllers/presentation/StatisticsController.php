@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace controllers\presentation;
 
-use controllers\Controller;
 use models\ {
     database\Repository,
     LineChart,
@@ -14,7 +13,7 @@ use models\ {
     Visualization,
 };
 
-abstract class StatisticsController extends Controller
+abstract class StatisticsController extends PresentationController
 {
     abstract protected function getRepository(): Repository;
 

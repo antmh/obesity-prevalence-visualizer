@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace controllers\presentation;
 
-use controllers\presentation\StatisticsPresentationController;
+use controllers\presentation\StatisticsController;
 use models\database\ {
     Database,
     EurostatRepository,
 };
 
-class EurostatController extends StatisticsPresentationController
+class EurostatController extends StatisticsController
 {
     protected function getRepository(): EurostatRepository
     {

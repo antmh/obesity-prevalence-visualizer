@@ -4,12 +4,16 @@ declare(strict_types=1);
 
 namespace controllers\presentation;
 
-use controllers\Controller;
+use models\Authentication;
+use core\PresentationException;
 
-class AdministrationController extends Controller
+class AdministrationController extends PresentationController
 {
     public function index(): void
     {
-        \views\View::render('administration.php');
+        if (!Authentication::validate()) {
+            throw new PresentationException('Not logged in',401);
+        }
+        \views\View::render('administration/administration.php');
     }
 }

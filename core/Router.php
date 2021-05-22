@@ -6,13 +6,6 @@ namespace core;
 
 class Router
 {
-    private static bool $executed = false;
-
-    public static function executed(): bool
-    {
-        return self::$executed;
-    }
-
     public static function get(string $path, callable $arg): void
     {
         self::executeIfMatches('GET', $path, $arg);
@@ -36,7 +29,6 @@ class Router
     private static function executeIfMatches(string $method, string $path, $arg): void
     {
         if ($_SERVER['REQUEST_METHOD'] === $method && self::pathMatches($path)) {
-            self::$executed = true;
             $arg();
         }
     }

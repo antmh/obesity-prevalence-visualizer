@@ -139,10 +139,13 @@ function updateExportFieldset() {
   const type = data.get("Type");
   for (const exportField of exportFields) {
     var show = true;
-    if (exportField.value === "CSV") {
-      show = type === "Table";
-    } else if (exportField.value === "SVG" || exportField.value === "PNG") {
-      show = type !== "Table";
+    switch (exportField.value) {
+      case "CSV":
+        show = type === "Table";
+        break;
+      case "SVG":
+      case "PNG":
+        show = type !== "Table";
     }
     const listItem = exportField.closest("li");
     listItem.style.display = show ? "block" : "none";
@@ -160,12 +163,15 @@ selectForm.onchange = () => {
 };
 
 function updateVisualization(type, json) {
-  if (type === "Bar chart") {
-    updateBarChart(json);
-  } else if (type === "Line chart") {
-    updateLineChart(json);
-  } else if (type === "Table") {
-    updateTable(json);
+  switch (type) {
+    case "Bar chart":
+      updateBarChart(json);
+      break;
+    case "Line chart":
+      updateLineChart(json);
+      break;
+    case "Table":
+      updateTable(json);
   }
 }
 

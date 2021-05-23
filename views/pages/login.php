@@ -2,7 +2,7 @@
   <div class="login-header">
     <h2>Admin</h2>
   </div>
-  <div class="login-form">
+  <form class="login-form" method="post" action="process-login">
     <div class="input-login-group">
       <label class="login-label" for="username">Username</label>
       <input class="login-input" name="username" id="username">
@@ -12,8 +12,7 @@
       <input class="login-input" type="password" name="password" id="password">
       </div>
     <div class="input-login-group">
-      <button class="button login-button" onclick="login()">Login</button>
+      <input class="button login-button" type="submit" value="Login">
     </div>
-  </div>
+  </form>
 </div>
-<script src="js/login.js"></script>

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace core;
 
+use controllers\api\ProcessLoginController as controllersProcessLoginController;
 use controllers\presentation\ {
     HomeController,
     EurostatController,
@@ -11,6 +12,8 @@ use controllers\presentation\ {
     LogoutController,
     WhoController,
     LoginController,
+    ProcessLoginController,
+    ProcessLogoutController,
     AdministrationController,
     AdministrationWhoController,
     AdministrationEurostatController,
@@ -34,6 +37,12 @@ class Application
             Router::get('/login', function () {
                 (new LoginController())->index();
             });
+            Router::post('/process-login', function () {
+                (new ProcessLoginController())->post();
+            });
+            Router::get('/process-logout', function () {
+                (new ProcessLogoutController())->get();
+            });
             Router::get('/administration', function () {
                 (new AdministrationController())->index();
             });
@@ -51,9 +60,6 @@ class Application
             });
             Router::get('/insert', function () {
                 (new api\InsertPresentationController())->index();
-            });
-            Router::get('/logout', function () {
-                (new LogoutController())->index();
             });
             Router::get('/api/eurostat', function () {
                 (new api\EurostatController())->get();

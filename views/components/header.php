@@ -20,7 +20,7 @@
             <li><a class="nav-link" href="/eurostat">Eurostat</a></li>
             <?php if ($loggedIn): ?>
               <li><a class="nav-link" href="/administration">Administration</a></li>
-              <li><a class="nav-link" href="/logout">Logout</a></li>
+              <li><a class="nav-link" href="/process-logout">Logout</a></li>
             <?php else: ?>
               <li><a class="nav-link" href="/login">Login</a></li>
             <?php endif; ?>

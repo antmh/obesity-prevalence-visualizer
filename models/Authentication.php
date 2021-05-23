@@ -9,15 +9,15 @@ use Firebase\JWT\JWT;
 
 class Authentication
 {
-    public static function getToken(string $username, string $password): ?string
+    public static function getToken(string $username, string $password): ?Token
     {
         if (!Database::getInstance()->adminCredentialsValid($username, $password)) {
             return null;
         }
         $issuedAt = new \DateTimeImmutable();
         $expire = $issuedAt->modify('+10 minutes');
-        return json_encode([
-            'token' => JWT::encode(
+        return new Token(
+            JWT::encode(
                 [
                     'iat' => $issuedAt->getTimestamp(),
                     'iss' => self::getServerName(),
@@ -27,8 +27,8 @@ class Authentication
                 self::getSecretKey(),
                 'HS512',
             ),
-            'expires' => $expire->format(\DateTime::RFC7231),
-        ]);
+            $expire,
+        );
     }
 
     public static function validate(): bool

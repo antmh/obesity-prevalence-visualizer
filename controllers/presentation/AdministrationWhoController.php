@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace controllers\presentation;
 
-use models\{AdministrationWho, database\Database, database\WhoRepository, Table};
+use models\database\ {
+    Database,
+    WhoRepository,
+};
 
 class AdministrationWhoController extends AdministrationTableController
 {

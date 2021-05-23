@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace controllers\presentation;
 
-use models\{AdministrationEurostat, database\Database, database\EurostatRepository, Table};
+use models\database\ {
+    Database,
+    EurostatRepository,
+};
 
 class AdministrationEurostatController extends AdministrationTableController
 {

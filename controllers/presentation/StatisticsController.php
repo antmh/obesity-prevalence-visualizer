@@ -14,7 +14,7 @@ use models\ {
 };
 use function array_push;
 
-abstract class StatisticsController extends PresentationController
+abstract class StatisticsController
 {
     abstract protected function getRepository(): Repository;
 

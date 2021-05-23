@@ -12,7 +12,7 @@ use models\ {
     LineChart,
 };
 
-class HomeController extends PresentationController
+class HomeController
 {
     public function index(): void
     {

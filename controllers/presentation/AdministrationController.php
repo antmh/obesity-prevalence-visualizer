@@ -7,7 +7,7 @@ namespace controllers\presentation;
 use models\Authentication;
 use core\PresentationException;
 
-class AdministrationController extends PresentationController
+class AdministrationController
 {
     public function index(): void
     {

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace controllers\presentation;
 
-class LoginController extends PresentationController
+class LoginController
 {
     public function index(): void
     {

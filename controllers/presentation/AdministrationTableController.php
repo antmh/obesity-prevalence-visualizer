@@ -9,7 +9,7 @@ use models\ {
     Table
 };
 
-abstract class AdministrationTableController extends PresentationController
+abstract class AdministrationTableController
 {
     abstract protected function getRepository(): Repository;
 

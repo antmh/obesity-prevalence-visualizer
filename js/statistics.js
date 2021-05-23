@@ -91,6 +91,31 @@ function updateOrderFieldset() {
 
 updateOrderFieldset();
 
+const orderSelects = Array.from(orderFieldset.getElementsByTagName('select'));
+const orderInputs = orderFieldset.getElementsByTagName('input');
+
+for (const select of orderSelects) {
+    select.style.pointerEvents = 'none';
+}
+
+for (const [i, buttonUp] of Array.from(orderFieldset.getElementsByClassName('order-button-up')).entries()) {
+    if (i !== 0) {
+        buttonUp.onclick = () => {
+            [orderSelects[i].selectedIndex, orderSelects[i - 1].selectedIndex] = [orderSelects[i - 1].selectedIndex, orderSelects[i].selectedIndex];
+            [orderInputs[i].checked, orderInputs[i - 1].checked] = [orderInputs[i - 1].checked, orderInputs[i].checked];
+        };
+    }
+}
+
+for (const [i, buttonDown] of Array.from(orderFieldset.getElementsByClassName('order-button-down')).entries()) {
+    if (i !== orderSelects.length - 1) {
+        buttonDown.onclick = () => {
+            [orderSelects[i].selectedIndex, orderSelects[i + 1].selectedIndex] = [orderSelects[i + 1].selectedIndex, orderSelects[i].selectedIndex];
+            [orderInputs[i].checked, orderInputs[i + 1].checked] = [orderInputs[i + 1].checked, orderInputs[i].checked];
+        };
+    }
+}
+
 function updateExportFieldset() {
     const data = new FormData(selectForm);
     const exportFields = exportFieldset.getElementsByTagName('input');
@@ -102,7 +127,7 @@ function updateExportFieldset() {
         } else if (exportField.value === 'SVG' || exportField.value === 'PNG') {
             show = type !== 'Table';
         }
-        const listItem = exportField.parentElement.parentElement;
+        const listItem = exportField.closest('li');
         listItem.style.display = show ? 'block' : 'none';
         if (exportField.checked && !show) {
             exportFields[0].click();

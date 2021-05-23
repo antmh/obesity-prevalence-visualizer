@@ -12,6 +12,10 @@
           <?php endforeach; ?>
         </select>
       </div>
+      <div class="order-buttons">
+        <button class="order-button-up" type="button">⮝</button>
+        <button class="order-button-down" type="button">⮟</button>
+      </div>
     </li>
   <?php endforeach; ?>
 </ol>

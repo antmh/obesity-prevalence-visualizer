@@ -12,6 +12,7 @@ use models\ {
     StatisticsParameters,
     Visualization,
 };
+use function array_push;
 
 abstract class StatisticsController extends PresentationController
 {
@@ -24,8 +25,10 @@ abstract class StatisticsController extends PresentationController
         $columns = $repository->getColumns();
         $accordion = [];
         foreach ($columnValues as $key => $val) {
+            array_unshift($val, 'All');
             array_push($accordion, [
                 'name' => $key,
+                'default' => true,
                 'items' => $val,
             ]);
         }
@@ -33,9 +36,9 @@ abstract class StatisticsController extends PresentationController
             'name' => 'Type',
             'default' => true,
             'items' => [
+                'Table',
                 'Bar chart',
                 'Line chart',
-                'Table',
             ]
         ];
         $checkboxGroup = [

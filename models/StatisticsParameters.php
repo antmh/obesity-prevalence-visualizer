@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace models;
 
+use function var_dump;
+
 class StatisticsParameters
 {
     private array $selectedProperties = [];
@@ -102,7 +104,7 @@ class StatisticsParameters
         if ($key === 'export') {
             if ($val === 'CSV' || $val === 'SVG' || $val === 'PNG') {
                 $this->export = $val;
-            } else {
+            } else if ($val !== 'None') {
                 $this->valid = false;
             }
             return true;
@@ -114,8 +116,8 @@ class StatisticsParameters
     {
         if (in_array($key, $this->columns)) {
             if (in_array($val, $this->columnValues[$key])) {
-                $filterBy[$key] = $val;
-            } else {
+                $this->filterBy[$key] = $val;
+            } else if ($val !== 'All') {
                 $this->valid = false;
             }
             return true;

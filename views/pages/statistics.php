@@ -1,4 +1,4 @@
-<form class="select-form">
+<form id="select-form">
   <fieldset>
     <legend><?= $radioGroup['name'] ?></legend>
     <?php include('views/components/radioGroup.php'); ?>
@@ -7,7 +7,7 @@
     <legend><?= $checkboxGroup['name'] ?></legend>
     <?php include('views/components/checkboxGroup.php'); ?>
   </fieldset>
-  <fieldset>
+  <fieldset id="order-fieldset">
     <legend><?= $orderGroup['name'] ?></legend>
     <?php include('views/components/orderGroup.php'); ?>
   </fieldset>
@@ -15,9 +15,9 @@
     <legend>Filter</legend>
     <?php include('views/components/accordion.php'); ?>
   </fieldset>
-  <fieldset>
+  <fieldset id="export-fieldset">
     <legend>Export</legend>
-    <?php $radioGroup = ['name' => 'export', 'items' => ['CSV', 'SVG', 'PNG']] ?>
+    <?php $radioGroup = ['name' => 'export', 'default' => true, 'items' => ['None', 'CSV', 'SVG', 'PNG']] ?>
     <?php include('views/components/radioGroup.php'); ?>
   </fieldset>
   <input class="button" type="submit" value="Submit">
@@ -31,3 +31,4 @@ if (isset($table)) {
     include('views/components/lineChart.php');
 }
 ?>
+<script src="js/statistics.js"></script>

@@ -1,5 +1,5 @@
-<div class="bar-chart">
-  <?php foreach ($barChart->getXPercentages() as $index => $value) : ?>
+<div id="visualization" class="bar-chart">
+  <?php foreach ($barChart->getXPercentages() as $index => $value): ?>
     <button
       class="bar-chart-column"
       style="

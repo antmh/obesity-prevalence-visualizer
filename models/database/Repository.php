@@ -87,37 +87,10 @@ abstract class Repository
         $stmt = $this->db->prepare($deleteStr);
         $stmt->execute();
     }
-    /*
-        public function getRowId(array $values): int
-        {
-            $selectStr = "SELECT rowid FROM " . $this->table . " WHERE ";
-            $indexStr=0;
-            foreach($this->columnTypes as $columnType => $type) {
-                if($indexStr !==0 ) {
-                    $selectStr .= " AND ";
-                }
-                $selectStr .= '"'.$columnType.'"';
-                $selectStr .= '=';
-                if($type===3) {
-                    $selectStr .= '\'';
-                    $selectStr .= $values[$indexStr];
-                    $selectStr .= '\'';
-                }
-                else {
-                    $selectStr .= $values[$indexStr];
-                }
-                $indexStr++;
-            }
-            $selectStr .= ';';
-            $stmt = $this->db->prepare($selectStr);
-            $result = $stmt->execute();
-            $row = $result->fetchArray(SQLITE3_NUM);
-            return $row[0];
-        }
-    */
+
     public function getAllBy(array $selectedProperties = [], array $filterBy = [], array $orderBy = [], int $limit = 50, int $offset=0): array | false
     {
-        $selectStr = 'SELECT ';
+        $selectStr = 'SELECT DISTINCT ';
         if ($selectedProperties === []) {
             $selectStr .= '* ';
         } else {

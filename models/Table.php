@@ -22,7 +22,7 @@ class Table implements \JsonSerializable
         }
     }
 
-    public function export(): void
+    public function export(string $type): void
     {
         header('Content-Description: File Transfer');
         header('Content-Type: text/csv');

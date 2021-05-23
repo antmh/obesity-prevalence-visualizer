@@ -475,7 +475,7 @@ header a {
 }
 
 .line-chart {
-  height: 20rem;
+  height: 60rem;
   position: relative;
   margin: 6rem;
 }
@@ -766,7 +766,7 @@ th {
   }
 }
 
-.select-form {
+#select-form {
   width: min-content;
 }
 

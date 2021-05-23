@@ -28,6 +28,8 @@ abstract class DataController
         $visualization = Visualization::get($parameters, $this->getRepository());
         if ($parameters->getExport() === null) {
             echo json_encode($visualization);
+        } else {
+            $visualization->export($parameters->getExport());
         }
     }
 

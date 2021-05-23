@@ -6,11 +6,14 @@ namespace models;
 
 class LineChart implements \JsonSerializable
 {
-    private array $years;
-    private array $dataSets;
+    private array $years = [];
+    private array $dataSets = [];
 
     public function __construct(array $values, bool $showValues, bool $showYears)
     {
+        if (count($values) === 0) {
+            return;
+        }
         $maxY = 0;
         $minX = $values[0]['year'];
         $maxX = 0;
@@ -26,7 +29,6 @@ class LineChart implements \JsonSerializable
             }
         }
         $maxX = $maxX - $minX;
-        $this->dataSets = [];
         foreach ($values as $row) {
             $key = implode(", ", array_diff_key($row, ['value' => null, 'year' => null]));
             $value = [
@@ -48,7 +50,7 @@ class LineChart implements \JsonSerializable
         asort($this->years);
     }
 
-    public function export(): void
+    public function export(string $type): void
     {
         header('Content-Type: image/' . (match ($type) {
             'SVG' => 'svg+xml',

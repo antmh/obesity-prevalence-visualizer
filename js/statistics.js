@@ -103,7 +103,7 @@ for (const [i, buttonUp] of Array.from(
   orderFieldset.getElementsByClassName("order-button-up")
 ).entries()) {
   if (i !== 0) {
-    buttonUp.onclick = () => {
+    buttonUp.addEventListener('click', () => {
       [orderSelects[i].selectedIndex, orderSelects[i - 1].selectedIndex] = [
         orderSelects[i - 1].selectedIndex,
         orderSelects[i].selectedIndex,
@@ -112,7 +112,7 @@ for (const [i, buttonUp] of Array.from(
         orderInputs[i - 1].checked,
         orderInputs[i].checked,
       ];
-    };
+    });
   }
 }
 
@@ -120,7 +120,7 @@ for (const [i, buttonDown] of Array.from(
   orderFieldset.getElementsByClassName("order-button-down")
 ).entries()) {
   if (i !== orderSelects.length - 1) {
-    buttonDown.onclick = () => {
+    buttonDown.addEventListener('click', () => {
       [orderSelects[i].selectedIndex, orderSelects[i + 1].selectedIndex] = [
         orderSelects[i + 1].selectedIndex,
         orderSelects[i].selectedIndex,
@@ -129,7 +129,7 @@ for (const [i, buttonDown] of Array.from(
         orderInputs[i + 1].checked,
         orderInputs[i].checked,
       ];
-    };
+    });
   }
 }
 
@@ -157,10 +157,10 @@ function updateExportFieldset() {
 
 updateExportFieldset();
 
-selectForm.onchange = () => {
+selectForm.addEventListener('change', () => {
   updateOrderFieldset();
   updateExportFieldset();
-};
+});
 
 function updateVisualization(type, json) {
   switch (type) {
@@ -175,7 +175,8 @@ function updateVisualization(type, json) {
   }
 }
 
-selectForm.onsubmit = () => {
+selectForm.addEventListener('submit', (event) => {
+  event.preventDefault();
   const data = new FormData(selectForm);
   const request = new XMLHttpRequest();
   const type = data.get("Type");
@@ -201,9 +202,8 @@ selectForm.onsubmit = () => {
     a.href = url;
     a.click();
   }
-  return false;
-};
+});
 
-window.onpopstate = (event) => {
+window.addEventListener('popstate', (event) => {
   updateVisualization(event.state[0], event.state[1]);
-};
+});

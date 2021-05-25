@@ -1,3 +1,4 @@
+<ul id="page-numbers"></ul>
 <table id="visualization">
   <tr>
     <?php foreach ($columns as $column): ?>
@@ -5,4 +6,3 @@
     <?php endforeach; ?>
   </tr>
 </table>
-<ul id="page-numbers"></ul>

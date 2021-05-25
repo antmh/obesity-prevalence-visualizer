@@ -262,6 +262,34 @@ header a {
   margin-right: 2rem;
 }
 
+#page-numbers {
+  display: flex;
+  list-style: none;
+  padding: 0;
+}
+
+#page-numbers button {
+  background-color: var(--secondary-background);
+  border: 0;
+  border-radius: 0;
+  color: var(--secondary-foreground);
+  padding: 0.75rem;
+  font-size: 1rem;
+}
+
+#page-numbers button:disabled {
+  background-color: var(--accent-light);
+  color: var(--primary-foreground);
+}
+
+#page-numbers li:not(:last-child) {
+  border-right: 2px solid var(--primary-background);
+}
+
+#page-numbers button:not(:disabled):hover {
+  background-color: var(--accent);
+}
+
 @media (hover: none) or (max-width: 950px) {
   .cards-container {
     height: auto;

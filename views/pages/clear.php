@@ -1,4 +1,5 @@
 <?php
+/*
 use models\database\Database;
 if(isset($_GET['data']))
 {
@@ -14,3 +15,4 @@ if(isset($_GET['data']))
         header('location:administrationWho');
     }
 }
+*/

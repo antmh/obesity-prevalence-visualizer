@@ -1,5 +1,6 @@
 <?php
-
+echo "ok";
+/*
 use models\database\Database;
 
 if(isset($_GET['table']))
@@ -35,3 +36,4 @@ elseif(isset($_GET['data']))
         header('location:administrationWho');
     }
 }
+*/

@@ -46,20 +46,17 @@ class Application
             Router::get('/administration', function () {
                 (new AdministrationController())->index();
             });
-            Router::get('/administrationWho', function () {
+            Router::get('/administration/who', function () {
                 (new AdministrationWhoController())->index();
             });
-            Router::get('/administrationEurostat', function () {
+            Router::get('/administration/eurostat', function () {
                 (new AdministrationEurostatController())->index();
             });
-            Router::get('/clear', function () {
-                (new api\ClearPresentationController())->index();
+            Router::post('/api/eurostat', function () {
+                (new api\EurostatController())->post();
             });
-            Router::get('/delete', function () {
-                (new api\DeletePresentationController())->index();
-            });
-            Router::get('/insert', function () {
-                (new api\InsertPresentationController())->index();
+            Router::post('/api/who', function () {
+                (new api\WhoController())->post();
             });
             Router::get('/api/eurostat', function () {
                 (new api\EurostatController())->get();

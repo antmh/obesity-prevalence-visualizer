@@ -14,6 +14,6 @@ class AdministrationController
         if (!Authentication::validate()) {
             throw new PresentationException('Not logged in',401);
         }
-        \views\View::render('administration/administration.php');
+        \views\View::render('administration.php');
     }
 }

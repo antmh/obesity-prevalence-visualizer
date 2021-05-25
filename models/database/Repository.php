@@ -7,6 +7,7 @@ namespace models\database;
 abstract class Repository
 {
     private const INSERT_CHUNK_SIZE = 500;
+    private const PAGE_SIZE = 100;
 
     public function __construct(protected \Sqlite3 $db, protected string $table, protected array $columnTypes)
     {
@@ -36,9 +37,7 @@ abstract class Repository
 
     public function getRowsCount(): int
     {
-        $selectStr = 'SELECT COUNT(*) AS NumberOfRows FROM ' . $this->table . ';';
-        $stmt = $this->db->prepare($selectStr);
-        $result = $stmt->execute();
+        $result = $this->db->query('SELECT COUNT(*) FROM ' . $this->table . ';');
         return $result->fetchArray(SQLITE3_NUM)[0];
     }
 
@@ -55,23 +54,14 @@ abstract class Repository
         return $rows;
     }
 
-    public function getDataPage(int $index): array | false
+    public function getPageCount(): int
     {
-        $count = $this->getRowsCount();
-        $orderBy = [];
-        foreach($this->getColumns() as $column)
-        {
-            $orderBy[$column] = 'asc';
+        $rowCount = $this->getRowsCount();
+        $remainder = $rowCount % self::PAGE_SIZE;
+        if ($remainder === 0) {
+            return intdiv($rowCount, self::PAGE_SIZE);
         }
-        $selectedProperties=$this->getColumns();
-        array_push($selectedProperties,'rowid');
-        $values = $this->getAllBy(
-            selectedProperties: $selectedProperties,
-            orderBy: $orderBy,
-            limit: 100,
-            offset: 100*($index-1),
-        );
-        return $values;
+        return intdiv($rowCount, self::PAGE_SIZE) + 1;
     }
 
     public function clearData(): void
@@ -88,7 +78,7 @@ abstract class Repository
         $stmt->execute();
     }
 
-    public function getAllBy(array $selectedProperties = [], array $filterBy = [], array $orderBy = [], int $limit = 50, int $offset=0): array | false
+    public function getAllBy(array $selectedProperties = [], array $filterBy = [], array $orderBy = [], int $page = 0): array | false
     {
         $selectStr = 'SELECT DISTINCT ';
         if ($selectedProperties === []) {
@@ -129,8 +119,8 @@ abstract class Repository
                 $selectStr .= '"' . $column . '" ' . $order;
             }
         }
-        $selectStr .= ' LIMIT ' . $limit;
-        $selectStr .= ' OFFSET ' . $offset . ';';
+        $selectStr .= ' LIMIT ' . self::PAGE_SIZE;
+        $selectStr .= ' OFFSET ' . self::PAGE_SIZE * $page . ';';
         $stmt = $this->db->prepare($selectStr);
         $index = 1;
         foreach ($filterBy as $column => $value) {

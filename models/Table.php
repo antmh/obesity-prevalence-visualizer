@@ -60,4 +60,9 @@ class Table implements \JsonSerializable
     {
         return "delete". $this->indexRow;
     }
+
+    public function printArray(array $values): void
+    {
+        echo var_dump($values);
+    }
 }

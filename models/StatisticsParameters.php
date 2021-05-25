@@ -13,6 +13,7 @@ class StatisticsParameters
     private array $filterBy = [];
     private ?string $type = 'table';
     private ?string $export = null;
+    private int $page = 0;
     private bool $valid = true;
 
     public function __construct(private array $columns, private array $columnValues)
@@ -24,6 +25,7 @@ class StatisticsParameters
               $this->checkOrder($key, $val) ?:
               $this->checkExport($key, $val) ?:
               $this->checkFilter($key, $val) ?:
+              $this->checkPage($key, $val) ?:
               false;
             if (!$this->valid) {
                 return;
@@ -123,6 +125,20 @@ class StatisticsParameters
             return true;
         }
         return false;
+    }
+
+    private function checkPage(string $key, string|array $val): bool
+    {
+        if ($key === 'page') {
+            $this->page = intval($val);
+            return true;
+        }
+        return false;
+    }
+
+    public function getPage(): int
+    {
+        return $this->page;
     }
 
     public function getSelectedProperties(): array

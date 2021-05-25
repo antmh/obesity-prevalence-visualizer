@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="author" content="Antonio Mihaes, Stoleriu Daniel">
     <link rel="shortcut icon" type="image/png" href="/assets/icon.png">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/styles.css">
     <title>Obesity Prevalence Visualizer</title>
   </head>
   <body>

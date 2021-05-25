@@ -9,6 +9,7 @@ use models\ {
     StatisticsParameters,
     Visualization,
 };
+use core\ApiException;
 
 abstract class DataController
 {
@@ -25,12 +26,37 @@ abstract class DataController
             $this->invalidParameters();
             return;
         }
+        header('X-PageCount: ' . $repository->getPageCount());
         $visualization = Visualization::get($parameters, $this->getRepository());
         if ($parameters->getExport() === null) {
             echo json_encode($visualization);
         } else {
             $visualization->export($parameters->getExport());
         }
+    }
+
+    public function post(): void
+    {
+        header('Content-Type: application/json');
+        $repository = $this->getRepository();
+        $columnValues = $repository->getColumnValues();
+        $columns = $repository->getColumns();
+        $data = json_decode(file_get_contents('php://input'), associative: true);
+        if ($data === null) {
+            $this->invalidParameters();
+            return;
+        }
+        foreach ($data as $key => $value) {
+            if (!in_array($key, $columns)) {
+                throw new ApiException('Invalid column ' . $key, 200);
+            }
+        }
+        $values = [];
+        foreach ($columns as $column) {
+            array_push($values, $data[$column]);
+        }
+        $repository->insertDataRow($values);
+        echo json_encode(["message" => "Inserted row successfully"]);
     }
 
     public function invalidParameters(): void

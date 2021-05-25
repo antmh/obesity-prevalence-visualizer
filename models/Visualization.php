@@ -37,6 +37,7 @@ class Visualization
             $selectedProperties,
             $parameters->getFilterBy(),
             $parameters->getOrderBy(),
+            $parameters->getPage()
         );
         return match ($parameters->getType()) {
             'barChart' => new BarChart($values, $showValues),

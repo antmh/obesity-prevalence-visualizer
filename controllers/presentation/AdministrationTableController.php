@@ -18,18 +18,9 @@ abstract class AdministrationTableController
     public function index(): void
     {
         $repository = $this->getRepository();
-        $columnValues = $repository->getColumnValues();
         $columns = $repository->getColumns();
-
-        $dataManagementGroup = [
-            'name' => 'Data management',
-            'items' => $columns
-        ];
-        $values = $repository->getDataPage(1);
-        $visualization = new Table($values,deletable:true);
-        \views\View::render('administration/administrationTable.php', [
-            'dataManagementGroup' => $dataManagementGroup,
-            'table' => $visualization,
+        \views\View::render('administrationTable.php', [
+            'columns' => $columns,
             'param' => $this->getParam(),
         ]);
     }

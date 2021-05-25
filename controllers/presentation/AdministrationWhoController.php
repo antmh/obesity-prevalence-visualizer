@@ -15,6 +15,7 @@ class AdministrationWhoController extends AdministrationTableController
     {
         return Database::getInstance()->getWhoRepository();
     }
+    
     public function getParam(): string
     {
         return 'who';

@@ -64,6 +64,12 @@ class Application
             Router::get('/api/who', function () {
                 (new api\WhoController())->get();
             });
+            Router::delete('/api/who', function () {
+                (new api\WhoController())->delete();
+            });
+            Router::delete('/api/eurostat', function () {
+                (new api\EurostatController())->delete();
+            });
             Router::post('/api/login', function () {
                 (new api\LoginController())->post();
             });

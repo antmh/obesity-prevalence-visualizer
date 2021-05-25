@@ -10,6 +10,7 @@ use models\ {
     Visualization,
 };
 use core\ApiException;
+use function json_encode;
 
 abstract class DataController
 {
@@ -23,8 +24,7 @@ abstract class DataController
         $columns = $repository->getColumns();
         $parameters = new StatisticsParameters($columns, $columnValues);
         if (!$parameters->isValid()) {
-            $this->invalidParameters();
-            return;
+            throw new ApiException('Invalid parameters', 400);
         }
         header('X-PageCount: ' . $repository->getPageCount());
         $visualization = Visualization::get($parameters, $this->getRepository());
@@ -39,29 +39,40 @@ abstract class DataController
     {
         header('Content-Type: application/json');
         $repository = $this->getRepository();
-        $columnValues = $repository->getColumnValues();
-        $columns = $repository->getColumns();
-        $data = json_decode(file_get_contents('php://input'), associative: true);
-        if ($data === null) {
-            $this->invalidParameters();
+        $data = file_get_contents('php://input');
+        if ($data === '' && $_GET['all'] === '') {
+            $repository->insertDataRows();
+            echo json_encode(['message' => 'Inserted rows successfully']);
             return;
         }
-        foreach ($data as $key => $value) {
+        $columnValues = $repository->getColumnValues();
+        $columns = $repository->getColumns();
+        $json = json_decode($data, associative: true);
+        if ($json === null) {
+            throw new ApiException('Invalid parameters', 400);
+        }
+        foreach ($json as $key => $value) {
             if (!in_array($key, $columns)) {
                 throw new ApiException('Invalid column ' . $key, 200);
             }
         }
         $values = [];
         foreach ($columns as $column) {
-            array_push($values, $data[$column]);
+            array_push($values, $json[$column]);
         }
         $repository->insertDataRow($values);
         echo json_encode(["message" => "Inserted row successfully"]);
     }
 
-    public function invalidParameters(): void
+    public function delete(): void
     {
-        http_response_code(400);
-        echo json_encode(['message' => 'Invalid parameters']);
+        header('Content-Type: application/json');
+        $data = file_get_contents('php://input');
+        if ($data !== '') {
+            throw new ApiException('No parameters expected');
+        }
+        $repository = $this->getRepository();
+        $repository->clearData();
+        echo json_encode(['message' => 'Deleted all rows']);
     }
 }

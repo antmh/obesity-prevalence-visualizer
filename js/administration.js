@@ -16,7 +16,8 @@ function encodeFormData(formData, putOrder) {
 
 const insertDataForm = document.getElementById("insert-data-form");
 
-insertDataForm.addEventListener('submit', () => {
+insertDataForm.addEventListener('submit', (event) => {
+  event.preventDefault();
   const request = new XMLHttpRequest();
   request.open("POST", apiLocation);
   const body = {};
@@ -26,13 +27,12 @@ insertDataForm.addEventListener('submit', () => {
   request.send(JSON.stringify(body));
   request.addEventListener("load", () => {
     if (request.status === 200) {
-      console.log("ok");
+      insertTable();
     }
     else {
       console.log(request.response);
     }
   });
-  return false;
 });
 
 let page = 0;
@@ -105,8 +105,36 @@ function insertPageNumbers(pageCount) {
   for (let i = start; i <= end; ++i) {
     addButton(i + 1, i !== page, i);
   }
-  addButton('→', page !== pageCount - 1, page + 1);
+  addButton('→', pageCount !== 0 && page !== pageCount - 1, page + 1);
 }
+
+document.getElementById('clear-button').addEventListener('click', () => {
+  const request = new XMLHttpRequest();
+  request.open('DELETE', apiLocation);
+  request.send();
+  request.addEventListener('load', () => {
+    if (request.status === 200) {
+      insertTable();
+    }
+    else {
+      console.log(request.response);
+    }
+  });
+});
+
+document.getElementById('insert-button').addEventListener('click', () => {
+  const request = new XMLHttpRequest();
+  request.open('POST', apiLocation + '?all');
+  request.send();
+  request.addEventListener('load', () => {
+    if (request.status === 200) {
+      insertTable();
+    }
+    else {
+      console.log(request.response);
+    }
+  });
+});
 
 /*
   <?php foreach ($table->getBody() as $row): ?>

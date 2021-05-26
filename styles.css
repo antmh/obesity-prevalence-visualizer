@@ -1049,3 +1049,8 @@ fieldset {
   width: 2.5rem;
   border: none;
 }
+
+.error-message {
+  color: red;
+  display: none;
+}

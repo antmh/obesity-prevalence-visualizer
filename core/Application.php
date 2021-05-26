@@ -76,6 +76,18 @@ class Application
             Router::addNumbered('DELETE', '/api/eurostat', function ($number) {
                 (new api\EurostatController())->deleteRow($number);
             });
+            Router::addNumbered('DELETE', '/api/who', function ($number) {
+                (new api\WhoController())->deleteRow($number);
+            });
+            Router::add('POST', '/api/account/valid', function () {
+                (new api\AccountController())->isPasswordValid();
+            });
+            Router::add('PUT', '/api/account/username', function () {
+                (new api\AccountController())->changeUsername();
+            });
+            Router::add('PUT', '/api/account/password', function () {
+                (new api\AccountController())->changePassword();
+            });
         } catch (ApiException $e) {
             http_response_code($e->getStatusCode());
             echo json_encode(['message' => $e->getMessage()]);

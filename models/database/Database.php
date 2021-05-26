@@ -41,11 +41,30 @@ class Database
         return $this->whoRepository;
     }
 
+    public function getCredentials(): array
+    {
+        return $this->sqlite->query('SELECT username, password
+                                     FROM admin')->fetchArray(SQLITE3_ASSOC);
+    }
+
     public function adminCredentialsValid(string $username, string $password): bool
     {
-        $result = $this->sqlite->query('SELECT username, password
-                                        FROM admin')->fetchArray(SQLITE3_ASSOC);
+        $result = $this->getCredentials();
         return $result['username'] === $username && $result['password'] === $password;
+    }
+
+    public function changeUsername(string $username): void
+    {
+        $stmt = $this->sqlite->prepare('UPDATE admin SET username = :username');
+        $stmt->bindValue(':username', $username);
+        $stmt->execute();
+    }
+
+    public function changePassword(string $password): void
+    {
+        $stmt = $this->sqlite->prepare('UPDATE admin SET password = :password');
+        $stmt->bindValue(':password', $password);
+        $stmt->execute();
     }
 
     private function adminTableExists(): bool

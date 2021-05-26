@@ -8,6 +8,7 @@ use models\ {
     database\Repository,
     StatisticsParameters,
     Visualization,
+    Authentication,
 };
 use core\ApiException;
 use function json_encode;
@@ -37,6 +38,7 @@ abstract class DataController
 
     public function post(): void
     {
+        $this->validate();
         header('Content-Type: application/json');
         $repository = $this->getRepository();
         $data = file_get_contents('php://input');
@@ -66,6 +68,7 @@ abstract class DataController
 
     public function delete(): void
     {
+        $this->validate();
         header('Content-Type: application/json');
         $repository = $this->getRepository();
         $repository->clearData();
@@ -74,10 +77,17 @@ abstract class DataController
 
     public function deleteRow(int $number): void
     {
+        $this->validate();
         header('Content-Type: application/json');
         $data = file_get_contents('php://input');
         $repository = $this->getRepository();
         $repository->deleteRow($number);
         echo json_encode(['message' => 'Deleted row']);
+    }
+
+    private function validate() {
+        if (!Authentication::validate()) {
+            throw new ApiException('Authentication required', 401);
+        }
     }
 }

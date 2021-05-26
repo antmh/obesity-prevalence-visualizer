@@ -1,6 +1,30 @@
 const statistic = window.location.pathname.match(/[^/]+$/)[0];
 const apiLocation = '/api/' + statistic;
 
+function sendRequest(method, url, onLoad, body) {
+  const request = new XMLHttpRequest();
+  request.open(method, url);
+  if (body === undefined) {
+    request.send();
+  } else {
+    request.send(JSON.stringify(body));
+  }
+  request.addEventListener('load', () => onLoad(request));
+}
+
+function sendRequestWithToken(method, url, onLoad, body) {
+  const token = document.cookie.match(/token=(.*$)/)[1];
+  const request = new XMLHttpRequest();
+  request.open(method, url);
+  request.setRequestHeader('Authorization', 'Bearer ' + token);
+  if (body === undefined) {
+    request.send();
+  } else {
+    request.send(JSON.stringify(body));
+  }
+  request.addEventListener('load', () => onLoad(request));
+}
+
 function encodeFormData(formData, putOrder) {
   let s = "";
   for (const pair of formData.entries()) {
@@ -18,21 +42,18 @@ const insertDataForm = document.getElementById("insert-data-form");
 
 insertDataForm.addEventListener('submit', (event) => {
   event.preventDefault();
-  const request = new XMLHttpRequest();
-  request.open("POST", apiLocation);
   const body = {};
   for (const [column, value] of (new FormData(insertDataForm)).entries()) {
     body[column] = value;
   }
-  request.send(JSON.stringify(body));
-  request.addEventListener("load", () => {
+  sendRequestWithToken('POST', apiLocation, (request) => {
     if (request.status === 200) {
       insertTable();
     }
     else {
       console.log(request.response);
     }
-  });
+  }, body);
 });
 
 let page = 0;
@@ -46,10 +67,7 @@ function insertTable() {
   const header = table.children[0];
   table.textContent = '';
   table.appendChild(header);
-  const request = new XMLHttpRequest();
-  request.open("GET", apiLocation + '?page=' + page + '&deletable');
-  request.send();
-  request.addEventListener("load", () => {
+  sendRequest('GET', apiLocation + '?page=' + page + '&deletable', (request) => {
     const response = JSON.parse(request.response);
     for (const row of response.body) {
       const tr = document.createElement("tr");
@@ -64,10 +82,7 @@ function insertTable() {
     for (const [i, deleteUrl] of response.deleteUrls.entries()) {
       const button = document.createElement('button');
       button.addEventListener('click', () => {
-        const request = new XMLHttpRequest();
-        request.open('DELETE', deleteUrl);
-        request.send();
-        request.addEventListener('load', () => {
+        sendRequestWithToken('DELETE', deleteUrl, () => {
           insertTable();
         });
       });
@@ -123,10 +138,7 @@ function insertPageNumbers(pageCount) {
 }
 
 document.getElementById('clear-button').addEventListener('click', () => {
-  const request = new XMLHttpRequest();
-  request.open('DELETE', apiLocation);
-  request.send();
-  request.addEventListener('load', () => {
+  sendRequestWithToken('DELETE', apiLocation, () => {
     if (request.status === 200) {
       insertTable();
     }
@@ -137,10 +149,7 @@ document.getElementById('clear-button').addEventListener('click', () => {
 });
 
 document.getElementById('insert-button').addEventListener('click', () => {
-  const request = new XMLHttpRequest();
-  request.open('POST', apiLocation + '?all');
-  request.send();
-  request.addEventListener('load', () => {
+  sendRequestWithToken('POST', apiLocation + '?all', () => {
     if (request.status === 200) {
       insertTable();
     }

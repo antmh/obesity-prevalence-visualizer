@@ -6,7 +6,8 @@ namespace controllers\presentation;
 
 use models\ {
     database\Repository,
-    Table
+    Table,
+    Authentication,
 };
 
 abstract class AdministrationTableController
@@ -17,6 +18,9 @@ abstract class AdministrationTableController
 
     public function index(): void
     {
+        if (!Authentication::validate()) {
+            throw new PresentationException('Authentication required', 401);
+        }
         $repository = $this->getRepository();
         $columns = $repository->getColumns();
         \views\View::render('administrationTable.php', [

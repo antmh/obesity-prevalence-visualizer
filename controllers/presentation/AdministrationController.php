@@ -12,7 +12,7 @@ class AdministrationController
     public function index(): void
     {
         if (!Authentication::validate()) {
-            throw new PresentationException('Not logged in',401);
+            throw new PresentationException('Authentication required', 401);
         }
         \views\View::render('administration.php');
     }

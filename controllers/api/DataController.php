@@ -67,12 +67,17 @@ abstract class DataController
     public function delete(): void
     {
         header('Content-Type: application/json');
-        $data = file_get_contents('php://input');
-        if ($data !== '') {
-            throw new ApiException('No parameters expected');
-        }
         $repository = $this->getRepository();
         $repository->clearData();
         echo json_encode(['message' => 'Deleted all rows']);
+    }
+
+    public function deleteRow(int $number): void
+    {
+        header('Content-Type: application/json');
+        $data = file_get_contents('php://input');
+        $repository = $this->getRepository();
+        $repository->deleteRow($number);
+        echo json_encode(['message' => 'Deleted row']);
     }
 }

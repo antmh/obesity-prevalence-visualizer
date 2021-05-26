@@ -1037,3 +1037,15 @@ fieldset {
   border-radius: 15px;
   margin: 1rem 0;
 }
+
+.delete-button {
+  background: var(--primary-background);
+}
+
+.delete-button button {
+  background: url('/assets/delete.svg');
+  background-size: cover;
+  height: 2rem;
+  width: 2.5rem;
+  border: none;
+}

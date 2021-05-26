@@ -10,6 +10,8 @@ use models\ {
   Table,
   StatisticsParameters,
   database\Repository,
+  database\EurostatRepository,
+  database\WhoRepository,
 };
 
 class Visualization
@@ -33,6 +35,19 @@ class Visualization
                 $showYears = false;
             }
         }
+        if ($selectedProperties === []) {
+            $selectedProperties = $repository->getColumns();
+        }
+        if ($parameters->isDeletable()) {
+            array_push($selectedProperties, 'rowid');
+            if ($repository instanceof EurostatRepository) {
+                $table = 'eurostat';
+            } elseif ($repository instanceof WhoRepository) {
+                $table = 'who';
+            }
+        } else {
+            $table = null;
+        }
         $values = $repository->getAllBy(
             $selectedProperties,
             $parameters->getFilterBy(),
@@ -42,7 +57,7 @@ class Visualization
         return match ($parameters->getType()) {
             'barChart' => new BarChart($values, $showValues),
             'lineChart' => new LineChart($values, $showValues, $showYears),
-            'table' => new Table($values),
+            'table' => new Table($values, $table),
         };
     }
 }

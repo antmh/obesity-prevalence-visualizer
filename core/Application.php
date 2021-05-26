@@ -25,53 +25,56 @@ class Application
     public function run(): void
     {
         try {
-            Router::get('/', function () {
+            Router::add('GET', '/', function () {
                 (new HomeController())->index();
             });
-            Router::get('/eurostat', function () {
+            Router::add('GET', '/eurostat', function () {
                 (new EurostatController())->index();
             });
-            Router::get('/who', function () {
+            Router::add('GET', '/who', function () {
                 (new WhoController())->index();
             });
-            Router::get('/login', function () {
+            Router::add('GET', '/login', function () {
                 (new LoginController())->index();
             });
-            Router::post('/process-login', function () {
+            Router::add('POST', '/process-login', function () {
                 (new ProcessLoginController())->post();
             });
-            Router::get('/process-logout', function () {
+            Router::add('GET', '/process-logout', function () {
                 (new ProcessLogoutController())->get();
             });
-            Router::get('/administration', function () {
+            Router::add('GET', '/administration', function () {
                 (new AdministrationController())->index();
             });
-            Router::get('/administration/who', function () {
+            Router::add('GET', '/administration/who', function () {
                 (new AdministrationWhoController())->index();
             });
-            Router::get('/administration/eurostat', function () {
+            Router::add('GET', '/administration/eurostat', function () {
                 (new AdministrationEurostatController())->index();
             });
-            Router::post('/api/eurostat', function () {
+            Router::add('POST', '/api/eurostat', function () {
                 (new api\EurostatController())->post();
             });
-            Router::post('/api/who', function () {
+            Router::add('POST', '/api/who', function () {
                 (new api\WhoController())->post();
             });
-            Router::get('/api/eurostat', function () {
+            Router::add('GET', '/api/eurostat', function () {
                 (new api\EurostatController())->get();
             });
-            Router::get('/api/who', function () {
+            Router::add('GET', '/api/who', function () {
                 (new api\WhoController())->get();
             });
-            Router::delete('/api/who', function () {
+            Router::add('DELETE', '/api/who', function () {
                 (new api\WhoController())->delete();
             });
-            Router::delete('/api/eurostat', function () {
+            Router::add('DELETE', '/api/eurostat', function () {
                 (new api\EurostatController())->delete();
             });
-            Router::post('/api/login', function () {
+            Router::add('POST', '/api/login', function () {
                 (new api\LoginController())->post();
+            });
+            Router::addNumbered('DELETE', '/api/eurostat', function ($number) {
+                (new api\EurostatController())->deleteRow($number);
             });
         } catch (ApiException $e) {
             http_response_code($e->getStatusCode());

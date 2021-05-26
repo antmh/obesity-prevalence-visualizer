@@ -1,5 +1,5 @@
 const statistic = window.location.pathname.match(/[^/]+$/)[0];
-const apiLocation = "/api/" + statistic;
+const apiLocation = '/api/' + statistic;
 
 function encodeFormData(formData, putOrder) {
   let s = "";
@@ -47,7 +47,7 @@ function insertTable() {
   table.textContent = '';
   table.appendChild(header);
   const request = new XMLHttpRequest();
-  request.open("GET", apiLocation + "?page=" + page);
+  request.open("GET", apiLocation + '?page=' + page + '&deletable');
   request.send();
   request.addEventListener("load", () => {
     const response = JSON.parse(request.response);
@@ -60,6 +60,21 @@ function insertTable() {
         tr.appendChild(td);
       }
       table.appendChild(tr);
+    }
+    for (const [i, deleteUrl] of response.deleteUrls.entries()) {
+      const button = document.createElement('button');
+      button.addEventListener('click', () => {
+        const request = new XMLHttpRequest();
+        request.open('DELETE', deleteUrl);
+        request.send();
+        request.addEventListener('load', () => {
+          insertTable();
+        });
+      });
+      const td = document.createElement('td');
+      td.className = 'delete-button';
+      td.appendChild(button);
+      visualization.childNodes[i + 1].appendChild(td);
     }
     insertPageNumbers(parseInt(request.getResponseHeader("X-PageCount")));
   });
@@ -90,7 +105,6 @@ function insertPageNumbers(pageCount) {
     const button = document.createElement('button');
     button.disabled = !enabled;
     button.addEventListener('click', () => {
-      console.log(page);
       window.history.pushState(page, document.title, '/administration/' + statistic + '?page=' + (newPage + 1));
       page = newPage;
       insertTable();

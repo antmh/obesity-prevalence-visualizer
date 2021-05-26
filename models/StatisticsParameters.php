@@ -15,6 +15,7 @@ class StatisticsParameters
     private ?string $export = null;
     private int $page = 0;
     private bool $valid = true;
+    private bool $deletable = false;
 
     public function __construct(private array $columns, private array $columnValues)
     {
@@ -26,6 +27,7 @@ class StatisticsParameters
               $this->checkExport($key, $val) ?:
               $this->checkFilter($key, $val) ?:
               $this->checkPage($key, $val) ?:
+              $this->checkDeletable($key, $val) ?:
               false;
             if (!$this->valid) {
                 return;
@@ -36,6 +38,7 @@ class StatisticsParameters
             || $this->type === 'barChart' && $this->export === 'CSV'
             || $this->type === 'lineChart' && $this->export === 'CSV'
             || $this->type === 'table' && ($this->export === 'PNG' || $this->export === 'SVG')
+            || $this->type !== 'table' && $this->deletable
         ) {
             $this->valid = false;
         }
@@ -136,6 +139,19 @@ class StatisticsParameters
         return false;
     }
 
+    private function checkDeletable(string $key, string|array $val): bool
+    {
+        if ($key === 'deletable') {
+            if ($val === '') {
+                $this->deletable = true;
+            } else {
+                $this->valid = false;
+            }
+            return true;
+        }
+        return false;
+    }
+
     public function getPage(): int
     {
         return $this->page;
@@ -169,5 +185,10 @@ class StatisticsParameters
     public function isValid(): bool
     {
         return $this->valid;
+    }
+
+    public function isDeletable(): bool
+    {
+        return $this->deletable;
     }
 }

@@ -6,51 +6,39 @@ namespace core;
 
 class Router
 {
-    public static function get(string $path, callable $arg): void
-    {
-        self::executeIfMatches('GET', $path, $arg);
-    }
-
-    public static function post(string $path, callable $arg): void
-    {
-        self::executeIfMatches('POST', $path, $arg);
-    }
-
-    public static function put(string $path, callable $arg): void
-    {
-        self::executeIfMatches('PUT', $path, $arg);
-    }
-
-    public static function delete(string $path, callable $arg): void
-    {
-        self::executeIfMatches('DELETE', $path, $arg);
-    }
-
-    private static function executeIfMatches(string $method, string $path, $arg): void
-    {
-        if ($_SERVER['REQUEST_METHOD'] === $method && self::pathMatches($path)) {
-            $arg();
-        }
-    }
-
-    private static function pathMatches(string $path): bool
+    public static function add(string $method, string $path, callable $arg): bool
     {
         $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+        $path = self::normalize($path);
+        $url = self::normalize($url);
+        if ($_SERVER['REQUEST_METHOD'] === $method && $url === $path) {
+            $arg();
+            return true;
+        }
+        return false;
+    }
+
+    public static function addNumbered(string $method, string $path, callable $arg): bool
+    {
+        $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+        $path = self::normalize($path);
+        $url = self::normalize($url);
+        if (preg_match('/(.*\\/)(\\d+)\\/$/', $url, $matches) === 1 && $matches[1] === $path) {
+            $arg(intval($matches[2]));
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private static function normalize(string $path): string
+    {
         if ($path === '') {
             $path = '/';
-        }
-        if (strlen($url) === 0 || $url[0] !== '/') {
-            $url = '/' . $url;
-        }
-        if ($url[strlen($url) - 1] !== '/') {
-            $url .= '/';
-        }
-        if ($path[0] !== '/') {
-            $path = '/' . $path;
         }
         if ($path[strlen($path) - 1] !== '/') {
             $path .= '/';
         }
-        return $url === $path;
+        return $path;
     }
 }

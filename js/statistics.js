@@ -103,7 +103,7 @@ for (const [i, buttonUp] of Array.from(
   orderFieldset.getElementsByClassName("order-button-up")
 ).entries()) {
   if (i !== 0) {
-    buttonUp.addEventListener('click', () => {
+    buttonUp.addEventListener("click", () => {
       [orderSelects[i].selectedIndex, orderSelects[i - 1].selectedIndex] = [
         orderSelects[i - 1].selectedIndex,
         orderSelects[i].selectedIndex,
@@ -120,7 +120,7 @@ for (const [i, buttonDown] of Array.from(
   orderFieldset.getElementsByClassName("order-button-down")
 ).entries()) {
   if (i !== orderSelects.length - 1) {
-    buttonDown.addEventListener('click', () => {
+    buttonDown.addEventListener("click", () => {
       [orderSelects[i].selectedIndex, orderSelects[i + 1].selectedIndex] = [
         orderSelects[i + 1].selectedIndex,
         orderSelects[i].selectedIndex,
@@ -157,7 +157,7 @@ function updateExportFieldset() {
 
 updateExportFieldset();
 
-selectForm.addEventListener('change', () => {
+selectForm.addEventListener("change", () => {
   updateOrderFieldset();
   updateExportFieldset();
 });
@@ -175,7 +175,7 @@ function updateVisualization(type, json) {
   }
 }
 
-selectForm.addEventListener('submit', (event) => {
+selectForm.addEventListener("submit", (event) => {
   event.preventDefault();
   const data = new FormData(selectForm);
   const request = new XMLHttpRequest();
@@ -204,6 +204,6 @@ selectForm.addEventListener('submit', (event) => {
   }
 });
 
-window.addEventListener('popstate', (event) => {
+window.addEventListener("popstate", (event) => {
   updateVisualization(event.state[0], event.state[1]);
 });

@@ -18,10 +18,10 @@
             <li><a class="nav-link" href="/">Home</a></li>
             <li><a class="nav-link" href="/who">Who</a></li>
             <li><a class="nav-link" href="/eurostat">Eurostat</a></li>
-            <?php if ($loggedIn): ?>
+            <?php if ($loggedIn) : ?>
               <li><a class="nav-link" href="/administration">Administration</a></li>
               <li><a class="nav-link" href="/process-logout">Logout</a></li>
-            <?php else: ?>
+            <?php else : ?>
               <li><a class="nav-link" href="/login">Login</a></li>
             <?php endif; ?>
           </ul>

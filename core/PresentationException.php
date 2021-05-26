@@ -6,5 +6,4 @@ namespace core;
 
 class PresentationException extends ClientException
 {
-
 }

@@ -109,7 +109,7 @@ class StatisticsParameters
         if ($key === 'export') {
             if ($val === 'CSV' || $val === 'SVG' || $val === 'PNG') {
                 $this->export = $val;
-            } else if ($val !== 'None') {
+            } elseif ($val !== 'None') {
                 $this->valid = false;
             }
             return true;
@@ -122,7 +122,7 @@ class StatisticsParameters
         if (in_array($key, $this->columns)) {
             if (in_array($val, $this->columnValues[$key])) {
                 $this->filterBy[$key] = $val;
-            } else if ($val !== 'All') {
+            } elseif ($val !== 'All') {
                 $this->valid = false;
             }
             return true;

@@ -12,7 +12,7 @@ class Table implements \JsonSerializable
 
     public function __construct(array $values = [], ?string $table = null)
     {
-        if($values !== []) {
+        if ($values !== []) {
             foreach (array_keys($values[0]) as $headerCell) {
                 if ($headerCell !== 'rowid') {
                     array_push($this->header, ucfirst($headerCell));

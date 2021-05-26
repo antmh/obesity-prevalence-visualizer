@@ -1,6 +1,6 @@
 <div class="line-chart">
-  <?php foreach ($lineChart->getDatasets() as $data): ?>
-    <?php foreach ($data as $index => $point): ?>
+  <?php foreach ($lineChart->getDatasets() as $data) : ?>
+    <?php foreach ($data as $index => $point) : ?>
       <?php if ($index !== 0) : ?>
         <div
           class="line-chart-segment"

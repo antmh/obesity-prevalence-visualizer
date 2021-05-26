@@ -6,7 +6,7 @@
         <button class="button" id="insert-button">Insert</button>
         <div class="administration-insert-data">
             <form id="insert-data-form" method="post">
-                <?php foreach($columns as $column): ?>
+                <?php foreach ($columns as $column) : ?>
                     <div>
                         <label class="administration-insert-data-label" for="<?=$column?>"><?=$column?></label>
                         <input class="administration-insert-data-input" name="<?=$column?>" id="<?=$column?>">

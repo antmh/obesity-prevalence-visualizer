@@ -16,20 +16,6 @@ abstract class Repository
         }
     }
 
-    public function dropTable(): void
-    {
-        if($this->tableExists()) {
-            $dropStr = 'DROP TABLE ' . $this->table . ';';
-            $stmt = $this->db->prepare($dropStr);
-            $stmt->execute();
-        }
-    }
-
-    public function isClear(): bool
-    {
-        return $this->getRowsCount() == 0;
-    }
-
     public function insertDataRows(): void
     {
         $this->insertRows();
@@ -78,8 +64,12 @@ abstract class Repository
         $stmt->execute();
     }
 
-    public function getAllBy(array $selectedProperties = [], array $filterBy = [], array $orderBy = [], int $page = 0): array | false
-    {
+    public function getAllBy(
+        array $selectedProperties = [],
+        array $filterBy = [],
+        array $orderBy = [],
+        int $page = 0
+    ): array | false {
         $selectStr = 'SELECT DISTINCT ';
         if ($selectedProperties === []) {
             $selectStr .= '* ';
@@ -171,9 +161,9 @@ abstract class Repository
         $stmt = $this->db->prepare($insertStr);
         $types = array_values($this->columnTypes);
         $position = 0;
-        foreach($strValues as $value) {
+        foreach ($strValues as $value) {
             $position++;
-            $stmt->bindValue($position, $value, $types[$position-1]);
+            $stmt->bindValue($position, $value, $types[$position - 1]);
         }
         $stmt->execute();
     }

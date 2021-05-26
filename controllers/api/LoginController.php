@@ -6,7 +6,6 @@ namespace controllers\api;
 
 use models\Authentication;
 use core\ApiException;
-use function json_encode;
 
 class LoginController
 {

@@ -12,7 +12,6 @@ use models\ {
     StatisticsParameters,
     Visualization,
 };
-use function array_push;
 
 abstract class StatisticsController
 {

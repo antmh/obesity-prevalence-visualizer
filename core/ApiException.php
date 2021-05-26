@@ -8,5 +8,4 @@ use Throwable;
 
 class ApiException extends ClientException
 {
-
 }

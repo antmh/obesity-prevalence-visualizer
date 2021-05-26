@@ -11,7 +11,6 @@ use models\ {
     Authentication,
 };
 use core\ApiException;
-use function json_encode;
 
 abstract class DataController
 {
@@ -85,7 +84,8 @@ abstract class DataController
         echo json_encode(['message' => 'Deleted row']);
     }
 
-    private function validate() {
+    private function validate()
+    {
         if (!Authentication::validate()) {
             throw new ApiException('Authentication required', 401);
         }

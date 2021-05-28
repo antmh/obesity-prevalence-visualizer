@@ -11,7 +11,10 @@ use core\ {
     Environment,
 };
 
+// Automatically load classes
 Autoload::register();
+
+// Load environment variables from .env
 Environment::load();
 
 (new Application())->run();

@@ -9,6 +9,7 @@ use models\ {
     Table,
     Authentication,
 };
+use core\PresentationException;
 
 abstract class AdministrationTableController
 {

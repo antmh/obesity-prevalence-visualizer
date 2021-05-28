@@ -18,8 +18,12 @@ class Router
         return false;
     }
 
+    // If the URL ends with an unsigned integer, like /api/who/21
     public static function addNumbered(string $method, string $path, callable $arg): bool
     {
+        if ($_SERVER['REQUEST_METHOD'] !== $method) {
+            return false;
+        }
         $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         $path = self::normalize($path);
         $url = self::normalize($url);

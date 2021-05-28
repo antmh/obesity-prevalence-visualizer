@@ -64,6 +64,12 @@ class Application
             Router::add('GET', '/api/who', function () {
                 (new api\WhoController())->get();
             });
+            Router::addNumbered('GET', '/api/eurostat', function ($number) {
+                (new api\EurostatController())->getRow($number);
+            });
+            Router::addNumbered('GET', '/api/who', function ($number) {
+                (new api\WhoController())->getRow($number);
+            });
             Router::add('DELETE', '/api/who', function () {
                 (new api\WhoController())->delete();
             });

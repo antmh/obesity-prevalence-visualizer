@@ -57,13 +57,22 @@ abstract class Repository
         $stmt->execute();
     }
 
-    public function deleteRow(int $rowid): void
+    public function getRow(int $rowid): array
     {
-        $deleteStr = "DELETE FROM " . $this->table . " WHERE rowid=" . $rowid . ';';
-        $stmt = $this->db->prepare($deleteStr);
-        $stmt->execute();
+        $stmt = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE rowid = :rowid;');
+        $stmt->bindValue(':rowid', $rowid, SQLITE3_NUM);
+        $result = $stmt->execute();
+        return $result->fetchArray(SQLITE3_ASSOC);
     }
 
+    public function deleteRow(int $rowid): void
+    {
+        $stmt = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE rowid=:rowid;');
+        $stmt->bindValue(':rowid', $rowid, SQLITE3_NUM);
+        $result = $stmt->execute();
+    }
+
+    // Get all values from the table allowing to select columns, to filter and to order
     public function getAllBy(
         array $selectedProperties = [],
         array $filterBy = [],
@@ -124,8 +133,6 @@ abstract class Repository
         }
         return $rows;
     }
-
-
 
     private function create(): void
     {

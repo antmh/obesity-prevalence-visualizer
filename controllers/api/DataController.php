@@ -35,6 +35,13 @@ abstract class DataController
         }
     }
 
+    public function getRow(int $number): void
+    {
+        header('Content-Type: application/json');
+        $repository = $this->getRepository();
+        echo json_encode($repository->getRow($number));
+    }
+
     public function post(): void
     {
         $this->validate();
@@ -78,7 +85,6 @@ abstract class DataController
     {
         $this->validate();
         header('Content-Type: application/json');
-        $data = file_get_contents('php://input');
         $repository = $this->getRepository();
         $repository->deleteRow($number);
         echo json_encode(['message' => 'Deleted row']);

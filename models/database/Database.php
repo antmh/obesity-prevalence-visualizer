@@ -12,7 +12,6 @@ class Database
     private const CHUNK_SIZE = 500;
     private WhoRepository $whoRepository;
     private EurostatRepository $eurostatRepository;
-    private AdminRepository $adminRepository;
     private function __construct()
     {
         $this->sqlite = new \Sqlite3('database.sqlite', SQLITE3_OPEN_CREATE | SQLITE3_OPEN_READWRITE);

@@ -1,4 +1,4 @@
-<div id="visualization" class="bar-chart">
+<div <?= isset($showId) && $showId === false ? '' : 'id="visualization"' ?> class="bar-chart">
   <?php foreach ($barChart->getXPercentages() as $index => $value) : ?>
     <button
       class="bar-chart-column"

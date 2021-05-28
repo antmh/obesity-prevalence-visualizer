@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta charset='utf-8'>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <meta name="author" content="Antonio Mihaes, Stoleriu Daniel">
     <link rel="shortcut icon" type="image/png" href="/assets/icon.png">
@@ -10,7 +10,7 @@
   </head>
   <body>
     <header>
-      <img src="/assets/icon.svg" class="logo">
+      <img src="/assets/icon.svg" alt="Logo" class="logo">
       <nav>
         <div id="nav-menu-thumb"></div>
         <input id="nav-menu-toggle" type="checkbox">

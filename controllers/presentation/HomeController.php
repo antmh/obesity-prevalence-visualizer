@@ -39,6 +39,7 @@ class HomeController
             'table' => new Table($values),
             'barChart' => new BarChart($values, true, true),
             'lineChart' => new LineChart($lineChartValues, true, true),
+            'showId' => false
         ]);
     }
 }

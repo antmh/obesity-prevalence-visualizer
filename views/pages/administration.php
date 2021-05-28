@@ -31,7 +31,7 @@
               </div>
               <div class="input-admin-group">
                 <label class="account-label" for="username">Username:</label>
-                <input class="account-input" type="username" name="username" id="username">
+                <input class="account-input" type="text" name="username" id="username">
               </div>
               <input class="button administration-button" type="submit" value="Change username">
               <p class="error-message" id="username-error-message">Invalid password</p>
@@ -43,11 +43,11 @@
             <form id="password-form" action="post">
               <div class="input-admin-group">
                 <label class="account-label" for="old-password">Old password:</label>
-                <input class="account-input" type="password" id="old-password" name="old-password" id="old-password">
+                <input class="account-input" type="password" id="old-password" name="old-password">
               </div>
               <div class="input-admin-group">
                 <label class="account-label" for="new-password">New password:</label>
-                <input class="account-input" type="password" id="new-password" name="new-password" id="new-password">
+                <input class="account-input" type="password" id="new-password" name="new-password">
               </div>
               <input class="button administration-button" type="submit" value="Change password">
               <p class="error-message" id="password-error-message">Invalid password</p>

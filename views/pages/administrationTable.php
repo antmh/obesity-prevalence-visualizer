@@ -8,8 +8,8 @@
             <form id="insert-data-form" method="post">
                 <?php foreach ($columns as $column) : ?>
                     <div>
-                        <label class="administration-insert-data-label" for="<?=$column?>"><?=$column?></label>
-                        <input class="administration-insert-data-input" name="<?=$column?>" id="<?=$column?>">
+                        <label class="administration-insert-data-label" for="<?= urlencode($column) ?>"><?= $column ?></label>
+                        <input class="administration-insert-data-input" name="<?= urlencode($column) ?>" id="<?= urlencode($column) ?>">
                     </div>
                 <?php endforeach; ?>
                 <input class="button button-insert-row" type="submit" value="Insert row"/>

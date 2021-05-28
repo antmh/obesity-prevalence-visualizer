@@ -1,4 +1,4 @@
-<table id="visualization">
+<table <?= isset($showId) && $showId === false ? '' : 'id="visualization"' ?>>
   <tr>
     <?php foreach ($table->getHeader() as $headerCell) : ?>
       <th><?= $headerCell ?></th>

@@ -1,0 +1,83 @@
+@startuml
+package controllers {
+    package api {
+        class AccountController {
+            +isPasswordValid(): void
+            +changeUsername(): void
+            +changePassword(): void
+            +validate(): void
+        }
+
+        abstract class DataController {
+            +get(): void
+            +getRow(int $number): void
+            +post(): void
+            +delete(): void
+            +deleteRow(int $number): void
+            -validate(): void
+        }
+
+        class "EurostatController" as apiEurostatController {
+            #getRepository(): EurostatRepository
+        }
+        DataController <|-- apiEurostatController
+
+        class LoginController {
+            +post(): void
+        }
+
+        class "WhoController" as apiWhoController {
+            #getRepository(): WhoRepository
+        }
+        DataController <|-- apiWhoController
+    }
+
+    package presentation {
+        AdministrationTableController <|-- AdministrationEurostatController
+        AdministrationTableController <|-- AdministrationWhoController
+        StatisticsController <|-- EurostatController
+        StatisticsController <|-- WhoController
+        class AdministrationController {
+            +index(): void
+        }
+        class AdministrationEurostatController {
+            #getRepository(): EurostatRepository
+            +getParam(): string
+        }
+        class AdministrationTableController {
+            {abstract}#getRepository(): Repository;
+            {abstract}getParam(): string;
+            +index(): void
+        }
+        class AdministrationWhoController {
+            #getRepository(): WhoRepository
+            +getParam(): string
+        }
+        class ErrorController {
+            +index(string $message): void
+        }
+        class EurostatController {
+            #getRepository(): EurostatRepository
+        }
+        class HomeController {
+            +index(): void
+        }
+        class LoginController {
+            +index(): void
+        }
+        class ProcessLoginController {
+            +post(): void
+        }
+        class ProcessLogoutController {
+            +get(): void
+        }
+        class StatisticsController {
+            {abstract}#getRepository(): Repository
+            +index(): void
+        }
+        class WhoController {
+            #getRepository(): WhoRepository
+        }
+    }
+}
+@enduml

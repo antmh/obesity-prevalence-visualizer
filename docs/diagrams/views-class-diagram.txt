@@ -1,0 +1,13 @@
+@startuml
+package views {
+    package components {
+    }
+
+    package pages {
+    }
+
+    abstract class View {
+        + {static} render(string $body, array $args, string $header, string $footer): void
+    }
+}
+@enduml

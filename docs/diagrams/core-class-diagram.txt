@@ -1,0 +1,36 @@
+@startuml
+package core {
+    ClientException <|-- ApiException
+    class ApiException {
+    }
+
+    class Application {
+        +run(): void
+    }
+
+    class Autoload {
+        +{static}register(): void
+        +{static}autoload(string $class): void
+    }
+
+    class ClientException {
+        -int $statusCode
+        +__construct(string $message, int $statusCode)
+        +getStatusCode(): int
+    }
+
+    class Environment {
+        +{static}load(): void
+    }
+
+    ClientException <|-- PresentationException
+    class PresentationException {
+    }
+
+    class Router {
+        + {static} add(string $method, string $path, callable $arg): bool
+        + {static} addNumbered(string $method, string $path, callable $arg): bool
+        + {static} normalize(string $path): string
+    }
+}
+@enduml

@@ -1,0 +1,148 @@
+@startuml
+package models {
+    class Authentication {
+        +getToken(string $username, string $password): ?Token
+        +validate(): bool
+        -validateCookie(): bool
+        -validateHeader(): bool
+        -tokenMatches(string $token): bool
+        -getSecretKey(): string
+        -getServerName(): string
+    }
+
+    class BarChart {
+        -array $xValues
+        -array $yValues
+        -array $xPercentages
+        +__construct(array $values, bool $showValues)
+        +export(string $type): void
+        +jsonSerialize(): mixed
+        +getXValues(): array
+        +getXPercentages(): array
+        +getYValues(): array
+    }
+
+    class LineChart {
+        -array $years
+        -array $dataSets
+        +__construct(array $values, bool $showValues, bool $showYears)
+        +export(string $type): void
+        +jsonSerialize(): mixed
+        +getYears(): array
+        +getDataSets(): array
+    }
+
+    class StatisticsParameters {
+        -array $selectedProperties
+        -array $orderBy
+        -array $filterBy
+        -?string $type
+        -?string $export
+        -int $page
+        -bool $valid
+        -bool $deletable
+        -array $columns
+        -array $columnValues
+        +__construct(array $columns, array $columnValues)
+        -checkType(string $key, string|array $val): bool
+        -checkSelected(string $key, string|array $val): bool
+        -checkOrder(string $key, string|array $val): bool
+        -checkExport(string $key, string|array $val): bool
+        -checkFilter(string $key, string|array $val): bool
+        -checkPage(string $key, string|array $val): bool
+        -checkDeletable(string $key, string|array $val): bool
+        +getPage(): int
+        +getSelectedProperties(): array
+        +getOrderBy(): array
+        +getFilterBy(): array
+        +getType(): ?string
+        +getExport(): ?string
+        +isValid(): bool
+        +isDeletable(): bool
+    }
+
+    class Table {
+        -array $header
+        -array $body
+        -?array $deleteUrls
+        +__construct(array $values, ?string $table)
+        +export(string $type): void
+        +jsonSerialize(): mixed
+        +getHeader(): array
+        +getBody(): array
+    }
+
+    class Token {
+        -string $content
+        -DateTimeImmutable $expiration
+        +__construct(): string
+        +getExpiration(): DateTimeImmutable
+    }
+
+    class Visualization {
+        +get(StatisticsParameters $parameters, Repository $repository): LineChart|BarChart|Table
+    }
+
+    package database {
+        class Database {
+            -Database $database
+            -Sqlite $sqlite
+            -CHUNK_SIZE
+            -WhoRepository $whoRepository
+            -EurostatRepository $EurostatRepository
+            +__construct()
+            +{static} getInstance(): Database
+            +getEurostatRepository(): EurostatRepository
+            +getWhoRepository(): WhoRepository
+            +getCredentials(): array
+            +adminCredentialsValid(string $username, string $password): bool
+            +changeUsername(string $username): void
+            +changePassword(string $password): void
+            -adminTableExists(): bool
+            -createAdminTable(): void
+        }
+
+        Database *-- EurostatRepository
+        Repository <|-- EurostatRepository
+        class EurostatRepository {
+            +__construct(Sqlite3 $db)
+            #getRows(): array
+            -getJsonData(): array
+            -getDimensions(array $json): array
+        }
+
+        abstract class Repository {
+            -INSERT_CHUNK_SIZE
+            -PAGE_SIZE
+            #Sqlite3 $db
+            #array $columnTypes
+            +__construct(Sqlite3 $db, array $columnTypes)
+            +insertDataRows(): void
+            +getRowsCount(): int
+            +getAll(): array|false
+            +getPageCount(): int
+            +clearData(): void
+            +getRow(int $rowid): array
+            +deleteRow(int $rowid): void
+            +getAllBy(array $getSelectedProperties, array $filterBy, array $orderBy, int $page): array|false
+            -create(): void
+            +tableExists(): bool
+            #{abstract} getRows(): array
+            +insertDataRow(array $strValues): void
+            -insertRows()
+            -constructInsertStr(int $rows): string
+            -getTypeName(int $type): string
+            +getColumns(): array
+            +getColumnValues(): array
+        }
+
+        Database *-- WhoRepository
+        Repository <|-- WhoRepository
+        class WhoRepository {
+            +__construct(Sqlite3 $db)
+            #getRows(): array
+            -getJsonData(): array
+        }
+    }
+}
+@enduml

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta name="keywords" content="project,infoiasi,web,obesity,WHO,Eurostat,statistics">
+    <link rel="stylesheet" href="styles.css">
+    <title>
+      Obesity Prevalence Visualizer IEEE Requirements Specification Template
+    </title>
+  </head>
+  <body prefix="schema: http://schema.org/ xdd: http://www.w3.org/2001/XMLSchema# sa: https://ns.science.ai/">
+    <article typeof="schema:ScholarlyArticle" resource="#">
+      <header>
+        <h1 property="schema:name">Obesity Prevalence Visualizer</h1>
+        <p role="doc-subtitle" property="schema:alterateName">
+          Usage
+        </p>
+      </header>
+      <div role="contentinfo">
+        <section typeof="schema:sa:AuthorsList">
+          <h2>Authors</h2>
+          <ul>
+            <li typeof="sa:ContributorRole" property="schema:author">
+              <span typeof="schema:Person">
+                <span property="schema:name">Mihăeș Antonio</span>
+              </span>
+            </li>
+            <li typeof="sa:ContributorRole" property="schema:author">
+              <span typeof="schema:Person">
+                <span property="schema:name">Stoleriu Daniel</span>
+              </span>
+            </li>
+          </ul>
+        </section>
+      </div>
+      <section>
+        <h2>Usage guide</h2>
+        <p>
+          The user is first presented with a home page where they can
+          choose wheter to see data from Eurostat or WHO. At the bottom,
+          there are also examples of the types that the date can be
+          visualized in.
+        </p>
+        <p>
+          When a user visits the WHO or Eurostat page, they are
+          presented with a list of filters to control the way the data
+          is shown.
+        <p>
+          First, there is a radio button group to control if the data is
+          shown as a table, a bar chart or a line chart. Below, there is
+          a check box group to set which properties are shown. There is
+          also a component which controls the order.  In this component,
+          there are entries for each property. To the left of the entry
+          there is a button that toggles wheter the order is ascending
+          or descending. To the right of the entry there are two buttons
+          to control if the data should be sorted before or after some
+          entries. There is also a filter component presented with
+          drop-downs for each column. Here a certain value can be
+          selected to show only data with that value. At the end there
+          is an export radio button box to select the format to which to
+          optionally export.
+        </p>
+        <p>
+          When the user presses the submit button the visualization is
+          updated according to the preferences selected.
+        </p>
+        <p>
+          On the log in page, which can be accessed through the
+          navigation bar, the user first has to authenticate with a
+          username and a password. After successfully logging in, they
+          can change their password or username. If they do one of these
+          actions they must insert their current password first.  They
+          can also access pages which allow them to insert and delete
+          data from WHO or Eurostat. On these pages, a clear button can
+          be pressed to delete all the data. There is also an insert
+          button to download data from the original sources again and to
+          insert them, this may take several seconds.  Below, there is a
+          form to insert a new row. Finally, there is a paginated table,
+          where each row has a delete button which the user can press to
+          delete that row.
+        </p>
+      </section>
+      <section>
+        <h2>Video</h2>
+        <video controls width="500">
+          <source src="presentation.mp4" type="video/mp4">
+          <p>
+            Your browser does not support this MKV video. Here is a <a
+              href="presentation.mkv">link to the video</a> instead.
+          </p>
+        </video>
+      </section>
+    </article>
+  </body>
+</html>

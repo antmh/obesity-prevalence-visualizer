@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
+    <meta name="keywords" content="project,infoiasi,web,PHP,REST,obesity,CSS,HTML,WHO,Eurostat,statistics">
     <link rel="stylesheet" href="styles.css">
     <title>
       Obesity Prevalence Visualizer IEEE Requirements Specification Template
@@ -139,6 +140,38 @@
               </ul>
             </li>
             <li>
+              <p>WHO and Eurostat data</p>
+              <ul>
+                <li>
+                  Select from the navigation bar or the home page one of these
+                  two (WHO or Eurostat) separate pages to show.
+                </li>
+                <li>
+                  Select between a table, a bar chart or a line chart
+                  visualizer.
+                </li>
+                <li>Select which properties to show.</li>
+                <li>
+                  Select the order, if the user has selected a table and a bar
+                  chart.
+                </li>
+                <li>
+                  Select using a filter for each property, selected or not, to
+                  show only data with a particular value.
+                </li>
+                <li>
+                  Export to CSV if the user has selected a table or export to
+                  SVG or PNG if the user has selected a bar chart or a line
+                  chart.
+                </li>
+                <li>
+                  Update the page without refreshing when the user presses the
+                  submit button. Every time the user presses submit a new
+                  history entry is made in the browser.
+                </li>
+              </ul>
+            </li>
+            <li>
               <p>Table visualizer</p>
               <ul>
                 <li>Select which columns are shown.</li>
@@ -181,7 +214,7 @@
               to view the statistics offered on the site.
             </li>
             <li>
-              The administrator who need authentication and want to update or
+              The administrator who needs authentication and want to update or
               remove the data stored.
             </li>
           </ul>
@@ -217,27 +250,31 @@
           <ul>
             <li>
               <p>Home page<p>
-              <img src="home.png" alt="Home screenshot">
+              <img src="screenshots/home-page.png" alt="Home page screenshot">
+            </li>
+            <li>
+              <p>Bar chart</p>
+              <img src="screenshots/eurostat-page-bar-chart.png" alt="Bar chart screenshot">
+            </li>
+            <li>
+              <p>Line chart</p>
+              <img src="screenshots/eurostat-page-line-chart.png" alt="Line chart screenshot">
+            </li>
+            <li>
+              <p>Table</p>
+              <img src="screenshots/eurostat-page-table.png" alt="Table screenshot">
             </li>
             <li>
               <p>Login page</p>
-              <img src="login.png" alt="Login screenshot">
+              <img src="screenshots/login-page.png" alt="Login page screenshot">
             </li>
             <li>
-              <p>Administration panel</p>
-              <img src="admin.png" alt="Administration panel screenshot">
+              <p>Administration page</p>
+              <img src="screenshots/administration-page.png" alt="Administration page screenshot">
             </li>
             <li>
-              <p>Table visualizer</p>
-              <img src="table.png" alt="Table screenshot">
-            </li>
-            <li>
-              <p>Bar chart visualizer</p>
-              <img src="bar.png" alt="Bar chart visualizer screenshot">
-            </li>
-            <li>
-              <p>Line chart visualizer</p>
-              <img src="line.png" alt="Line chart visualizer screenshot">
+              <p>Administration table</p>
+              <img src="screenshots/administration-who.png" alt="Administration table screenshot">
             </li>
           </ul>
         </section>
@@ -246,7 +283,8 @@
           <p>
             This tool requires on the server side PHP 8 with the Curl and
             multi-byte string extensions enables. SQLite version 3 is also
-            required to store the data.
+            required to store the data. Gnuplot is also required for the export
+            functionality to work for SVG and PNG.
           </p>
         </section>
         <section>
@@ -254,9 +292,10 @@
           <p>
             The web pages are transferred over HTTP/HTTPS. For authentication
             HTTPS is preferred in order prevent attacks. The data gathered from
-            Eurostat and the World Health Organization is gathered through their
-            respective REST API which server JSON documents. This site's REST
-            API functions the same way.
+            Eurostat and the World Health Organization is gathered through
+            their respective REST API which server JSON documents. This
+            application's REST API also uses JSON transferred over HTTP and
+            uses JSON Web Tokens for actions which need authentication.
           </p>
         </section>
       </section>
@@ -266,11 +305,11 @@
           <h3>Product presentation</h3>
           <p>
             On the home page the scope of this product is presented explaining
-            the features. There is also an explanation of the body mass index is
-            and its categories. To showcase the features there are example line
-            charts, bar charts and tables with data gathered from the database to
-            illustrate the ways in which data can be visualized. These charts
-            and tables cannot be configured.
+            the features. There is also an explanation of the body mass index
+            is and its categories. To showcase the features there are example
+            line charts, bar charts and tables with data gathered from the
+            database to illustrate the ways in which data can be visualized.
+            The charts and tables on this page cannot be configured.
           </p>
         </section>
         <section>
@@ -294,13 +333,17 @@
             The user can select for each column in what order the values are
             shown, either ascending or descending. They can also specify how
             this ordering is done (e.g. order after location, then year if the
-            location is the same). These options only affect bar charts and
-            tables.
+            location is the same). These options are only available for bar
+            charts and tables.
           </p>
           <p>
             The user can also filter the data so only statistics with a certain
             value are shown (e.g. to show only data from 2014). This filtering
             applies for all three types of visualizations.
+          </p>
+          <p>
+            The user can optionally export to a particular format: CSV for
+            tables, SVG or PNG for line charts and bar charts.
           </p>
         </section>
         <section>
@@ -367,64 +410,6 @@
             tablets or smartphones. The home page is useful for showing the
             users the features of the tool.
           </p>
-        </section>
-      </section>
-      <section>
-        <h2>Responsibilities</h2>
-        <section>
-          <h3>Mihăeș Antonio</h3>
-          <ul>
-            <li>
-              <p>Done</p>
-              <ul>
-                <li>Bar chart</li>
-                <li>Line chart</li>
-                <li>Table</li>
-                <li>Home page, charts and navigation bar responsiveness</li>
-                <li>Database gathering from Eurostat and WHO</li>
-                <li>Accordion</li>
-                <li>Provide functionality to select shown data</li>
-                <li>
-                  Provide functionality to select which kind of data
-                  visualization to use
-                </li>
-              </ul>
-            </li>
-            <li>
-              <p>To do</p>
-              <ul>
-                <li>Error pages</li>
-              </ul>
-            </li>
-          </ul>
-        </section>
-        <section>
-          <h3>Stoleriu Daniel</h3>
-          <ul>
-            <li>
-              <p>Done</p>
-              <ul>
-                <li>Home page</li>
-                <li>Administration page</li>
-                <li>Login page</li>
-                <li>Design</li>
-                <li>Administration page and notification page responsiveness</li>
-                <li>
-                  Project structure refactoring in line with MVC pattern
-                </li>
-              </ul>
-            </li>
-            <li>
-              <p>To do</p>
-              <ul>
-                <li>Administrator authentication</li>
-                <li>Session storage</li>
-                <li>
-                  Data manipulation functionality for the administrator
-                </li>
-              </ul>
-            </li>
-          </ul>
         </section>
       </section>
     </article>

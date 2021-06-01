@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta name="keywords" content="project,infoiasi,web,PHP,REST,obesity,CSS,HTML,WHO,Eurostat,statistics">
+    <link rel="stylesheet" href="styles.css">
+    <title>
+      Obesity Prevalence Visualizer IEEE Requirements Specification Template
+    </title>
+  </head>
+  <body prefix="schema: http://schema.org/ xdd: http://www.w3.org/2001/XMLSchema# sa: https://ns.science.ai/">
+    <article typeof="schema:ScholarlyArticle" resource="#">
+      <header>
+        <h1 property="schema:name">Obesity Prevalence Visualizer</h1>
+        <p role="doc-subtitle" property="schema:alterateName">
+          Development
+        </p>
+      </header>
+      <div role="contentinfo">
+        <section typeof="schema:sa:AuthorsList">
+          <h2>Authors</h2>
+          <ul>
+            <li typeof="sa:ContributorRole" property="schema:author">
+              <span typeof="schema:Person">
+                <span property="schema:name">Mihăeș Antonio</span>
+              </span>
+            </li>
+            <li typeof="sa:ContributorRole" property="schema:author">
+              <span typeof="schema:Person">
+                <span property="schema:name">Stoleriu Daniel</span>
+              </span>
+            </li>
+          </ul>
+        </section>
+      </div>
+      <section>
+        <h2>Development process</h2>
+        <p>
+          The project was started from an MVC architecture and uses the
+          PHP and JavaScript programming languages and CSS and HTML
+          technologies.  The development of the project started with the
+          functionality of the pages and with the taking over of the
+          data from Eurostat and WHO plus their insertion in the
+          database.
+        </p>
+        <p>
+          Next, we worked on the responsive part, we implemented the
+          display of data by various types (table, line chart, bar
+          chart) and their filtering by columns, order, selected
+          columns. At first, a full page refresh was needed when
+          updating the visualization, but now only the necessary part is
+          updated using JavaScript and the REST API.
+        </p>
+        <p>
+          The authentication part for admin was created by page
+          redirects, and then JavaScript was used to avoid these
+          redirects, which also uses JWT. The admin can also change
+          their account data (username and password). The administration
+          pages (to which only the admin has access) were initially
+          implemented, which contain operations for emptying the data,
+          inserting them, inserting a new row or deleting them, also by
+          redirecting pages. This has also been changed by using
+          JavaScript. REST API is also used for data base operations
+          (insert, delete), authentication and data visualization.
+        </p>
+      </section>
+      <section>
+        <h2>Responsibilities</h2>
+        <section>
+          <h3>Mihăeș Antonio</h3>
+          <ul>
+            <li>
+              <p>Done</p>
+              <ul>
+                <li>Bar chart</li>
+                <li>Line chart</li>
+                <li>Table</li>
+                <li>Home page, charts and navigation bar responsiveness</li>
+                <li>Database gathering from Eurostat and WHO</li>
+                <li>Accordion</li>
+                <li>Provide functionality to select shown data</li>
+                <li>
+                  Provide functionality to select which kind of data
+                  visualization to use
+                </li>
+                <li>Export functionality</li>
+                <li>REST API</li>
+              </ul>
+            </li>
+            <li>
+              <p>To do</p>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h3>Stoleriu Daniel</h3>
+          <ul>
+            <li>
+              <p>Done</p>
+              <ul>
+                <li>Home page</li>
+                <li>Administration page</li>
+                <li>Login page</li>
+                <li>Design</li>
+                <li>Administration page and notification page responsiveness</li>
+                <li>
+                  Project structure refactoring in line with MVC pattern
+                </li>
+                <li>Administrator authentication</li>
+                <li>
+                  Data manipulation functionality for the administrator
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>To do</p>
+            </li>
+          </ul>
+        </section>
+      </section>
+      <section>
+        <h2>Class diagrams</h2>
+        <section>
+          <h3>Core</h3>
+          <img src="diagrams/core-class-diagram.svg" alt="Core class diagram">
+        </section>
+        <section>
+          <h3>Models</h3>
+          <img src="diagrams/models-class-diagram.svg" alt="Models class diagram">
+        </section>
+        <section>
+          <h3>Views</h3>
+          <img src="diagrams/views-class-diagram.svg" alt="Views class diagram">
+        </section>
+        <section>
+          <h3>Controllers</h3>
+          <img src="diagrams/controllers-class-diagram.svg" alt="Controllers class diagram">
+        </section>
+      </section>
+    </article>
+  </body>
+</html>
